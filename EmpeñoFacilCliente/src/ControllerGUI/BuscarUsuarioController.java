@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Juuan
  */
-public class IniciarSesionController implements Initializable {
+public class BuscarUsuarioController implements Initializable {
 
     /**
      * Initializes the controller class.
