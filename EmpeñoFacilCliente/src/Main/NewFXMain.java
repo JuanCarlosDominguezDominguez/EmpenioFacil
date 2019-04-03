@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package Main;
 
 import ControllerGUI.IniciarSesionController;
 import java.io.IOException;
@@ -25,22 +25,14 @@ import javafx.fxml.FXMLLoader;
  * @author Juuan
  */
 public class NewFXMain extends Application {
-    
+
     @Override
-    public void start(Stage primaryStage) {
-            /* try {
-            Parent root = FXMLLoader.load(clase.getResource(nombreFXML), recurso);
-            Stage escenario = new Stage();
-            Scene scene = new Scene(root);
-            escenario.setScene(scene);
-            escenario.setTitle(titulo);
-            escenario.show();
-            */
- 
-    }
-    
-    public static void iniciar(){
-        
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/IniciarSesion.fxml"));
+        Stage escenario = new Stage();
+        Scene scene = new Scene(root);
+        escenario.setScene(scene);
+        escenario.show();
     }
 
     /**
@@ -48,8 +40,6 @@ public class NewFXMain extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        IniciarSesionController i = new IniciarSesionController();
-        i.validarCampos();
     }
-    
+
 }

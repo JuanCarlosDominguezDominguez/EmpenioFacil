@@ -5,23 +5,17 @@
  */
 package ControllerGUI;
 
-import GUI.NewFXMain;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -30,6 +24,9 @@ import javafx.stage.Stage;
  */
 public class IniciarSesionController implements Initializable {
 
+    /**
+     * Initializes the controller class.
+     */
     
     @FXML
     private Button iniciarSesionBtn;
@@ -40,49 +37,39 @@ public class IniciarSesionController implements Initializable {
     @FXML
     private TextField numeroDePersonalTxt;
 
-    
-    
-    private int numPersonal = Integer.parseInt(numeroDePersonalTxt.getText());
-    private String contrasenia = contraseniaTxt.getText();
-    
-    
     @FXML
-    void iniciarSesion() {
-        
+    void iniciarSesion(ActionEvent event) {
+
     }
-    
-    public void validarCampos (){
-        try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("IniciarSesion.fxml") );
-            Scene panatlla = new Scene(root);
-            Stage ventana = new Stage();
-            ventana.setScene(panatlla);
-            ventana.show();
-        } catch (IOException ex) {
-            Logger.getLogger(NewFXMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+
     @FXML
     void validarContrasenia(KeyEvent event) {
-        String caracter = event.getCharacter();
-        /*if (caracter < '0' || caracter >'9' ){
+        char caracter = event.getCharacter().charAt(0);
+        if ((caracter < 'a' || caracter > 'z') && (caracter < '0' || caracter > '9') &&
+                (caracter < 'A' || caracter > 'Z')){
+            event.consume();
+        }
+        /*String validos = "^[a-zA-Z'.\\\\s]{1,40}$";
+        Pattern p = Pattern.compile(validos);
+        Matcher m = p.matcher(validos);
+        boolean ad = m.matches();
+        char caracter = event.getCharacter().charAt(0);
+        if (ad){
             event.consume();
         }*/
     }
 
     @FXML
     void validarNumPersonal(KeyEvent event) {
-        if (numeroDePersonalTxt.lengthProperty().getValue() > 10){
-            numeroDePersonalTxt.setText(numeroDePersonalTxt.getText().substring(0, 10));
+        char caracter = event.getCharacter().charAt(0);
+        if ((caracter < '0' || caracter > '9') && (numeroDePersonalTxt.lengthProperty() < 10) ){
+            event.consume();
         }
     }
-
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    } 
+        // TODO
+    }    
+    
 }
