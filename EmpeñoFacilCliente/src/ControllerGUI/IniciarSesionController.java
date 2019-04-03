@@ -43,26 +43,18 @@ public class IniciarSesionController implements Initializable {
     }
 
     @FXML
-    void validarContrasenia(KeyEvent event) {
+    void restringirContrasenia(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
         if ((caracter < 'a' || caracter > 'z') && (caracter < '0' || caracter > '9') &&
-                (caracter < 'A' || caracter > 'Z')){
+                (caracter < 'A' || caracter > 'Z') && (contraseniaTxt.getText().length() >= 45)){
             event.consume();
         }
-        /*String validos = "^[a-zA-Z'.\\\\s]{1,40}$";
-        Pattern p = Pattern.compile(validos);
-        Matcher m = p.matcher(validos);
-        boolean ad = m.matches();
-        char caracter = event.getCharacter().charAt(0);
-        if (ad){
-            event.consume();
-        }*/
     }
 
     @FXML
-    void validarNumPersonal(KeyEvent event) {
+    void restringirNumPersonal(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if ((caracter < '0' || caracter > '9') && (numeroDePersonalTxt.lengthProperty() < 10) ){
+        if ((caracter < '0' || caracter > '9') || (numeroDePersonalTxt.getText().length() >= 10) ){
             event.consume();
         }
     }
