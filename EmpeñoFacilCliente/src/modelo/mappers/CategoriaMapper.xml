@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Categoria">
+    <select id="getTodas" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categoria;
+    </select>
+    
+    <select id="buscarCategoria" resultType="modelo.beans.Categoria" parameterType="string">
+        SELECT * FROM empenio.categoria
+        WHERE nombre LIKE CONCAT(#{nombre},'%');
+    </select>
+    
+    <!--
+    <insert id="registrar" parameterType="">
+        
+    </insert>
+    -->
+</mapper>
