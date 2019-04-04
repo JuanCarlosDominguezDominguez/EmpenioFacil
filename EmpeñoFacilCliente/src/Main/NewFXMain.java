@@ -5,7 +5,7 @@
  */
 package Main;
 
-import ControllerGUI.IniciarSesionController;
+import controllerGUI.IniciarSesionController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

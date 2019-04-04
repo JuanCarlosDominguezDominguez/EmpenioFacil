@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ControllerGUI;
+package controllerGUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
@@ -21,33 +18,25 @@ import javafx.scene.input.KeyEvent;
  *
  * @author Juuan
  */
-public class BuscarUsuarioController implements Initializable {
+public class AgregarCategoriaController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
     @FXML
-    private TextField numPersonalTxt;
-
-    @FXML
-    private ComboBox<?> rolCbx;
-
-    @FXML
-    private DatePicker fechaTxt;
-
-    @FXML
-    private Button buscarBtn;
+    private Button guardarBtn;
 
     @FXML
     private Button cancelarBtn;
 
     @FXML
-    private TableView<?> listaUsuariosTb;
+    private TextField nombreCategoriaTxt;
 
     @FXML
-    void restringirNumPersonal(KeyEvent event) {
+    void restringirNombre(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if ((caracter < '0' || caracter > '9') || (numPersonalTxt.getText().length() >= 10)) {
+        if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')
+                && (nombreCategoriaTxt.getText().length() >= 45)) {
             event.consume();
         }
     }
