@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="170.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerGUI.AgregarCategoriaController">
-    <children>
-        <Pane prefHeight="181.0" prefWidth="331.0" style="-fx-background-color: #E3CFAF;">
-            <children>
-                <Button fx:id="guardarBtn" layoutX="75.0" layoutY="131.0" mnemonicParsing="false" style="-fx-background-color: #f2bc68;" text="Guardar" />
-                <Button fx:id="cancelarBtn" layoutX="191.0" layoutY="131.0" mnemonicParsing="false" style="-fx-background-color: #f2bc68;" text="Cancelar" />
-                <TextField fx:id="nombreCategoriaTxt" layoutX="104.0" layoutY="64.0" onKeyTyped="#restringirNombre" />
-                <Label layoutX="118.0" layoutY="14.0" text="Agregar categoria" />
-                <Label layoutX="44.0" layoutY="68.0" text="Nombre: " />
-            </children>
-        </Pane>
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="182.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerGUI.AgregarCategoriaController">
+   <children>
+      <Pane prefHeight="181.0" prefWidth="304.0" style="-fx-background-color: #E3CFAF;">
+         <children>
+            <Button id="guardarBtn" fx:id="guardarBtn" layoutX="46.0" layoutY="119.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
+            <Button id="cancelarBtn" fx:id="cancelarBtn" layoutX="186.0" layoutY="119.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
+            <Label layoutX="104.0" layoutY="14.0" text="Agregar categoria" />
+            <Label layoutX="24.0" layoutY="71.0" text="Nombre :" />
+            <TextField id="nombreCategoriaTxt" fx:id="nombreCategoriaTxt" layoutX="82.0" layoutY="67.0" onKeyTyped="#restringirNombre" prefHeight="25.0" prefWidth="167.0" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

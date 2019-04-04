@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,29 +10,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerGUI.BuscarUsuarioController">
-    <children>
-        <Pane layoutX="1.0" prefHeight="563.0" prefWidth="564.0" style="-fx-background-color: #E3CFAF;">
-            <children>
-                <Button layoutX="188.0" layoutY="204.0" mnemonicParsing="false" style="-fx-background-color: #f2bc68;" text="Buscar" />
-                <TextField fx:id="numeroDePersonalTxt" layoutX="240.0" layoutY="67.0" onKeyTyped="#restringirNumPersonal" />
-                <Label layoutX="111.0" layoutY="71.0" text="Numero de personal: " />
-                <Label layoutX="202.0" layoutY="108.0" text="Rol: " />
-                <Label layoutX="251.0" layoutY="14.0" text="Buscar usuario" />
-                <Label layoutX="195.0" layoutY="145.0" text="Fecha: " />
-                <TextField fx:id="fechaTxt" layoutX="240.0" layoutY="141.0" onKeyTyped="#restringirFecha" promptText="(dd/mm/aaaa)" />
-                <ChoiceBox fx:id="rolCbx" layoutX="239.0" layoutY="104.0" prefWidth="150.0" />
-                <Button layoutX="329.0" layoutY="204.0" mnemonicParsing="false" style="-fx-background-color: #f2bc68;" text="Cancelar" />
-                <TableView fx:id="usuariosTable" layoutX="28.0" layoutY="247.0" prefHeight="298.0" prefWidth="522.0" style="-fx-background-color: #f2bc68;">
-                    <columns>
-                        <TableColumn editable="false" prefWidth="150.0" text="Núm. Personal" />
-                        <TableColumn editable="false" minWidth="0.0" prefWidth="0.0" text="C2" />
-                  <TableColumn editable="false" prefWidth="159.0" text="Nombre" />
-                  <TableColumn editable="false" prefWidth="112.0" text="Rol" />
-                  <TableColumn editable="false" prefWidth="100.0" text="Fecha ingreso" />
-                    </columns>
-                </TableView>
-            </children>
-        </Pane>
-    </children>
+
+<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="588.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="ControllerGUI.BuscarUsuarioController">
+   <children>
+      <Pane prefHeight="609.0" prefWidth="669.0" style="-fx-background-color: #E3CFAF;">
+         <children>
+            <Label layoutX="306.0" layoutY="23.0" text="Buscar usuario" />
+            <Label layoutX="153.0" layoutY="103.0" text="Número de personal:" />
+            <Label layoutX="245.0" layoutY="149.0" text="Rol:" />
+            <Label layoutX="228.0" layoutY="203.0" text="Fecha:" />
+            <TextField id="numPersonalTxt" fx:id="numPersonalTxt" layoutX="271.0" layoutY="99.0" onKeyTyped="#restringirNumPersonal" prefHeight="25.0" prefWidth="188.0" />
+            <ComboBox id="rolCbx" fx:id="rolCbx" layoutX="270.0" layoutY="145.0" prefHeight="25.0" prefWidth="188.0" style="-fx-background-color: #f2bc68;" />
+            <DatePicker id="fechaTxt" fx:id="fechaTxt" editable="false" layoutX="270.0" layoutY="199.0" prefHeight="25.0" prefWidth="188.0" />
+            <Button id="buscarBtn" fx:id="buscarBtn" layoutX="171.0" layoutY="244.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
+            <Button id="cancelarBtn" fx:id="cancelarBtn" layoutX="432.0" layoutY="244.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
+            <TableView id="listaUsuariosTb" fx:id="listaUsuariosTb" layoutX="16.0" layoutY="294.0" prefHeight="306.0" prefWidth="637.0" style="-fx-background-color: #f2bc68;">
+              <columns>
+                <TableColumn editable="false" prefWidth="93.0" text="Núm. Personal" />
+                <TableColumn editable="false" prefWidth="218.0" text="Nombre" />
+                  <TableColumn editable="false" prefWidth="140.0" text="Rol" />
+                  <TableColumn editable="false" prefWidth="88.0" text="Fecha ingreso" />
+                  <TableColumn prefWidth="97.0" text="Acción" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

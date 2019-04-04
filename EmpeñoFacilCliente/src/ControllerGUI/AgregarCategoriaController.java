@@ -32,18 +32,18 @@ public class AgregarCategoriaController implements Initializable {
     @FXML
     private TextField nombreCategoriaTxt;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
-
     @FXML
     void restringirNombre(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z') 
-                && (nombreCategoriaTxt.getText().length() >= 30)) {
+        if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')
+                && (nombreCategoriaTxt.getText().length() >= 45)) {
             event.consume();
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
 
 }
