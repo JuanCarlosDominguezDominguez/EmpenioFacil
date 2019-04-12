@@ -39,8 +39,8 @@ public class RegistrarUsuarioController implements Initializable {
     @FXML
     void restringirContrasenia(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if ((caracter < 'a' || caracter > 'z') && (caracter < '0' || caracter > '9')
-                && (caracter < 'A' || caracter > 'Z') && (contraseniaTxt.getText().length() >= 45)) {
+        if ((caracter < 'a' || caracter > 'z') || (caracter < '0' || caracter > '9')
+                || (caracter < 'A' || caracter > 'Z') || (contraseniaTxt.getText().length() >= 45)) {
             event.consume();
         }
     }
@@ -48,8 +48,7 @@ public class RegistrarUsuarioController implements Initializable {
     @FXML
     void restringirNombre(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z') 
-                && (nombreUsuarioTxt.getText().length() >= 5)) {
+        if (caracter < 'a' || caracter > 'z') {
             event.consume();
         }
     }

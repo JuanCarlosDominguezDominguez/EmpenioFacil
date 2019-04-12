@@ -7,6 +7,8 @@ package controllerGUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -44,6 +46,15 @@ public class AgregarCategoriaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        nombreCategoriaTxt.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                    String newValue) {
+                if (!newValue.matches("[^\\d]")) {
+                    nombreCategoriaTxt.setText(newValue.replaceAll("\\d*", ""));
+                }
+            }
+        });
     }
 
 }
