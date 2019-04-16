@@ -127,13 +127,14 @@ public class UsuarioDAO {
         return false;
     }
 
-    public static boolean actualizarUsuario(String nombreCompleto, String contrasenia, String rol) {
+    public static boolean actualizarUsuario(String nombreCompleto, String contrasenia, String rol, String numPersonal) {
         SqlSession conn = null;
         try {
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("nombreCompleto", nombreCompleto);
             parametros.put("contrasenia", contrasenia);
             parametros.put("rol", rol);
+            parametros.put("numPersonal", numPersonal);
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;

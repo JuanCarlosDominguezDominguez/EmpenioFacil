@@ -326,6 +326,41 @@ ENGINE = InnoDB;
 CREATE USER 'ef'@'localhost' IDENTIFIED BY 'isof19';
 GRANT ALL PRIVILEGES ON empenio . * TO 'ef'@'localhost';
 
+--Creacion de las categorias principales de Roles del usuario
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Rol', 'NULL');--ID = 1
+--Creacion de la categoria ORO de prenda y articulo
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Oro', 'NULL');--ID = 2
+--Creacion de la categoria PRODUCTO de prenda y articulo
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Producto', 'NULL');--ID = 3
+--Creacion de las categorias de venta y apartado
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Venta/apartado', 'NULL');--ID = 4
+--Creacion de tipos de periodos
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Periodo', 'NULL');--ID = 5
+--Creacion de los tipos de ocupacion de los clientes
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Ocupacion', 'NULL');--ID = 6
+
+--Creacion de los roles de los usuarios
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Administrador', '1');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Cajero', '1');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Gerente', '1');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Bodeguero', '1');
+
+--Creacion de las subcategorias de venta y apartado
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Venta', '4');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Apartado', '4');
+
+--Creacion de las subcategorias para los periodos
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Semanal', '5');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Quincenal', '5');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Mensual', '5');
+
+--Creacipon de las subcategorias de ocupacion
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Maestro', '6');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Ingeniero', '6');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Ama de casa', '6');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Carpitero', '6');
+INSERT INTO Categorias (nombre, Categorias_idCategoria) VALUES ('Mecanico', '6');
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
