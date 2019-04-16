@@ -4,17 +4,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Usuario">
-    <select id="getTodas" resultType="modelo.beans.Usuario">
-        SELECT * FROM empenio.usuario;
-    </select>
-    
-    <select id="buscarCategoria" resultType="modelo.beans.Usuario" parameterType="string">
-        SELECT * FROM empenio.categoria
-        WHERE nombre LIKE CONCAT(#{nombre},'%');
-    </select>
     
     <insert id="registrar" parameterType="map">
         INSERT INTO empenio.usuario(nombreCompleto, contrasenia, rol, fechaIngreso)
         VALUES(#{nombreCompleto},#{contrasenia},#{rol},#{fechaIngreso});
     </insert>
+    
+    <select id="getUsuarios" resultType="modelo.beans.Usuario">
+        SELECT * FROM empenio.usuario;
+    </select>
+    <!-->   <-->
+    <select id="busquedaGenerica" resultType="modelo.pojos.Usuario" parameterType="string">
+        SELECT * FROM wspruebas.categoria
+        WHERE #{criterios};
+    </select>
+    
+    <select id="buscarUsuarioParaLogin" resultType="modelo.beans.Usuario" parameterType="map">
+        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
+    </select>
+    
+    <delete id="eliminar" parameterType="string">
+        DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
+    </delete>
+    
+    <update id="actualizar" patameterType="map">
+        UPDATE empenio.usuario SET nombreCompleto = #{nombreCompleto},
+        contrasenia = #{contrasenia}, rol #{rol};    
+    </update>
 </mapper>

@@ -13,9 +13,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE nombre LIKE CONCAT(#{nombre},'%');
     </select>
     
-    <!--
-    <insert id="registrar" parameterType="">
-        
-    </insert>
-    -->
+    
 </mapper>

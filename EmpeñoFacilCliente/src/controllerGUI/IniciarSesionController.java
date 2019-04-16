@@ -39,7 +39,7 @@ public class IniciarSesionController implements Initializable {
 
     @FXML
     void iniciarSesion(ActionEvent event) {
-
+        
     }
 
     @FXML
