@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Usuario">
     <select id="getTodas" resultType="modelo.beans.Usuario">
-        SELECT * FROM empenio.categoria;
+        SELECT * FROM empenio.usuario;
     </select>
     
     <select id="buscarCategoria" resultType="modelo.beans.Usuario" parameterType="string">
@@ -13,9 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE nombre LIKE CONCAT(#{nombre},'%');
     </select>
     
-    <!--
-    <insert id="registrar" parameterType="">
-        
+    <insert id="registrar" parameterType="map">
+        INSERT INTO empenio.usuario(nombreCompleto, contrasenia, rol, fechaIngreso)
+        VALUES(#{nombreCompleto},#{contrasenia},#{rol},#{fechaIngreso});
     </insert>
-    -->
 </mapper>

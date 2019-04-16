@@ -38,14 +38,14 @@ public class AgregarCategoriaController implements Initializable {
     void restringirNombre(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
         if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')
-                && (nombreCategoriaTxt.getText().length() >= 45)) {
+                || (nombreCategoriaTxt.getText().length() >= 30)){
             event.consume();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        /* // TODO
         nombreCategoriaTxt.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -54,7 +54,7 @@ public class AgregarCategoriaController implements Initializable {
                     nombreCategoriaTxt.setText(newValue.replaceAll("\\d*", ""));
                 }
             }
-        });
+        });*/
     }
 
 }

@@ -46,7 +46,7 @@ public class IniciarSesionController implements Initializable {
     void restringirContrasenia(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
         if ((caracter < 'a' || caracter > 'z') && (caracter < '0' || caracter > '9') &&
-                (caracter < 'A' || caracter > 'Z') && (contraseniaTxt.getText().length() >= 45)){
+                (caracter < 'A' || caracter > 'Z') || (contraseniaTxt.getText().length() >= 45)){
             event.consume();
         }
     }

@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
             <dataSource type="POOLED" >
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/empenio"/>
-                <property name="username" value="ef"/>
-                <property name="password" value="isof19"/>
+                <property name="username" value="root"/>
+                <property name="password" value="12345"/>
                 <property name="poolMaximumActiveConnections" value="50"/>
             </dataSource>
         </environment>

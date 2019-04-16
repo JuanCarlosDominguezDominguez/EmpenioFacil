@@ -25,22 +25,22 @@ public class RegistrarUsuarioController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private TextField nombreUsuarioTxt;
+    private Button guardarBtn;
+
+    @FXML
+    private Button cancelarBtn;
+
+    @FXML
+    private TextField nombreTxt;
 
     @FXML
     private PasswordField contraseniaTxt;
 
     @FXML
-    private Button guardarBtn;
-
-    @FXML
-    private Button cancelarBtn;
-    
-    @FXML
     void restringirContrasenia(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if ((caracter < 'a' || caracter > 'z') || (caracter < '0' || caracter > '9')
-                || (caracter < 'A' || caracter > 'Z') || (contraseniaTxt.getText().length() >= 45)) {
+        if ((caracter < 'a' || caracter > 'z') && (caracter < '0' || caracter > '9')
+                && (caracter < 'A' || caracter > 'Z') || (contraseniaTxt.getText().length() >= 45)) {
             event.consume();
         }
     }
@@ -48,7 +48,8 @@ public class RegistrarUsuarioController implements Initializable {
     @FXML
     void restringirNombre(KeyEvent event) {
         char caracter = event.getCharacter().charAt(0);
-        if (caracter < 'a' || caracter > 'z') {
+        if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z') || caracter == 32
+                || (nombreTxt.getText().length() >= 60)) {
             event.consume();
         }
     }
