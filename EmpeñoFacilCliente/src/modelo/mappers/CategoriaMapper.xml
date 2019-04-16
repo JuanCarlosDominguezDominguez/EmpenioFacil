@@ -4,14 +4,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Categoria">
-    <select id="getTodas" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categoria;
-    </select>
     
-    <select id="buscarCategoria" resultType="modelo.beans.Categoria" parameterType="string">
+    <insert id="registrar" parameterType="map">
+        INSERT INTO wspruebas.categoria(nombre, idCategoria)
+        VALUES(#{nombre}, #{idcategoria});
+    </insert>
+    
+    
+    <select id="buscarCategoriaRoles" resultType="modelo.beans.Categoria" parameterType="string">
         SELECT * FROM empenio.categoria
-        WHERE nombre LIKE CONCAT(#{nombre},'%');
+        WHERE Categorias_idCategoria = 'idCategoria';
     </select>
     
+    <select id="getCategoriasPrincipales" resultType="modelo.pojos.Categoria">
+        SELECT * FROM wspruebas.categoria WHERE idPadre IS NULL
+        ORDER BY nombre;
+    </select>
+    
+    <select id="busquedaGenerica" resultType="modelo.pojos.Categoria" parameterType="string">
+        SELECT * FROM wspruebas.categoria
+        WHERE #{criterios};
+    </select>
     
 </mapper>
