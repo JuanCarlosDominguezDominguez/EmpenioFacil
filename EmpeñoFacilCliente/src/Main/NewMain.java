@@ -5,6 +5,7 @@
  */
 package Main;
 
+import modelo.dao.CategoriaDAO;
 import modelo.dao.UsuarioDAO;
 
 /**
@@ -17,7 +18,7 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println(UsuarioDAO.getUsuarios().size());
+        System.out.println(CategoriaDAO.buscarCategoriasRoles().size());
         
     }
     

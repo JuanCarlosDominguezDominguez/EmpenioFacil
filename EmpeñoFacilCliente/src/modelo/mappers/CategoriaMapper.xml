@@ -6,23 +6,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="Categoria">
     
     <insert id="registrar" parameterType="map">
-        INSERT INTO wspruebas.categoria(nombre, idCategoria)
-        VALUES(#{nombre}, #{idcategoria});
+        INSERT INTO wspruebas.categorias (nombre, idCategoria)
+        VALUES(#{nombre}, #{idCategoria});
     </insert>
     
-    
-    <select id="buscarCategoriaRoles" resultType="modelo.beans.Categoria" parameterType="string">
-        SELECT * FROM empenio.categoria
-        WHERE Categorias_idCategoria = 'idCategoria';
+    <select id="buscarCategoriasRoles" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
     </select>
     
-    <select id="getCategoriasPrincipales" resultType="modelo.pojos.Categoria">
-        SELECT * FROM wspruebas.categoria WHERE idPadre IS NULL
-        ORDER BY nombre;
+    <select id="buscarCategoriasPrendas" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias 
+        WHERE Categorias_idCategoria = '2' AND Categorias_idCategoria = '3'  ORDER BY nombre;
     </select>
     
-    <select id="busquedaGenerica" resultType="modelo.pojos.Categoria" parameterType="string">
-        SELECT * FROM wspruebas.categoria
+    <select id="buscarCategoriasVentaApartado" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias 
+        WHERE Categorias_idCategoria = '4' ORDER BY nombre;
+    </select>
+    
+    <select id="buscarCategoriasPeriodos" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias
+        WHERE Categorias_idCategoria = '5' ORDER BY nombre;
+    </select>
+    
+    <select id="buscarCategoriasOcupacion" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias
+        WHERE Categorias_idCategoria = '6' ORDER BY nombre;
+    </select>
+    
+    <select id="busquedaGenerica" resultType="modelo.beans.Categoria" parameterType="string">
+        SELECT * FROM wspruebas.categorias
         WHERE #{criterios};
     </select>
     

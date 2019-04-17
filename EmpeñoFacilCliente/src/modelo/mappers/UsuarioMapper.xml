@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empenio.usuario;
     </select>
     <!-->   <-->
-    <select id="busquedaGenerica" resultType="modelo.pojos.Usuario" parameterType="string">
+    <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
         SELECT * FROM wspruebas.categoria
         WHERE #{criterios};
     </select>
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
     </delete>
     
-    <update id="actualizar" patameterType="map" parameterType="string">
+    <update id="actualizar" parameterType="map">
         UPDATE empenio.usuario SET nombreCompleto = #{nombreCompleto},
         contrasenia = #{contrasenia}, rol #{rol}
         WHERE numPersonal = #{numPersonal};    
