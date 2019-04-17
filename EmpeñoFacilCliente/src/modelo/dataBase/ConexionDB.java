@@ -19,7 +19,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class ConexionDB {
     
-    public static String RESOURCE = "modelo/mybatis-config.xml";    
+    public static String RESOURCE = "modelo/dataBase/mybatis-config.xml";    
     public static String ENVIRONMENT = "development";
     
     public static SqlSession getSession() throws IOException{
