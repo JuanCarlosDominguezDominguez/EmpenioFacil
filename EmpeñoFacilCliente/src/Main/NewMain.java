@@ -7,6 +7,8 @@ package Main;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.dao.CategoriaDAO;
@@ -21,7 +23,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  */
 public class NewMain {
     public static void main(String[] args) {
-        System.out.println(CategoriaDAO.buscarCategoriasRoles().size());
+        System.out.println(Calendar.DATE + " " + Calendar.MONTH + " " + Calendar.MONDAY);
 }
 
 }

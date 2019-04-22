@@ -7,14 +7,17 @@ package controllerGUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import modelo.dao.UsuarioDAO;
 
 /**
  * FXML Controller class
@@ -52,9 +55,16 @@ public class BuscarUsuarioController implements Initializable {
         }
     }
 
+    @FXML
+    void buscarUsuarios(ActionEvent event) {
+        if(numPersonalTxt.getText() != null && rolCbx.getValue() != null && fechaTxt.getValue() != null){
+            UsuarioDAO.busquedaGeneral(filtros);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
 }

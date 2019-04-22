@@ -5,14 +5,24 @@
  */
 package controllerGUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
+import modelo.dao.UsuarioDAO;
+
 
 /**
  * FXML Controller class
@@ -26,6 +36,9 @@ public class RegistrarUsuarioController implements Initializable {
      */
     @FXML
     private Button guardarBtn;
+    
+    @FXML
+    private ComboBox<String> rolCbx;
 
     @FXML
     private Button cancelarBtn;
@@ -53,10 +66,48 @@ public class RegistrarUsuarioController implements Initializable {
             event.consume();
         }
     }
+    
+    public boolean validarCampos(){
+        boolean validos = false;
+        String nombre = nombreTxt.getText();
+        String contrasenia = contraseniaTxt.getText();
+        String rol = rolCbx.getValue();
+        if (nombre != null && contrasenia != null){
+            validos = true;
+        }
+        return validos;
+    }
+
+    @FXML
+    void cancelar(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/gui/Principal.fxml"));
+            Stage escenario = new Stage();
+            Scene scene = new Scene(root);
+            escenario.setScene(scene);
+            escenario.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void guardar(ActionEvent event) {
+        if (validarCampos()){
+            if(UsuarioDAO.registrarUsuario(nombreTxt.getText(), contraseniaTxt.getText() , rolCbx.getValue(), fechaIngreso)){
+                JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente.");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo registrar al usuario");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Los datos del usuario son incorrectos.");
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
 
 }
