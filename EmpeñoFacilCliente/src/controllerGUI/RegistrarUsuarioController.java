@@ -95,7 +95,7 @@ public class RegistrarUsuarioController implements Initializable {
     @FXML
     void guardar(ActionEvent event) {
         if (validarCampos()){
-            if(UsuarioDAO.registrarUsuario(nombreTxt.getText(), contraseniaTxt.getText() , rolCbx.getValue(), fechaIngreso)){
+            if(UsuarioDAO.registrarUsuario(nombreTxt.getText(), contraseniaTxt.getText() , rolCbx.getValue())){
                 JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente.");
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo registrar al usuario");

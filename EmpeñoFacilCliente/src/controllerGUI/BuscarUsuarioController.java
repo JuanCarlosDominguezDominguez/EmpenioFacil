@@ -55,12 +55,12 @@ public class BuscarUsuarioController implements Initializable {
         }
     }
 
-    @FXML
+    /*@FXML
     void buscarUsuarios(ActionEvent event) {
         if(numPersonalTxt.getText() != null && rolCbx.getValue() != null && fechaTxt.getValue() != null){
             UsuarioDAO.busquedaGeneral(filtros);
         }
-    }
+    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

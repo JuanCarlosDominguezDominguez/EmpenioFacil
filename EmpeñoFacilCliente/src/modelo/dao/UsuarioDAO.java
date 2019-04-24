@@ -20,14 +20,13 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class UsuarioDAO {
 
-    public static boolean registrarUsuario(String nombre, String contrasenia, String rol, String fechaIngreso) {
+    public static boolean registrarUsuario(String nombre, String contrasenia, String rol) {
         SqlSession conn = null;
         try {
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("nombreCompleto", nombre);
             parametros.put("contrasenia", contrasenia);
             parametros.put("rol", rol);
-            parametros.put("fechaIngreso", fechaIngreso);
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;

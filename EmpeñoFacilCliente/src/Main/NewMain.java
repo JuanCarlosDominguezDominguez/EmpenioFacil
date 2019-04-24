@@ -22,8 +22,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  * @author Juuan
  */
 public class NewMain {
+
     public static void main(String[] args) {
-        System.out.println(Calendar.DATE + " " + Calendar.MONTH + " " + Calendar.MONDAY);
-}
+        UsuarioDAO.getUsuarios();
+    }
 
 }

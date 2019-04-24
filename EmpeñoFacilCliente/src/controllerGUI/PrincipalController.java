@@ -37,7 +37,7 @@ public class PrincipalController implements Initializable {
         acciones.add("Modificar usuario");
         acciones.add("Buscar usuario");
         acciones.add("Dar de alta usuario");
-        administradorCbx = new ComboBox<String>(acciones);
+        administradorCbx.setItems(acciones);
     }
 
     @Override

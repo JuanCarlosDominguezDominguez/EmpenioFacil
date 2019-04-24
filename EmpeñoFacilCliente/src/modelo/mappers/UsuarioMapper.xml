@@ -7,15 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="registrar" parameterType="map">
         INSERT INTO empenio.usuario(nombreCompleto, contrasenia, rol, fechaIngreso)
-        VALUES(#{nombreCompleto},#{contrasenia},#{rol},#{fechaIngreso});
+        VALUES(#{nombreCompleto},#{contrasenia},#{rol},NOW());
     </insert>
     
     <select id="getUsuarios" resultType="modelo.beans.Usuario">
         SELECT * FROM empenio.usuario;
     </select>
-    <!-->   <-->
+    <!-->   
     <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
-        SELECT * FROM wspruebas.categoria
+        SELECT * FROM empenio.usuario
         WHERE #{criterios};
     </select>
     
@@ -32,4 +32,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         contrasenia = #{contrasenia}, rol #{rol}
         WHERE numPersonal = #{numPersonal};    
     </update>
+        <-->
 </mapper>
