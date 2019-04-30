@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="316.0" prefWidth="420.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllerGUI.RegistrarUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="316.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.RegistrarUsuarioController">
    <children>
       <Pane prefHeight="319.0" prefWidth="420.0" style="-fx-background-color: #E3CFAF;">
          <children>
@@ -17,11 +16,11 @@
             <Label layoutX="26.0" layoutY="88.0" text="Nombre completo:" />
             <Label layoutX="106.0" layoutY="129.0" text="Rol:" />
             <Label layoutX="63.0" layoutY="171.0" text="Contraseña:" />
-            <TextField id="nombreUsuarioTxt" fx:id="nombreUsuarioTxt" layoutX="136.0" layoutY="84.0" onKeyTyped="#restringirNombre" prefHeight="25.0" prefWidth="210.0" />
-            <PasswordField id="contraseniaTxt" fx:id="contraseniaTxt" layoutX="136.0" layoutY="167.0" onKeyTyped="#restringirContrasenia" prefHeight="25.0" prefWidth="210.0" />
-            <ComboBox layoutX="135.0" layoutY="125.0" prefHeight="25.0" prefWidth="210.0" style="-fx-background-color: #f2bc68;" />
-            <Button id="guardarBtn" fx:id="guardarBtn" layoutX="94.0" layoutY="238.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
-            <Button id="cancelarBtn" fx:id="cancelarBtn" layoutX="241.0" layoutY="238.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
+            <ComboBox fx:id="rolCbx" layoutX="135.0" layoutY="125.0" prefHeight="25.0" prefWidth="210.0" style="-fx-background-color: #f2bc68;" />
+            <Button fx:id="guardarBtn" layoutX="94.0" layoutY="238.0" mnemonicParsing="false" onAction="#guardar" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
+            <Button fx:id="cancelarBtn" layoutX="241.0" layoutY="238.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
+            <TextField fx:id="nombreTxt" layoutX="135.0" layoutY="84.0" onKeyTyped="#restringirNombre" prefHeight="25.0" prefWidth="210.0" />
+            <PasswordField fx:id="contraseniaTxt" layoutX="135.0" layoutY="167.0" onKeyTyped="#restringirContrasenia" prefHeight="25.0" prefWidth="210.0" />
          </children>
       </Pane>
    </children>

@@ -5,14 +5,14 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerGUI.PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.PrincipalController">
     <children>
         <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="600.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="141.0" style="-fx-background-color: #e9c893;">
                     <children>
-                        <Button fx:id="cerrarSesionBtn" layoutX="14.0" layoutY="351.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #f2bc68;" text="Cerrar sesión" />
-                  <ComboBox layoutX="13.0" layoutY="14.0" prefHeight="33.0" prefWidth="148.0" promptText="Administrador" style="-fx-background-color: #f2bc68;" />
+                        <Button fx:id="cerrarSesionBtn" layoutX="14.0" layoutY="351.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #f2bc68;" text="Cerrar sesión"/>
+                  <ComboBox fx:id="administradorCbx" layoutX="13.0" layoutY="22.0" prefHeight="33.0" prefWidth="148.0" promptText="Administrador" style="-fx-background-color: #f2bc68;" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="441.0" style="-fx-background-color: #E3CFAF;" />
