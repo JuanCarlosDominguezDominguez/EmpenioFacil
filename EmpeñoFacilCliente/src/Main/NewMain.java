@@ -24,7 +24,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class NewMain {
 
     public static void main(String[] args) {
-        UsuarioDAO.getUsuarios();
+        System.out.println("El tamaño es de: " + UsuarioDAO.getUsuarios().size());
     }
 
 }

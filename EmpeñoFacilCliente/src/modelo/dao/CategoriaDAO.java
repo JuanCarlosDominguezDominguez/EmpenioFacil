@@ -75,6 +75,22 @@ public class CategoriaDAO {
         return categorias;
     }
     
+    public static List<Categoria> buscarCategoriasPrendasSecundarias(){
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try{
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.buscarCategoriasPrendasSecundarias");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+    
     public static List<Categoria> buscarCategoriasVentaApartado(){
         List<Categoria> categorias = new ArrayList<Categoria>();
         SqlSession conn = null;

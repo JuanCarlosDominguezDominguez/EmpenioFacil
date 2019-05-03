@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Usuario;
 import modelo.dao.UsuarioDAO;
+import utileria.Validar;
 
 /**
  * FXML Controller class
@@ -34,9 +36,9 @@ import modelo.dao.UsuarioDAO;
  */
 public class IniciarSesionController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private String contrasenia;
+    private String numPersonal;
+    
     @FXML
     private Button iniciarSesionBtn;
 
@@ -49,15 +51,20 @@ public class IniciarSesionController implements Initializable {
     @FXML
     void iniciarSesion(ActionEvent event) {
         if (validarCampos()) {
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/gui/Principal.fxml"));
-                Stage escenario = new Stage();
-                Scene scene = new Scene(root);
-                escenario.setScene(scene);
-                escenario.show();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (existe()) {
+                Parent root;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("/gui/Principal.fxml"));
+                    Stage escenario = new Stage();
+                    Scene scene = new Scene(root);
+                    escenario.setScene(scene);
+                    escenario.show();
+                    ((Node)(event.getSource())).getScene().getWindow().hide(); 
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario no esta registrado.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Los datos del usuario son incorrectos.");
@@ -65,39 +72,28 @@ public class IniciarSesionController implements Initializable {
     }
 
     public boolean validarCampos() {
-        boolean validos = false;
-        String contrasenia = contraseniaTxt.getText();
-        String numPersonal = numeroDePersonalTxt.getText();
-        Usuario usuario = new Usuario();
-        usuario = UsuarioDAO.buscarUsuarioParaLogin(numPersonal, contrasenia);
-        if (contrasenia != null && numPersonal != null) {
-            if (contrasenia == usuario.getContrasenia() && numPersonal == Integer.toString(usuario.getNumPersonal())) {
-                validos = true;
+        contrasenia = contraseniaTxt.getText();
+        numPersonal = numeroDePersonalTxt.getText();
+        if ((contrasenia != null && numPersonal != null) && (contrasenia.trim().length() > 0 && numPersonal.trim().length() > 0)) {
+            if (Validar.validarCadenaEntero(contrasenia) && Validar.validarEntero(numPersonal)) {
+                return true;
             }
         }
-        return validos;
+        return false;
     }
 
-    @FXML
-    void restringirContrasenia(KeyEvent event) {
-        char caracter = event.getCharacter().charAt(0);
-        if ((caracter < 'a' || caracter > 'z') && (caracter < '0' || caracter > '9')
-                && (caracter < 'A' || caracter > 'Z') || (contraseniaTxt.getText().length() >= 45)) {
-            event.consume();
+    public boolean existe() {
+        contrasenia = contraseniaTxt.getText();
+        numPersonal = numeroDePersonalTxt.getText();
+        if (UsuarioDAO.buscarUsuarioParaLogin(numPersonal, contrasenia) == 0) {
+            return false;
         }
-    }
-
-    @FXML
-    void restringirNumPersonal(KeyEvent event) {
-        char caracter = event.getCharacter().charAt(0);
-        if ((caracter < '0' || caracter > '9') || (numeroDePersonalTxt.getText().length() >= 10)) {
-            event.consume();
-        }
+        return true;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
 }

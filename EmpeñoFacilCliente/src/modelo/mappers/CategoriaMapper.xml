@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="Categoria">
     
     <insert id="registrar" parameterType="map">
-        INSERT INTO wspruebas.categorias (nombre, idCategoria)
+        INSERT INTO empenio.categorias (nombre, Categorias_idCategoria)
         VALUES(#{nombre}, #{idCategoria});
     </insert>
     
@@ -16,7 +16,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarCategoriasPrendas" resultType="modelo.beans.Categoria">
         SELECT * FROM empenio.categorias 
-        WHERE Categorias_idCategoria = '2' AND Categorias_idCategoria = '3'  ORDER BY nombre;
+        WHERE idCategoria = '2' OR idCategoria = '3'  ORDER BY nombre;
+    </select>
+    
+    <select id="buscarCategoriasPrendasSecundarias" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias 
+        WHERE Categorias_idCategoria = '2' OR Categorias_idCategoria = '3'  ORDER BY nombre;
     </select>
     
     <select id="buscarCategoriasVentaApartado" resultType="modelo.beans.Categoria">

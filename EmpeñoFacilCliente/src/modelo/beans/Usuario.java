@@ -16,14 +16,14 @@ public class Usuario {
     private String nombreCompleto;
     private String contrasenia;
     private String rol;
-    private Date fehcaIngreso;
+    private Date fechaIngreso;
 
     public Usuario() {
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "numPersonal=" + numPersonal + ", nombreCompleto=" + nombreCompleto + ", contrasenia=" + contrasenia + ", rol=" + rol + ", fehcaIngreso=" + fehcaIngreso + '}';
+        return "Usuario{" + "numPersonal=" + numPersonal + ", nombreCompleto=" + nombreCompleto + ", contrasenia=" + contrasenia + ", rol=" + rol + ", fehcaIngreso=" + fechaIngreso + '}';
     }
 
     public int getNumPersonal() {
@@ -58,12 +58,12 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Date getFehcaIngreso() {
-        return fehcaIngreso;
+    public Date getFechaIngreso() {
+        return fechaIngreso;
     }
 
-    public void setFehcaIngreso(Date fehcaIngreso) {
-        this.fehcaIngreso = fehcaIngreso;
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
     
     

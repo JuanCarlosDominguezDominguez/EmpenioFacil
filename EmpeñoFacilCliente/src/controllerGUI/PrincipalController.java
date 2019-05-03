@@ -28,21 +28,9 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button cerrarSesionBtn;
 
-    @FXML
-    private ComboBox<String> administradorCbx;
-
-    public void cargarAccionesAdministrador() {
-        ObservableList<String> acciones = FXCollections.observableArrayList();
-        acciones.add("Registrar usuario");
-        acciones.add("Modificar usuario");
-        acciones.add("Buscar usuario");
-        acciones.add("Dar de alta usuario");
-        administradorCbx.setItems(acciones);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarAccionesAdministrador();
+        
     }
 
 }

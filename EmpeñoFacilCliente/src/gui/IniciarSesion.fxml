@@ -21,8 +21,8 @@
                 </ImageView>
                 <Label layoutX="9.0" layoutY="211.0" text="Número de personal" />
                 <Label layoutX="58.0" layoutY="243.0" text="Contraseña" />
-                <PasswordField fx:id="contraseniaTxt" layoutX="123.0" layoutY="239.0" onKeyTyped="#restringirContrasenia" prefHeight="25.0" prefWidth="181.0" />
-                <TextField fx:id="numeroDePersonalTxt" layoutX="123.0" layoutY="207.0" onKeyTyped="#restringirNumPersonal" prefHeight="25.0" prefWidth="181.0" />
+                <PasswordField fx:id="contraseniaTxt" layoutX="123.0" layoutY="239.0" prefHeight="25.0" prefWidth="181.0" />
+                <TextField fx:id="numeroDePersonalTxt" layoutX="123.0" layoutY="207.0" prefHeight="25.0" prefWidth="181.0" />
             </children>
         </Pane>
     </children>

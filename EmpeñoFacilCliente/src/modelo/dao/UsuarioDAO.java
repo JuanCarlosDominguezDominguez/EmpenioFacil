@@ -46,11 +46,11 @@ public class UsuarioDAO {
     }
 
     public static List<Usuario> getUsuarios() {
-        List<Usuario> categorias = new ArrayList<Usuario>();
+        List<Usuario> usuarios = new ArrayList<Usuario>();
         SqlSession conn = null;
         try {
             conn = ConexionDB.getSession();
-            categorias = conn.selectList("Usuario.getUsuarios");
+            usuarios = conn.selectList("Usuario.getUsuarios");
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -58,7 +58,7 @@ public class UsuarioDAO {
                 conn.close();
             }
         }
-        return categorias;
+        return usuarios;
     }
 
     public static List<Usuario> busquedaGeneral(HashMap<String, String> filtros) {
@@ -90,15 +90,15 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public static Usuario buscarUsuarioParaLogin(String numPersonal, String contrasenia) {
-        Usuario usuario = new Usuario();
+    public static int buscarUsuarioParaLogin(String numPersonal, String contrasenia) {
+        int existe = 0;
         SqlSession conn = null;
         try {
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("numPersonal", numPersonal);
             parametros.put("contrasenia", contrasenia);
             conn = ConexionDB.getSession();
-            usuario = conn.selectOne("Usuario.buscarUsuarioParaLogin", parametros);
+            existe = conn.selectOne("Usuario.buscarUsuarioParaLogin", parametros);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -106,16 +106,19 @@ public class UsuarioDAO {
                 conn.close();
             }
         }
-        return usuario;
+        return existe;
     }
 
-    public static boolean eliminarUsuario(String numPersonal) {
+    public static boolean eliminarUsuario(int numPersonal) {
         SqlSession conn = null;
         try{
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
             numerofilasafectadas = conn.insert("Usuario.eliminar", numPersonal);
             conn.commit();
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
