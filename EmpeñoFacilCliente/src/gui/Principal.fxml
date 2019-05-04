@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.PrincipalController">
     <children>
@@ -16,26 +17,47 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="141.0" style="-fx-background-color: #e9c893;">
                     <children>
-                  <Pane prefHeight="52.0" prefWidth="600.0" style="-fx-background-color: #f2bc68;">
+                  <Pane layoutX="8.0" layoutY="33.0" prefHeight="52.0" prefWidth="580.0" style="-fx-background-color: #f2bc68;">
                      <children>
-                              <Button fx:id="cerrarSesionBtn" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #f2bc68;" text="Cerrar sesión" />
+                              <Button fx:id="cerrarSesionBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #f2bc68;" text="Cerrar sesión" />
+                        <Label layoutX="265.0" layoutY="18.0" text="Empeño Fácil" />
                      </children>
                   </Pane>
-                  <ImageView fitHeight="152.0" fitWidth="170.0" layoutX="14.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="105.0" fitWidth="132.0" layoutX="21.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="..\Iconos\login.png" />
+                        <Image url="@../iconos/logo.png" />
                      </image>
                   </ImageView>
-                  <GridPane layoutX="161.0" layoutY="60.0" prefHeight="318.0" prefWidth="415.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
+                  <Label layoutX="14.0" layoutY="230.0" text="Nombre: " />
+                  <Label layoutX="14.0" layoutY="265.0" text="Número de personal:" />
+                  <Label layoutX="14.0" layoutY="297.0" text="Rol:" />
+                  <MenuBar layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="598.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Administrador">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                        <Menu mnemonicParsing="false" text="Gerente">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                          </items>
+                        </Menu>
+                      <Menu mnemonicParsing="false" text="Usuario">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Bodeguero">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <Label fx:id="txtnombre" layoutX="70.0" layoutY="230.0" />
+                  <Label fx:id="txtNumPersonal" layoutX="134.0" layoutY="265.0" />
+                  <Label fx:id="txtRol" layoutX="39.0" layoutY="297.0" />
                     </children>
                 </AnchorPane>
             </items>
