@@ -23,6 +23,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT COUNT(*) FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
     </select>
     
+    <select id="obtenerUsuario" resultType="modelo.beans.Usuario" parameterType="string">
+        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal};
+    </select>
+    
     <delete id="eliminar" parameterType="int">
         DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
     </delete>

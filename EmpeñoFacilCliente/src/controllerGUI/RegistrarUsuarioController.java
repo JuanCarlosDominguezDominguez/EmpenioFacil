@@ -40,11 +40,6 @@ public class RegistrarUsuarioController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
-    public RegistrarUsuarioController(String tipo){
-        this.tipo = tipo;
-    }
-    
     private String nombre;
     private String contrasenia;
     private String rol;

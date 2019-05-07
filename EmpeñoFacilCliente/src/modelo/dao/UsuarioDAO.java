@@ -60,26 +60,13 @@ public class UsuarioDAO {
         }
         return usuarios;
     }
-
-    public static List<Usuario> busquedaGeneral(HashMap<String, String> filtros) {
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+     
+     public static Usuario obtenerUsuario(String numPersonal) {
+        Usuario usuario = new Usuario();
         SqlSession conn = null;
         try {
-            String criterios = "";
-
-            if (filtros != null) {
-                for (Map.Entry<String, String> entry : filtros.entrySet()) {
-                    String campo = entry.getKey();
-                    String valor = entry.getKey();
-
-                    criterios += (criterios.isEmpty())
-                            ? String.format("%s = '%s'", campo, valor)
-                            : String.format("AND %s = '%s'", campo, valor);
-                }
-
-                conn = ConexionDB.getSession();
-                usuarios = conn.selectList("Usuario.busquedaGeneral", criterios);
-            }
+            conn = ConexionDB.getSession();
+            usuario = conn.selectOne("Usuario.obtenerUsuario", numPersonal);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -87,9 +74,9 @@ public class UsuarioDAO {
                 conn.close();
             }
         }
-        return usuarios;
+        return usuario;
     }
-
+   
     public static int buscarUsuarioParaLogin(String numPersonal, String contrasenia) {
         int existe = 0;
         SqlSession conn = null;

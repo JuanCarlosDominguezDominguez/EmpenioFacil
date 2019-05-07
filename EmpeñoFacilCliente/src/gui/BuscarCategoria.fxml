@@ -20,8 +20,8 @@
             </Pane>
             <TableView fx:id="categoriasTbl" layoutX="16.0" layoutY="211.0" prefHeight="325.0" prefWidth="505.0" style="-fx-background-color: #f2bc68;">
               <columns>
-                <TableColumn fx:id="categoriaPrincipalCol" prefWidth="262.0" text="Categoria principal" />
-                <TableColumn fx:id="subcategoriaCol" minWidth="7.0" prefWidth="242.0" text="SubCategoria" />
+                <TableColumn fx:id="categoriaPrincipalCol" editable="false" prefWidth="262.0" text="Categoria principal" />
+                <TableColumn fx:id="subcategoriaCol" editable="false" minWidth="7.0" prefWidth="242.0" text="SubCategoria" />
               </columns>
             </TableView>
             <ComboBox fx:id="categoriasPrincipalesCbx" layoutX="12.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-color: #f2bc68;" />

@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Usuario;
@@ -38,7 +39,7 @@ public class IniciarSesionController implements Initializable {
 
     private String contrasenia;
     private String numPersonal;
-    
+
     @FXML
     private Button iniciarSesionBtn;
 
@@ -49,20 +50,22 @@ public class IniciarSesionController implements Initializable {
     private TextField numeroDePersonalTxt;
 
     @FXML
-    void iniciarSesion(ActionEvent event) {
+    void iniciarSesion(ActionEvent event) throws IOException {
         if (validarCampos()) {
             if (existe()) {
-                Parent root;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/gui/Principal.fxml"));
-                    Stage escenario = new Stage();
-                    Scene scene = new Scene(root);
-                    escenario.setScene(scene);
-                    escenario.show();
-                    ((Node)(event.getSource())).getScene().getWindow().hide(); 
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                Usuario usuario = UsuarioDAO.obtenerUsuario(numeroDePersonalTxt.getText());
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(getClass().getResource("/gui/Principal.fxml").openStream());
+
+                PrincipalController principal = (PrincipalController) loader.getController();
+
+                principal.obtenerUsuario(usuario);
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+                ((Node) (event.getSource())).getScene().getWindow().hide();
             } else {
                 JOptionPane.showMessageDialog(null, "El usuario no esta registrado.");
             }

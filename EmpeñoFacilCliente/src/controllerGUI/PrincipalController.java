@@ -5,15 +5,33 @@
  */
 package controllerGUI;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import modelo.beans.Categoria;
+import modelo.beans.Usuario;
+import modelo.dao.CategoriaDAO;
 
 /**
  * FXML Controller class
@@ -28,9 +46,90 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button cerrarSesionBtn;
 
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Menu administradorMenu;
+
+    @FXML
+    private Menu gerenteMenu;
+
+    @FXML
+    private Menu usuarioMenu;
+
+    @FXML
+    private Menu bodegueroMenu;
+
+    @FXML
+    private Label txtnombre;
+
+    @FXML
+    private Label txtNumPersonal;
+
+    @FXML
+    private Label txtRol;
+
+    private Usuario usuario;
+
+    @FXML
+    void cerrarSesion(ActionEvent event) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/gui/IniciarSesion.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Stage escenario = new Stage();
+        Scene scene = new Scene(root);
+        escenario.setScene(scene);
+        escenario.show();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+
+    @FXML
+    void obtenerUsuario(Usuario usuario) {
+        txtNumPersonal.setText(Integer.toString(usuario.getNumPersonal()));
+        Categoria c = CategoriaDAO.obtenerRol(usuario.getRol());
+        txtRol.setText(c.getNombre());
+        txtnombre.setText(usuario.getNombreCompleto());
+        identificarUsuario(txtRol.getText());
+    }
+
+    @FXML
+    void iniciarlizarMenus() {
+        administradorMenu.setVisible(false);
+        gerenteMenu.setVisible(false);
+        usuarioMenu.setVisible(false);
+        bodegueroMenu.setVisible(false);
+    }
+
+    @FXML
+    void identificarUsuario(String rol) {
+        switch (rol) {
+            case "Administrador":
+                administradorMenu.setVisible(true);
+                gerenteMenu.setVisible(true);
+                usuarioMenu.setVisible(true);
+                bodegueroMenu.setVisible(true);
+                break;
+            case "Cajero":
+                usuarioMenu.setVisible(true);
+                break;
+            case "Gerente":
+                gerenteMenu.setVisible(true);
+                usuarioMenu.setVisible(true);
+                bodegueroMenu.setVisible(true);
+                break;
+            case "Bodeguero":
+                bodegueroMenu.setVisible(true);
+                break;
+        }
+    }
+
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL location, ResourceBundle resources) {
+        iniciarlizarMenus();
     }
 
 }

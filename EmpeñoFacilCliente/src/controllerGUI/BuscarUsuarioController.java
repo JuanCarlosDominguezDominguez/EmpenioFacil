@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JOptionPane;
@@ -91,24 +93,25 @@ public class BuscarUsuarioController implements Initializable {
 
     @FXML
     void buscarUsuarios(ActionEvent event) {
-        
+
     }
 
     @FXML
     void darDeBajaUsuario(ActionEvent event) {
-        if(listaUsuariosTb.getSelectionModel().getSelectedIndex() >= 0){
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de eliminar el elemento seleccionado?", "Confirmación", 
+        if (listaUsuariosTb.getSelectionModel().getSelectedIndex() >= 0) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de eliminar el elemento seleccionado?", "Confirmación",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            if(opcion == 0){
+            if (opcion == 0) {
                 int identificador = listaUsuariosTb.getSelectionModel().getSelectedItem().getNumPersonal();
-                System.out.println(identificador);
-                if(UsuarioDAO.eliminarUsuario(identificador)){
+                if (UsuarioDAO.eliminarUsuario(identificador)) {
+                    listaUsuariosTb.getItems().clear();
+                    cargarTabla();
                     JOptionPane.showMessageDialog(null, "El Usuario seleccionado se ha eliminado correctamente.");
-                }else{
-                   JOptionPane.showMessageDialog(null, "El Usuario seleccionado no se pudo eliminar.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El Usuario seleccionado no se pudo eliminar.");
                 }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas eliminar.");
         }
         //System.out.println(listaUsuariosTb.getSelectionModel().getSelectedItem().getNombreCompleto());
@@ -131,14 +134,14 @@ public class BuscarUsuarioController implements Initializable {
 
     @FXML
     void nuevoUsuario(ActionEvent event) {
-        //System.out.println("La fecha es: " + fechaTxt.getValue());
         Parent root;
+        Stage stage = new Stage();
         try {
-            root = FXMLLoader.load(getClass().getResource("/gui/RegistrarUsuario.fxml"));
-            Stage escenario = new Stage();
-            Scene scene = new Scene(root);
-            escenario.setScene(scene);
-            escenario.show();
+            root = FXMLLoader.load(RegistrarUsuarioController.class.getResource("/gui/RegistrarUsuario.fxml"));
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

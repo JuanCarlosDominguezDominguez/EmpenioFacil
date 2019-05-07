@@ -14,6 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
     </select>
     
+    <select id="obtenerRol" resultType="modelo.beans.Categoria" parameterType="string">
+        SELECT * FROM empenio.categorias WHERE idCategoria = #{idCategoria};
+    </select>
+    
     <select id="buscarCategoriasPrendas" resultType="modelo.beans.Categoria">
         SELECT * FROM empenio.categorias 
         WHERE idCategoria = '2' OR idCategoria = '3'  ORDER BY nombre;
@@ -40,8 +44,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="busquedaGenerica" resultType="modelo.beans.Categoria" parameterType="string">
-        SELECT * FROM wspruebas.categorias
+        SELECT * FROM empenio.categorias
         WHERE #{criterios};
     </select>
+    
+    <select id="buscarTodasLasCategoriasDePrendas" resultType="modelo.beans.Categoria" >
+        SELECT * FROM empenio.categorias WHERE idCategoria = 2 OR idCategoria = 3
+        OR Categorias_idCategoria = 2 OR Categorias_idCategoria = 3;
+    </select>
+    
+    <delete id="eliminar" parameterType="int">
+        DELETE FROM empenio.categorias WHERE idCategoria = #{idCategoria};
+    </delete>
+    
+    <update id="actualizar" parameterType="map">
+        UPDATE empenio.categorias SET nombre = #{nombre}
+        WHERE idCategoria = #{idCategoria};    
+    </update>
     
 </mapper>

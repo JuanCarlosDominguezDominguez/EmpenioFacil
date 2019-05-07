@@ -6,8 +6,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -19,36 +17,31 @@
                     <children>
                   <Pane layoutX="8.0" layoutY="33.0" prefHeight="52.0" prefWidth="580.0" style="-fx-background-color: #f2bc68;">
                      <children>
-                              <Button fx:id="cerrarSesionBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #f2bc68;" text="Cerrar sesión" />
+                              <Button fx:id="cerrarSesionBtn" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="33.0" prefWidth="148.0" style="-fx-background-color: #f2bc68;" text="Cerrar sesión" />
                         <Label layoutX="265.0" layoutY="18.0" text="Empeño Fácil" />
                      </children>
                   </Pane>
-                  <ImageView fitHeight="105.0" fitWidth="132.0" layoutX="21.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../iconos/logo.png" />
-                     </image>
-                  </ImageView>
                   <Label layoutX="14.0" layoutY="230.0" text="Nombre: " />
                   <Label layoutX="14.0" layoutY="265.0" text="Número de personal:" />
                   <Label layoutX="14.0" layoutY="297.0" text="Rol:" />
-                  <MenuBar layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="598.0">
+                  <MenuBar fx:id="menuBar" layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="598.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Administrador">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="Close" />
-                        </items>
+                      <Menu fx:id="administradorMenu" mnemonicParsing="false" text="Administrador">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Administrar usuarios" />
+                           </items>
                       </Menu>
-                        <Menu mnemonicParsing="false" text="Gerente">
+                        <Menu fx:id="gerenteMenu" mnemonicParsing="false" text="Gerente">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Action 1" />
                           </items>
                         </Menu>
-                      <Menu mnemonicParsing="false" text="Usuario">
+                      <Menu fx:id="usuarioMenu" mnemonicParsing="false" text="Usuario">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
+                              <MenuItem mnemonicParsing="false" text="Algo" />
                         </items>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Bodeguero">
+                      <Menu fx:id="bodegueroMenu" mnemonicParsing="false" text="Bodeguero">
                         <items>
                           <MenuItem mnemonicParsing="false" text="About" />
                         </items>
