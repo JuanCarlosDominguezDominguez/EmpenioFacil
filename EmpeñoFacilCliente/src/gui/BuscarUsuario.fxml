@@ -14,24 +14,30 @@
    <children>
       <Pane prefHeight="609.0" prefWidth="669.0" style="-fx-background-color: #E3CFAF;">
          <children>
-            <Label layoutX="306.0" layoutY="23.0" text="Buscar usuario" />
-            <Label layoutX="33.0" layoutY="74.0" text="Número de personal:" />
-            <Label layoutX="240.0" layoutY="74.0" text="Rol:" />
-            <Label layoutX="448.0" layoutY="74.0" text="Fecha:" />
-            <TextField fx:id="numPersonalTxt" layoutX="33.0" layoutY="100.0" onKeyTyped="#restringirNumPersonal" prefHeight="25.0" prefWidth="188.0" />
-            <ComboBox fx:id="rolCbx" layoutX="240.0" layoutY="100.0" prefHeight="25.0" prefWidth="188.0" style="-fx-background-color: #f2bc68;" />
-            <DatePicker fx:id="fechaTxt" editable="false" layoutX="448.0" layoutY="100.0" prefHeight="25.0" prefWidth="188.0" />
-            <Button fx:id="buscarBtn" layoutX="159.0" layoutY="156.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
-            <Button fx:id="cancelarBtn" layoutX="378.0" layoutY="156.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
-            <TableView fx:id="listaUsuariosTb" layoutX="16.0" layoutY="208.0" prefHeight="392.0" prefWidth="637.0" style="-fx-background-color: #f2bc68;">
+            <Label layoutX="31.0" layoutY="73.0" text="Número de personal:" />
+            <Label layoutX="238.0" layoutY="73.0" text="Rol:" />
+            <Label layoutX="446.0" layoutY="73.0" text="Fecha:" />
+            <TextField fx:id="numPersonalTxt" layoutX="31.0" layoutY="97.0" prefHeight="25.0" prefWidth="188.0" />
+            <ComboBox fx:id="rolCbx" layoutX="238.0" layoutY="97.0" prefHeight="25.0" prefWidth="188.0" style="-fx-background-color: #f2bc68;" />
+            <DatePicker fx:id="fechaTxt" editable="false" layoutX="446.0" layoutY="97.0" prefHeight="25.0" prefWidth="188.0" />
+            <Button fx:id="buscarBtn" layoutX="544.0" layoutY="150.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
+            <TableView fx:id="listaUsuariosTb" layoutX="16.0" layoutY="195.0" prefHeight="400.0" prefWidth="637.0" style="-fx-background-color: #f2bc68;">
               <columns>
-                <TableColumn editable="false" prefWidth="93.0" text="Núm. Personal" />
-                <TableColumn editable="false" prefWidth="218.0" text="Nombre" />
-                  <TableColumn editable="false" prefWidth="140.0" text="Rol" />
-                  <TableColumn editable="false" prefWidth="88.0" text="Fecha ingreso" />
-                  <TableColumn prefWidth="97.0" text="Acción" />
+                <TableColumn fx:id="colNumPersonal" editable="false" prefWidth="93.0" text="Núm. Personal" />
+                <TableColumn fx:id="colNombre" editable="false" prefWidth="247.0" text="Nombre" />
+                  <TableColumn fx:id="colRol" editable="false" prefWidth="156.0" text="Rol" />
+                  <TableColumn fx:id="colFechaIngreso" editable="false" prefWidth="140.0" text="Fecha ingreso" />
               </columns>
             </TableView>
+            <Button fx:id="nuevobtn" layoutX="16.0" layoutY="150.0" mnemonicParsing="false" onAction="#nuevoUsuario" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Nuevo" />
+            <Button fx:id="modificarbtn" layoutX="123.0" layoutY="150.0" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Modificar" />
+            <Button fx:id="dardebajabtn" layoutX="229.0" layoutY="150.0" mnemonicParsing="false" onAction="#darDeBajaUsuario" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Dar de baja" />
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="49.0" prefWidth="637.0" style="-fx-background-color: #f2bc68;">
+               <children>
+                  <Button fx:id="cancelarBtn" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Regresar" />
+                  <Label layoutX="280.0" layoutY="13.0" text="Buscar usuario" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

@@ -5,6 +5,7 @@
  */
 package modelo.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +66,38 @@ public class CategoriaDAO {
         try{
             conn = ConexionDB.getSession();
             categorias = conn.selectList("Categoria.buscarCategoriasPrendas");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+    
+    public static Categoria obtenerRol(String idCategoria){
+        Categoria categoria = new Categoria();
+        SqlSession conn = null;
+        try{
+            conn = ConexionDB.getSession();
+            categoria = conn.selectOne("Categoria.obtenerRol", idCategoria);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categoria;
+    }
+    
+    public static List<Categoria> buscarCategoriasPrendasSecundarias(){
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try{
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.buscarCategoriasPrendasSecundarias");
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
@@ -149,4 +182,63 @@ public class CategoriaDAO {
         }
         return resultado;
     }
+    
+    public static List<Categoria> buscarTodasLasCategoriasDePrendas(){
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try{
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.buscarTodasLasCategoriasDePrendas");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+    public static boolean eliminarCategoria(int idCategoria) {
+        SqlSession conn = null;
+        try{
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Categoria.eliminar", idCategoria);
+            conn.commit();
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (conn == null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+
+    public static boolean actualizarCategoria(String nombre) {
+        SqlSession conn = null;
+        try {
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("nombre", nombre);
+
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Categoria.actualizar", parametros);
+            conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+    
 }
