@@ -34,7 +34,7 @@
             <Button fx:id="dardebajabtn" layoutX="229.0" layoutY="150.0" mnemonicParsing="false" onAction="#darDeBajaUsuario" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Dar de baja" />
             <Pane layoutX="14.0" layoutY="14.0" prefHeight="49.0" prefWidth="637.0" style="-fx-background-color: #f2bc68;">
                <children>
-                  <Button fx:id="cancelarBtn" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Regresar" />
+                  <Button fx:id="cancelarBtn" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#regresar" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Regresar" />
                   <Label layoutX="280.0" layoutY="13.0" text="Buscar usuario" />
                </children>
             </Pane>

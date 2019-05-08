@@ -55,7 +55,7 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void obtenerDatos(Categoria categoria, String tipo) {
-        if (categoria.equals(null)) {
+        if (categoria == null) {
             this.tipo = tipo;
         } else {
             this.categoriaSelecionada = categoria;
@@ -67,8 +67,8 @@ public class AgregarCategoriaController implements Initializable {
     public boolean validarCampos() {
         nombre = nombreCategoriaTxt.getText();
         categoria = categoriaCbx.getValue();
-        if (nombre != null && categoria != null && nombre.trim().length() > 0) {
-            if (Validar.validarCadena(nombre)) {
+        if (nombre != null && nombre.trim().length() > 0) {
+            if (Validar.validarCadenaEntero(nombre)) {
                 return true;
             }
         }
@@ -82,18 +82,69 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void guardar(ActionEvent event) {
+        System.out.println(nombreCategoriaTxt.getText());
+        System.out.println(categoriaCbx.getValue());
         if (validarCampos()) {
             if (!existe()) {
-                int idCategoria = 0;
-                for (int i = 0; i < categorias.size(); i++) {
-                    if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
-                        idCategoria = categorias.get(i).getIdCategoria();
+                if (tipo.equals("nuevo")) {
+                    if (categoriaCbx.getValue().equals(null)) {
+                        //Guarda una categoria principal nueva
+                        CategoriaDAO.registrarCategoria(null, nombreCategoriaTxt.getText());
+
+                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                        BuscarCategoriaController bcc = new BuscarCategoriaController();
+                        bcc.categoriasTbl.getItems().clear();
+                        bcc.cargarTabla();
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                    } else {
+                        //Guarda una subcategoria nueva
+                        int idCategoria = 0;
+                        for (int i = 0; i < categorias.size(); i++) {
+                            if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
+                                idCategoria = categorias.get(i).getIdCategoria();
+                            }
+                        }
+                        CategoriaDAO.registrarCategoria(idCategoria, nombreCategoriaTxt.getText());
+
+                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                        BuscarCategoriaController bcc = new BuscarCategoriaController();
+                        bcc.categoriasTbl.getItems().clear();
+                        bcc.cargarTabla();
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                    }
+                } else {
+                    if (categoriaSelecionada.getCategorias_IdCategoria() < 0) {
+                        //Actualiza una Categoria principal
+                        int idCategoria = 0;
+                        for (int i = 0; i < categorias.size(); i++) {
+                            if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
+                                idCategoria = categorias.get(i).getIdCategoria();
+                            }
+                        }
+                        CategoriaDAO.actualizarCategoria(idCategoria, nombreCategoriaTxt.getText(), null);
+
+                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                        BuscarCategoriaController bcc = new BuscarCategoriaController();
+                        bcc.categoriasTbl.getItems().clear();
+                        bcc.cargarTabla();
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                    } else {
+                        //Actualiza una subcategoria
+                        int idCategoria = 0;
+                        for (int i = 0; i < categorias.size(); i++) {
+                            if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
+                                idCategoria = categorias.get(i).getIdCategoria();
+                            }
+                        }
+                        CategoriaDAO.actualizarCategoria(idCategoria, nombreCategoriaTxt.getText(), categoriaSelecionada.getCategorias_IdCategoria());
+
+                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                        BuscarCategoriaController bcc = new BuscarCategoriaController();
+                        bcc.categoriasTbl.getItems().clear();
+                        bcc.cargarTabla();
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
                     }
                 }
-                CategoriaDAO.registrarCategoria(idCategoria, nombreCategoriaTxt.getText());
-
-                JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                ((Node) (event.getSource())).getScene().getWindow().hide();
             } else {
                 JOptionPane.showMessageDialog(null, "El nombre de la categoria ya existe.");
             }

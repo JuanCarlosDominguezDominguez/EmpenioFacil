@@ -58,8 +58,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <update id="actualizar" parameterType="map">
-        UPDATE empenio.categorias SET nombre = #{nombre}
+        UPDATE empenio.categorias SET nombre = #{nombre}, Categorias_idCategoria = #{Categorias_idCategoria}
         WHERE idCategoria = #{idCategoria};    
     </update>
-    
+   
 </mapper>

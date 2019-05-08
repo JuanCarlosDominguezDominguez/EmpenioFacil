@@ -53,6 +53,9 @@ public class PrincipalController implements Initializable {
     private Menu administradorMenu;
 
     @FXML
+    private MenuItem adminUsuariosMenuItem;
+
+    @FXML
     private Menu gerenteMenu;
 
     @FXML
@@ -73,6 +76,26 @@ public class PrincipalController implements Initializable {
     private Usuario usuario;
 
     @FXML
+    void administrarUsuarios(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
+        try {
+            root = loader.load(getClass().getResource("/gui/BuscarUsuario.fxml").openStream());
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+
+        buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+
+    @FXML
     void cerrarSesion(ActionEvent event) {
         Parent root = null;
         try {
@@ -89,6 +112,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     void obtenerUsuario(Usuario usuario) {
+        this.usuario = usuario;
         txtNumPersonal.setText(Integer.toString(usuario.getNumPersonal()));
         Categoria c = CategoriaDAO.obtenerRol(usuario.getRol());
         txtRol.setText(c.getNombre());

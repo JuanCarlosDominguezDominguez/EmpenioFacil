@@ -28,7 +28,7 @@ public class NewFXMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/BuscarUsuario.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/BuscarCategoria.fxml"));
         Stage escenario = new Stage();
         Scene scene = new Scene(root);
         escenario.setScene(scene);

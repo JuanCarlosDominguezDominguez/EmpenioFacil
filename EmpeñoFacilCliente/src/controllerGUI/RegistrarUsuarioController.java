@@ -111,6 +111,10 @@ public class RegistrarUsuarioController implements Initializable {
         }
         rolCbx.setItems(acciones);
     }
+    
+    public void obtenerUsuario(){
+        
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

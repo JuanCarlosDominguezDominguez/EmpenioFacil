@@ -100,13 +100,13 @@ public class BuscarCategoriaController implements Initializable {
         Categoria c = new Categoria();
         if (categoriasTbl.getSelectionModel().getSelectedIndex() >= 0) {
             c = categoriasTbl.getSelectionModel().getSelectedItem();
-            
+
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
-            
-            AgregarCategoriaController acc = (AgregarCategoriaController)loader.getController();
-            
+
+            AgregarCategoriaController acc = (AgregarCategoriaController) loader.getController();
+
             acc.obtenerDatos(c, "modificar");
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -119,18 +119,18 @@ public class BuscarCategoriaController implements Initializable {
 
     @FXML
     void nuevaCategoria(ActionEvent event) throws IOException {
-            
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
-            /*
-            AgregarCategoriaController acc = (AgregarCategoriaController)loader.getController();
-            
-            acc.obtenerDatos(null, "nuevo");*/
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
+
+        AgregarCategoriaController acc = (AgregarCategoriaController) loader.getController();
+
+        acc.obtenerDatos(null, "nuevo");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+
     }
 
     private List<Categoria> categoriasPrincipales;
@@ -157,6 +157,7 @@ public class BuscarCategoriaController implements Initializable {
         subcategoriasCbx.setItems(acciones);
     }
 
+    @FXML
     public void cargarTabla() {
         categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         //subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
