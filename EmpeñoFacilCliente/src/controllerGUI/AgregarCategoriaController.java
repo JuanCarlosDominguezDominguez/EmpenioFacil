@@ -6,19 +6,25 @@
 package controllerGUI;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javax.swing.JOptionPane;
+import modelo.beans.Categoria;
 import modelo.dao.CategoriaDAO;
+import utileria.Validar;
 
 /**
  * FXML Controller class
@@ -30,6 +36,11 @@ public class AgregarCategoriaController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    private Categoria categoriaSelecionada;
+    private String tipo;
+
+    private String nombre;
+    private String categoria;
     @FXML
     private Button guardarBtn;
 
@@ -43,50 +54,77 @@ public class AgregarCategoriaController implements Initializable {
     private TextField nombreCategoriaTxt;
 
     @FXML
-    void restringirNombre(KeyEvent event) {
-        char caracter = event.getCharacter().charAt(0);
-        if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')
-                || (nombreCategoriaTxt.getText().length() >= 30)) {
-            event.consume();
+    void obtenerDatos(Categoria categoria, String tipo) {
+        if (categoria.equals(null)) {
+            this.tipo = tipo;
+        } else {
+            this.categoriaSelecionada = categoria;
+            this.tipo = tipo;
+            this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
         }
     }
 
     public boolean validarCampos() {
-        boolean validos = false;
-        if (nombreCategoriaTxt.getText() != null && categoriaCbx.getValue() != null) {
-            validos = true;
+        nombre = nombreCategoriaTxt.getText();
+        categoria = categoriaCbx.getValue();
+        if (nombre != null && categoria != null && nombre.trim().length() > 0) {
+            if (Validar.validarCadena(nombre)) {
+                return true;
+            }
         }
-        return validos;
+        return false;
     }
 
     @FXML
     void cancelar(ActionEvent event) {
-
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @FXML
     void guardar(ActionEvent event) {
-        if(validarCampos()){
-            List categorias = CategoriaDAO.buscarCategoriasPrendas();
-            boolean existe = false;
-            for (int i = 0; i < categorias.size(); i++){
-                if (nombreCategoriaTxt.getText() == categorias.get(i)){
-                    existe = true;
+        if (validarCampos()) {
+            if (!existe()) {
+                int idCategoria = 0;
+                for (int i = 0; i < categorias.size(); i++) {
+                    if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
+                        idCategoria = categorias.get(i).getIdCategoria();
+                    }
                 }
-            }
-            if(!existe){
-                CategoriaDAO.registrarCategoria(Integer.BYTES, nombreCategoriaTxt.getText());
+                CategoriaDAO.registrarCategoria(idCategoria, nombreCategoriaTxt.getText());
+
                 JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-            }else{
+                ((Node) (event.getSource())).getScene().getWindow().hide();
+            } else {
                 JOptionPane.showMessageDialog(null, "El nombre de la categoria ya existe.");
             }
-        }else
-            JOptionPane.showMessageDialog(null, "El nombre de la categoria es incorrecto.");
+        } else {
+            JOptionPane.showMessageDialog(null, "El nombre de la categoria es incorrecto o un campo esta vacio.");
+        }
+    }
+
+    public boolean existe() {
+        List<Categoria> categoriasSecundarias = CategoriaDAO.buscarCategoriasPrendasSecundarias();
+        for (int i = 0; i < categoriasSecundarias.size(); i++) {
+            if (nombreCategoriaTxt.getText().equals(categoriasSecundarias.get(i).getNombre())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<Categoria> categorias = new ArrayList<>();
+
+    public void cargarCategoriasPrincipales() {
+        categorias = CategoriaDAO.buscarCategoriasPrendas();
+        ObservableList<String> acciones = FXCollections.observableArrayList();
+        for (int i = 0; i < categorias.size(); i++) {
+            acciones.add(categorias.get(i).getNombre());
+        }
+        categoriaCbx.setItems(acciones);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        cargarCategoriasPrincipales();
     }
-
 }

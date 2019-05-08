@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="481.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.BuscarCategoriaController">
+   <children>
+      <Pane prefHeight="544.0" prefWidth="537.0" style="-fx-background-color: #E3CFAF;">
+         <children>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="56.0" prefWidth="505.0" style="-fx-background-color: #f2bc68;">
+               <children>
+                  <Button fx:id="regresarBtn" layoutX="20.0" layoutY="16.0" mnemonicParsing="false" style="-fx-background-color: #f2bc68;" text="Regresar" />
+                  <Label layoutX="209.0" layoutY="20.0" text="Buscar categoria" />
+               </children>
+            </Pane>
+            <TableView fx:id="categoriasTbl" layoutX="16.0" layoutY="211.0" prefHeight="325.0" prefWidth="505.0" style="-fx-background-color: #f2bc68;">
+              <columns>
+                <TableColumn fx:id="categoriaPrincipalCol" editable="false" prefWidth="262.0" text="Categoria principal" />
+                <TableColumn fx:id="subcategoriaCol" editable="false" minWidth="7.0" prefWidth="242.0" text="SubCategoria" />
+              </columns>
+            </TableView>
+            <ComboBox fx:id="categoriasPrincipalesCbx" layoutX="12.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-color: #f2bc68;" />
+            <Button fx:id="buscarBtn" layoutX="420.0" layoutY="169.0" mnemonicParsing="false" onAction="#buscarCategorias" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
+            <Button fx:id="nuevaBtn" layoutX="12.0" layoutY="169.0" mnemonicParsing="false" onAction="#nuevaCategoria" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Nueva" />
+            <Button fx:id="modificarBtn" layoutX="117.0" layoutY="169.0" mnemonicParsing="false" onAction="#modificarCategoria" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Modificar" />
+            <Button fx:id="eliminarBtn" layoutX="226.0" layoutY="169.0" mnemonicParsing="false" onAction="#eliminarCategoria" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Eliminar" />
+            <Label layoutX="12.0" layoutY="90.0" text="Categoria principal:" />
+            <Label layoutX="196.0" layoutY="90.0" text="Subcategoria:" />
+            <ComboBox fx:id="subcategoriasCbx" layoutX="196.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-color: #f2bc68;" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

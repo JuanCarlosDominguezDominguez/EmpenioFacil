@@ -5,19 +5,17 @@
             <url>src/controllerGUI/IniciarSesionController.java</url>
             <bookmark id="1">
                 <name/>
-                <line>46</line>
+                <line>49</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dao/UsuarioDAO.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarUsuarioController.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewMain.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/beans/Usuario.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dataBase/mybatis-config.xml</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarUsuarioController.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarCategoriaController.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/PrincipalController.java</file>
         </group>
     </open-files>
 </project-private>

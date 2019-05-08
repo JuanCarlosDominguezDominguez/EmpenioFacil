@@ -12,14 +12,14 @@ package modelo.beans;
 public class Categoria {
     private int idCategoria;
     private String nombre;
-    private int categoriaIdCategoria;
+    private int Categorias_IdCategoria;
 
     public Categoria() {
     }
 
     @Override
     public String toString() {
-        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", categoriaIdCategoria=" + categoriaIdCategoria + '}';
+        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", Categorias_IdCategoria=" + Categorias_IdCategoria + '}';
     }
 
     public int getIdCategoria() {
@@ -38,12 +38,12 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public int getCategoriaIdCategoria() {
-        return categoriaIdCategoria;
+    public int getCategorias_IdCategoria() {
+        return Categorias_IdCategoria;
     }
 
-    public void setCategoriaIdCategoria(int categoriaIdCategoria) {
-        this.categoriaIdCategoria = categoriaIdCategoria;
+    public void setCategorias_IdCategoria(int Categorias_IdCategoria) {
+        this.Categorias_IdCategoria = Categorias_IdCategoria;
     }
     
     

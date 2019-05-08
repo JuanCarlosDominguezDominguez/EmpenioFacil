@@ -15,7 +15,7 @@
             <Button fx:id="cancelarBtn" layoutX="246.0" layoutY="198.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
             <Label layoutX="128.0" layoutY="14.0" text="Agregar categoria" />
             <Label layoutX="67.0" layoutY="80.0" text="Nombre: " />
-            <TextField fx:id="nombreCategoriaTxt" layoutX="130.0" layoutY="76.0" onKeyTyped="#restringirNombre" prefHeight="25.0" prefWidth="167.0" />
+            <TextField fx:id="nombreCategoriaTxt" layoutX="130.0" layoutY="76.0" prefHeight="25.0" prefWidth="167.0" />
             <ComboBox fx:id="categoriaCbx" layoutX="130.0" layoutY="129.0" prefHeight="25.0" prefWidth="167.0" style="-fx-background-color: #f2bc68;" />
             <Label layoutX="14.0" layoutY="133.0" text="Categoria principal: " />
          </children>
