@@ -218,11 +218,14 @@ public class CategoriaDAO {
         return false;
     }
 
-    public static boolean actualizarCategoria(String nombre) {
+   public static boolean actualizarCategoria(Integer idCategoria, String nombre, Integer Categorias_idCategoria) {
         SqlSession conn = null;
         try {
+            //LLAVE   VALOR
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("nombre", nombre);
+            parametros.put("idCategoria", idCategoria);
+            parametros.put("Categorias_idCategoria", Categorias_idCategoria);
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
@@ -231,7 +234,7 @@ public class CategoriaDAO {
             if (numerofilasafectadas > 0) {
                 return true;
             }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             if (conn != null) {

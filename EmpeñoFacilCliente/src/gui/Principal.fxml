@@ -28,7 +28,7 @@
                     <menus>
                       <Menu fx:id="administradorMenu" mnemonicParsing="false" text="Administrador">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Administrar usuarios" />
+                              <MenuItem fx:id="adminUsuariosMenuItem" mnemonicParsing="false" onAction="#administrarUsuarios" text="Administrar usuarios" />
                            </items>
                       </Menu>
                         <Menu fx:id="gerenteMenu" mnemonicParsing="false" text="Gerente">

@@ -86,10 +86,17 @@ public class BuscarUsuarioController implements Initializable {
     private TableColumn<Usuario, String> colNombre;
 
     @FXML
-    private TableColumn<Usuario, String> colRol;
+    private TableColumn<Categoria, String> colRol;
 
     @FXML
     private TableColumn<Usuario, Date> colFechaIngreso;
+
+    private Usuario usuario;
+
+    @FXML
+    public void obtenerUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @FXML
     void buscarUsuarios(ActionEvent event) {
@@ -114,37 +121,48 @@ public class BuscarUsuarioController implements Initializable {
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas eliminar.");
         }
-        //System.out.println(listaUsuariosTb.getSelectionModel().getSelectedItem().getNombreCompleto());
     }
 
     @FXML
     void modificarUsuario(ActionEvent event) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/gui/RegistrarUsuario.fxml"));
-            Stage escenario = new Stage();
+        Categoria c = new Categoria();
+        if (categoriasTbl.getSelectionModel().getSelectedIndex() >= 0) {
+            c = categoriasTbl.getSelectionModel().getSelectedItem();
+
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
+
+            AgregarCategoriaController acc = (AgregarCategoriaController) loader.getController();
+
+            acc.obtenerDatos(c, "modificar");
             Scene scene = new Scene(root);
-            escenario.setScene(scene);
-            escenario.show();
-            //RegistrarUsuarioController.setTipo("modificar");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas modificar.");
         }
     }
 
     @FXML
     void nuevoUsuario(ActionEvent event) {
-        Parent root;
         Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
         try {
-            root = FXMLLoader.load(RegistrarUsuarioController.class.getResource("/gui/RegistrarUsuario.fxml"));
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-            stage.show();
+            root = loader.load(getClass().getResource("/gui/RegistrarUsuario.fxml").openStream());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(BuscarUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        RegistrarUsuarioController ruc = (RegistrarUsuarioController) loader.getController();
+
+        ruc.obtenerDatos(null, "nuevo");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     private List<Categoria> categorias;
@@ -162,19 +180,48 @@ public class BuscarUsuarioController implements Initializable {
     public void cargarTabla() {
         colNumPersonal.setCellValueFactory(new PropertyValueFactory<>("numPersonal"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
-        colRol.setCellValueFactory(new PropertyValueFactory<>("rol"));
+
         colFechaIngreso.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
 
         List<Usuario> usuarios = new ArrayList<>();
         usuarios = UsuarioDAO.getUsuarios();
         for (int i = 0; i < usuarios.size(); i++) {
             listaUsuariosTb.getItems().addAll(usuarios.get(i));
+            System.out.println(listaUsuariosTb.getColumns().get(1).getId());
         }
+
+        List<Categoria> roles = new ArrayList<>();
+        roles = CategoriaDAO.buscarCategoriasRoles();
+        colRol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        for (int i = 0; i < roles.size(); i++) {
+            listaUsuariosTb.getItems().get(2).setRol(roles.get(i).getNombre());
+        }
+
     }
 
     public void iniciarCalendario() {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yy/MM/dd");
         fechaTxt.setConverter(new LocalDateStringConverter(formato, null));
+    }
+
+    @FXML
+    void regresar(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
+        try {
+            root = loader.load(getClass().getResource("/gui/Principal.fxml").openStream());
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        PrincipalController pc = (PrincipalController) loader.getController();
+        System.out.println(usuario.getNumPersonal());
+        pc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @Override
@@ -183,5 +230,4 @@ public class BuscarUsuarioController implements Initializable {
         cargarTabla();
         iniciarCalendario();
     }
-
 }
