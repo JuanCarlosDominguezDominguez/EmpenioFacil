@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cliente">
+    
+    <insert id="registrar" parameterType="map">
+        INSERT INTO 
+        empenio.cliente
+            (nombre, 
+            apellidoPaterno, 
+            apellidoMaterno, 
+            rfc, 
+            curp, 
+            numeroIdentificacion, 
+            ocupacion, 
+            fechaIngreso) 
+        VALUES 
+            (#{nombre}, 
+            #{apellidoPaterno}, 
+            #{apellidoMaterno}, 
+            #{rfc}, 
+            #{curp}, 
+            #{numeroIdentificacion}, 
+            #{idOcupacion}, 
+            NOW() );
+    </insert>
+    
+    <select id="getClientes" resultType="modelo.beans.Cliente">
+        SELECT 
+        cliente.nombre, 
+        cliente.apellidoPaterno, 
+        cliente.apellidoMaterno, 
+        cliente.rfc, cliente.curp, 
+        cliente.numeroIdentificacion, 
+        cliente.ocupacion AS idOcupacion, 
+        categorias.nombre AS nombreOcupacion, 
+        cliente.fechaIngreso 
+        FROM empenio.cliente 
+        LEFT OUTER JOIN empenio.categorias ON cliente.ocupacion = categorias.idCategoria;
+    </select>
+    
+    <select id="busqueda" resultType="modelo.beans.Cliente" parameterType="string">
+        SELECT 
+        cliente.nombre, 
+        cliente.apellidoPaterno, 
+        cliente.apellidoMaterno, 
+        cliente.rfc, cliente.curp, 
+        cliente.numeroIdentificacion, 
+        cliente.ocupacion AS idOcupacion, 
+        categorias.nombre AS nombreOcupacion, 
+        cliente.fechaIngreso 
+        FROM empenio.cliente 
+        LEFT OUTER JOIN empenio.categorias ON cliente.ocupacion = categorias.idCategoria WHERE ${value};
+    </select>
+    
+    <update id="actualizar" parameterType="map">
+        UPDATE empenio.cliente 
+        SET 
+            nombre = #{nombre}, 
+            apellidoPaterno = #{apellidoPaterno}, 
+            apellidoMaterno = #{apellidoMaterno}, 
+            curp = #{curp}, 
+            numeroIdentificacion = #{numeroIdentificacion}, 
+            ocupacion = #{idOcupacion}
+        WHERE rfc = #{rfc};    
+    </update>
+    
+    
+    <!-->   
+    <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
+        SELECT * FROM empenio.usuario
+        WHERE #{criterios};
+    </select>
+    
+    <select id="buscarUsuarioParaLogin" resultType="modelo.beans.Usuario" parameterType="map">
+        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
+    </select>
+    
+    <delete id="eliminar" parameterType="string">
+        DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
+    </delete>
+    
+    <update id="actualizar" parameterType="map">
+        UPDATE empenio.usuario SET nombreCompleto = #{nombreCompleto},
+        contrasenia = #{contrasenia}, rol #{rol}
+        WHERE numPersonal = #{numPersonal};    
+    </update>
+        <-->
+</mapper>

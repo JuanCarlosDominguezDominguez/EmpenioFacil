@@ -11,6 +11,13 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dao/UsuarioDAO.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarUsuarioController.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewMain.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/beans/Usuario.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dataBase/mybatis-config.xml</file>
+        </group>
     </open-files>
 </project-private>

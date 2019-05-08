@@ -5,17 +5,10 @@
  */
 package Main;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import modelo.dao.CategoriaDAO;
-import modelo.dao.UsuarioDAO;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import java.util.HashMap;
+import java.util.List;
+import modelo.beans.*;
+import modelo.dao.*;
 
 /**
  *
@@ -24,7 +17,20 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class NewMain {
 
     public static void main(String[] args) {
-        UsuarioDAO.getUsuarios();
+        //ClienteDAO.registrarCliente("Jonathan", "Vélez", "Álvarez", "XXXX000000AAA", "XXXX000000XXXXXX00", "9999K", 18);
+        ClienteDAO.actualizarCliente("Jonita", "Vélez", "Álvarez", "XXXX000000AAA", "XXXX000000XXXXXX00", "9999K", 18);
+        List<Cliente> clientes = ClienteDAO.getClientes();
+//        HashMap<String, String> filtros = new HashMap();
+//        filtros.put("apellidoPaterno", "LIKE '%Za%'");
+//        List<Cliente> clientes = ClienteDAO.buscar(filtros);
+        clientes.forEach((c) -> {
+            System.out.println(c);
+        });
+        ParametrosSucursal parametros = ParametrosSucursalDAO.getParametros();
+        System.out.println(parametros);
+        //ParametrosSucursalDAO.actualizarParametros(parametros.getIdSucursal(), parametros.getFondo(), parametros.getInteresOrdinario(), 2, parametros.getIdTipoPeriodo());
+        //parametros = ParametrosSucursalDAO.getParametros();
+        //System.out.println(parametros);
     }
 
 }

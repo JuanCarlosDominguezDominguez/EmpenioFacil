@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ParametrosSucursal">
+    
+    <select id="getParametros" resultType="modelo.beans.ParametrosSucursal">
+        SELECT 
+        parametrossucursal.idSucursal, 
+        parametrossucursal.fondo, 
+        parametrossucursal.interesOrdinario, 
+        parametrossucursal.interesAlmacen, 
+        parametrossucursal.tipoPeriodo AS idTipoPeriodo, 
+        categorias.nombre AS tipoPeriodo  
+        FROM empenio.parametrossucursal 
+        LEFT OUTER JOIN empenio.categorias ON parametrossucursal.tipoPeriodo = categorias.idCategoria 
+        LIMIT 1;
+    </select>
+    
+    <update id="actualizar" parameterType="map">
+        UPDATE empenio.parametrossucursal
+        SET 
+            fondo = #{fondo}, 
+            interesOrdinario = #{interesOrdinario}, 
+            interesAlmacen = #{interesAlmacen},
+            tipoPeriodo = #{idTipoPeriodo}
+        WHERE idSucursal = #{idSucursal};    
+    </update>
+    
+    
+    <!-->   
+    <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
+        SELECT * FROM empenio.usuario
+        WHERE #{criterios};
+    </select>
+    
+    <select id="buscarUsuarioParaLogin" resultType="modelo.beans.Usuario" parameterType="map">
+        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
+    </select>
+    
+    <delete id="eliminar" parameterType="string">
+        DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
+    </delete>
+    
+    <update id="actualizar" parameterType="map">
+        UPDATE empenio.usuario SET nombreCompleto = #{nombreCompleto},
+        contrasenia = #{contrasenia}, rol #{rol}
+        WHERE numPersonal = #{numPersonal};    
+    </update>
+        <-->
+</mapper>

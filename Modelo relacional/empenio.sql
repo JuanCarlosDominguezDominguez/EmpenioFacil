@@ -36,12 +36,13 @@ ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `empenio`.`ParametrosSucursal`
+-- Esta tabla solo ocupará una columna
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empenio`.`ParametrosSucursal` (
   `idSucursal` INT NOT NULL AUTO_INCREMENT,
-  `fondoInicio` FLOAT NOT NULL,
-  `interesOrdinario` VARCHAR(5) NOT NULL,
-  `interesAlmacen` VARCHAR(5) NOT NULL,
+  `fondo` INT NOT NULL, -- Guardado en centavos
+  `interesOrdinario` INT NOT NULL,
+  `interesAlmacen` INT NOT NULL,
   `tipoPeriodo` INT NOT NULL,
   PRIMARY KEY (`idSucursal`),
   INDEX `fk_ParametrosSucursal_Categorias1_idx` (`tipoPeriodo` ASC) VISIBLE,
@@ -84,7 +85,6 @@ CREATE TABLE IF NOT EXISTS `empenio`.`Cliente` (
   `numeroIdentificacion` VARCHAR(20) NOT NULL,
   `ocupacion` INT NOT NULL,
   `fechaIngreso` DATE NOT NULL,
-  `Clientecol` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`rfc`),
   INDEX `fk_Cliente_Categorias1_idx` (`ocupacion` ASC) VISIBLE,
   CONSTRAINT `fk_Cliente_Categorias1`
@@ -355,12 +355,15 @@ INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Semanal', '5');
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Quincenal', '5');
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Mensual', '5');
 
--- Creacipon de las subcategorias de ocupacion
+-- Creacion de las subcategorias de ocupacion
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Maestro', '6');
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Ingeniero', '6');
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Ama de casa', '6');
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Carpitero', '6');
 INSERT INTO categorias (nombre, Categorias_idCategoria) VALUES ('Mecanico', '6');
+
+-- Creación de parámetros de la sucursal
+INSERT INTO parametrossucursal (fondo, interesOrdinario, interesAlmacen, tipoPeriodo) VALUES (8000000, 8, 2, 14);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

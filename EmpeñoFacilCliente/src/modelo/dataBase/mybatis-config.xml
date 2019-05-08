@@ -10,9 +10,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED" >
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/empenio"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/empenio?serverTimezone=America/Mexico_City"/>
                 <property name="username" value="root"/>
-                <property name="password" value="12345"/>
+                <property name="password" value="toor"/>
                 <property name="poolMaximumActiveConnections" value="10"/>
             </dataSource>
         </environment>
@@ -22,5 +22,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <mappers> 
         <mapper resource="modelo/mappers/CategoriaMapper.xml"/>
         <mapper resource="modelo/mappers/UsuarioMapper.xml"/>
+        <mapper resource="modelo/mappers/ClienteMapper.xml"/>
+        <mapper resource="modelo/mappers/ParametrosSucursalMapper.xml"/>
     </mappers>
 </configuration>
