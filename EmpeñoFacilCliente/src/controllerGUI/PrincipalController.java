@@ -107,10 +107,10 @@ public class PrincipalController implements Initializable {
     @FXML
     void clientes(ActionEvent event) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarCliente.fxml"));
         Parent root = null;
         try {
-            root = loader.load(getClass().getResource("/gui/BuscarCliente.fxml").openStream());
+            root = loader.load();
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,16 +120,16 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
     void modificarParametros(ActionEvent event) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ModificarParametrosSucursal.fxml"));
         Parent root = null;
         try {
-            root = loader.load(getClass().getResource("/gui/ModificarParametrosSucursal.fxml").openStream());
+            root = loader.load();
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -145,10 +145,10 @@ public class PrincipalController implements Initializable {
     @FXML
     void registrarGastos(ActionEvent event) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/RegistrarGasto.fxml"));
         Parent root = null;
         try {
-            root = loader.load(getClass().getResource("/gui/RegistrarGastos.fxml").openStream());
+            root = loader.load();
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
