@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -92,6 +91,13 @@ public class BuscarUsuarioController implements Initializable {
     private TableColumn<Usuario, Date> colFechaIngreso;
 
     private Usuario usuario;
+    
+    @FXML
+    void restringirNumeroDePersonal(KeyEvent event) {
+        if(numPersonalTxt.getText().length() >= 11){
+            event.consume();
+        }
+    }
 
     @FXML
     public void obtenerUsuario(Usuario usuario) {
@@ -185,7 +191,7 @@ public class BuscarUsuarioController implements Initializable {
     public void cargarTabla() {
         colNumPersonal.setCellValueFactory(new PropertyValueFactory<>("numPersonal"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
-
+        colRol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colFechaIngreso.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -194,13 +200,12 @@ public class BuscarUsuarioController implements Initializable {
             listaUsuariosTb.getItems().addAll(usuarios.get(i));
             System.out.println(listaUsuariosTb.getColumns().get(1).getId());
         }
-
+        /*
         List<Categoria> roles = new ArrayList<>();
         roles = CategoriaDAO.obtenerTodosLosRoles();
-        colRol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         for (int i = 0; i < roles.size(); i++) {
             listaUsuariosTb.getItems().get(2).setRol(roles.get(i).getNombre());
-        }
+        }*/
 
     }
 

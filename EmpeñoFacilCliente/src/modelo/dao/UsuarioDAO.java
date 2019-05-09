@@ -65,7 +65,7 @@ public class UsuarioDAO {
         return false;
     }
 
-    public static boolean actualizarUsuario(String nombreCompleto, String contrasenia, String rol, String numPersonal) {
+    public static boolean actualizarUsuario(String nombreCompleto, String contrasenia, String rol, Integer numPersonal) {
         SqlSession conn = null;
         try {
             HashMap<String, Object> parametros = new HashMap<String, Object>();

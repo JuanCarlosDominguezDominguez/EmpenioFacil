@@ -37,7 +37,7 @@ import modelo.dao.UsuarioDAO;
  * @author Juuan
  */
 public class RegistrarUsuarioController implements Initializable {
-    
+
     /**
      * Initializes the controller class.
      */
@@ -45,7 +45,8 @@ public class RegistrarUsuarioController implements Initializable {
     private String contrasenia;
     private String rol;
     private static String tipo;
-    
+    private List<Categoria> roles;
+
     @FXML
     private Button guardarBtn;
 
@@ -60,15 +61,29 @@ public class RegistrarUsuarioController implements Initializable {
 
     @FXML
     private PasswordField contraseniaTxt;
-    
+
     private Usuario usuario;
+
+    @FXML
+    void restringirCintrasenia(KeyEvent event) {
+        if (contraseniaTxt.getText().length() >= 45) {
+            event.consume();
+        }
+    }
+
+    @FXML
+    void restringirNombre(KeyEvent event) {
+        if (nombreTxt.getText().length() >= 60) {
+            event.consume();
+        }
+    }
 
     public boolean validarCampos() {
         nombre = nombreTxt.getText();
         contrasenia = contraseniaTxt.getText();
         rol = rolCbx.getValue();
-        if(nombre != null && contrasenia != null && rol != null
-                && nombre.trim().length()>0 && contrasenia.trim().length()>0){
+        if (nombre != null && contrasenia != null && rol != null
+                && nombre.trim().length() > 0 && contrasenia.trim().length() > 0) {
             return true;
         }
         return false;
@@ -77,7 +92,7 @@ public class RegistrarUsuarioController implements Initializable {
     @FXML
     void cancelar(ActionEvent event) {
         Parent root;
-        ((Node)(event.getSource())).getScene().getWindow().hide(); 
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @FXML
@@ -86,39 +101,53 @@ public class RegistrarUsuarioController implements Initializable {
         contrasenia = contraseniaTxt.getText();
         rol = rolCbx.getValue();
         int idrol = 0;
-        for (int i = 0; i < categorias.size(); i++) {
-            if (categorias.get(i).getNombre().equals(rol)) {
-                idrol = categorias.get(i).getIdCategoria();
+        for (int i = 0; i < roles.size(); i++) {
+            if (roles.get(i).getNombre().equals(rol)) {
+                idrol = roles.get(i).getIdCategoria();
             }
         }
         if (validarCampos()) {
-            if (UsuarioDAO.registrarUsuario(nombre, contrasenia, Integer.toString(idrol))) {
-                JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente."); 
-                ((Node)(event.getSource())).getScene().getWindow().hide(); 
+            if (tipo.equals("nuevo")) {
+                if (UsuarioDAO.registrarUsuario(nombre, contrasenia, Integer.toString(idrol))) {
+                    JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente.");
+                    ((Node) (event.getSource())).getScene().getWindow().hide();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar al usuario");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar al usuario");
+                if (tipo.equals("modificar")) {
+                    if (UsuarioDAO.actualizarUsuario(nombre, contrasenia, Integer.toString(idrol), (Integer)usuario.getNumPersonal())) {
+                        JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo actualizar al usuario");
+                    }
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Los datos del usuario son incorrectos.");
         }
     }
 
-    private List<Categoria> categorias;
-
     public void cargarRoles() {
-        categorias = new ArrayList<Categoria>();
-        categorias = CategoriaDAO.obtenerTodosLosRoles();
+        roles = new ArrayList<Categoria>();
+        roles = CategoriaDAO.obtenerTodosLosRoles();
         ObservableList<String> acciones = FXCollections.observableArrayList();
-        for (int i = 0; i < categorias.size(); i++) {
-            acciones.add(categorias.get(i).getNombre());
+        for (int i = 0; i < roles.size(); i++) {
+            acciones.add(roles.get(i).getNombre());
         }
         rolCbx.setItems(acciones);
     }
-    
+
     @FXML
-    public void obtenerDatos(Usuario usuario, String tipo){
-        this.usuario = usuario;
-        this.tipo = tipo;
+    public void obtenerDatos(Usuario usuario, String tipo) {
+        if (usuario == null) {
+            this.tipo = tipo;
+        } else {
+            this.usuario = usuario;
+            this.tipo = tipo;
+            this.nombreTxt.setText(usuario.getNombreCompleto());
+        }
     }
 
     @Override

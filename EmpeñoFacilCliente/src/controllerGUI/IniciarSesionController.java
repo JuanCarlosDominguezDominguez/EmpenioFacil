@@ -48,6 +48,21 @@ public class IniciarSesionController implements Initializable {
 
     @FXML
     private TextField numeroDePersonalTxt;
+    
+     @FXML
+    void restringirContrasenia(KeyEvent event) {
+        if(contraseniaTxt.getText().length() >= 45){
+            event.consume();
+        }
+    }
+
+    @FXML
+    void restringirNumPersonal(KeyEvent event) {
+        if(numeroDePersonalTxt.getText().length() >= 11){
+            event.consume();
+        }
+    }
+
 
     @FXML
     void iniciarSesion(ActionEvent event) throws IOException {
@@ -63,7 +78,6 @@ public class IniciarSesionController implements Initializable {
                 principal.obtenerUsuario(usuario);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
-                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
                 ((Node) (event.getSource())).getScene().getWindow().hide();
             } else {

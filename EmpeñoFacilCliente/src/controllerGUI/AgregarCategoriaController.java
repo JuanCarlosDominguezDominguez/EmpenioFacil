@@ -39,6 +39,7 @@ public class AgregarCategoriaController implements Initializable {
      */
     private Categoria categoriaSelecionada;
     private String tipo;
+    private List<Categoria> categorias = new ArrayList<>();
 
     private String nombre;
     private String categoria;
@@ -53,7 +54,14 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     private TextField nombreCategoriaTxt;
-    
+
+    @FXML
+    void restringirNombre(KeyEvent event) {
+        if (nombreCategoriaTxt.getText().length() >= 30) {
+            event.consume();
+        }
+    }
+
     @FXML
     void obtenerDatos(Categoria categoria, String tipo) {
         if (categoria == null) {
@@ -85,20 +93,32 @@ public class AgregarCategoriaController implements Initializable {
     void guardar(ActionEvent event) {
         nombre = nombreCategoriaTxt.getText();
         categoria = categoriaCbx.getValue();
-        int idCategoria;
-        
-        if(tipo.equals("modificar")){
-            if(!existe()){
-                if(CategoriaDAO.actualizarCategoria(Integer.BYTES, nombre, Integer.MIN_VALUE)){
-                    
+        int idCategoria = 0;
+        for (int i = 0; i < categorias.size(); i++) {
+            if (categorias.get(i).getNombre().equalsIgnoreCase(categoria)) {
+                idCategoria = categorias.get(i).getIdCategoria();
+            }
+        }
+        if (validarCampos()) {
+            if (tipo.equals("nuevo")) {
+                if (CategoriaDAO.registrarCategoria(idCategoria, nombre)) {
+                    JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                    ((Node) (event.getSource())).getScene().getWindow().hide();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar la categoria");
+                }
+            } else {
+                if (tipo.equals("modificar")) {
+                    if (CategoriaDAO.actualizarCategoria(categoriaSelecionada.getIdCategoria(), nombre)) {
+                        JOptionPane.showMessageDialog(null, "Categoria actualizada exitosamente.");
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo actualizar la categoria");
+                    }
                 }
             }
-        }else{
-            if(tipo.equals("nuevo")){
-                if(!existe()){
-                    
-                }
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Los datos de la categoria son incorrectos.");
         }
     }
 
@@ -111,8 +131,6 @@ public class AgregarCategoriaController implements Initializable {
         }
         return false;
     }
-
-    private List<Categoria> categorias = new ArrayList<>();
 
     public void cargarCategoriasPrincipales() {
         categorias = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();

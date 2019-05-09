@@ -20,6 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE numPersonal = #{numPersonal};    
     </update>
     
+    <!--UPDATE usuario SET nombreCompleto = 'Prueba Actualizar', contrasenia = '1234'
+    -> , rol = 8 where numPersonal = 7; -->
+    
     <select id="obtenerUsuarios" resultType="modelo.beans.Usuario">
         SELECT * FROM empenio.usuario;
     </select>
