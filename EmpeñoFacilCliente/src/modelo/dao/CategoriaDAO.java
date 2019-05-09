@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.beans.Categoria;
 import modelo.dataBase.ConexionDB;
 import org.apache.ibatis.session.SqlSession;
@@ -19,6 +21,7 @@ import org.apache.ibatis.session.SqlSession;
  * @author Juuan
  */
 public class CategoriaDAO {
+
     public static boolean registrarCategoria(Integer idCategoria, String nombre) {
         SqlSession conn = null;
         try {
@@ -43,135 +46,16 @@ public class CategoriaDAO {
         }
         return false;
     }
-    
-    public static List<Categoria> buscarCategoriasRoles(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarCategoriasRoles");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    
-    public static List<Categoria> buscarCategoriasPrendas(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarCategoriasPrendas");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    
-    public static Categoria obtenerRol(String idCategoria){
-        Categoria categoria = new Categoria();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categoria = conn.selectOne("Categoria.obtenerRol", idCategoria);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categoria;
-    }
-    
-    public static List<Categoria> buscarCategoriasPrendasSecundarias(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarCategoriasPrendasSecundarias");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    
-    public static List<Categoria> buscarCategoriasVentaApartado(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarCategoriasVentaApartado");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    public static List<Categoria> buscarCategoriasPeriodos(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarCategoriasPeriodos");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    public static List<Categoria> buscarCategoriasOcupacion(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarCategoriasOcupacion");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    
-    public static List<Categoria> busquedaGeneral(HashMap<String, String> filtros) {
-        List<Categoria> resultado = new ArrayList<Categoria>();
+
+    public static boolean eliminarCategoria(int idCategoria) {
         SqlSession conn = null;
         try {
-            String criterios = "";
-
-            if (filtros != null) {
-                for (Map.Entry<String, String> entry : filtros.entrySet()) {
-                    String campo = entry.getKey();
-                    String valor = entry.getKey();
-
-                    criterios += (criterios.isEmpty())
-                            ? String.format("%s = '%s'", campo, valor)
-                            : String.format("AND %s = '%s'", campo, valor);
-                }
-
-                conn = ConexionDB.getSession();
-                resultado = conn.selectList("Categoria.busquedaGeneral", criterios);
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Categoria.eliminar", idCategoria);
+            conn.commit();
+            if (numerofilasafectadas > 0) {
+                return true;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -180,52 +64,16 @@ public class CategoriaDAO {
                 conn.close();
             }
         }
-        return resultado;
-    }
-    
-    public static List<Categoria> buscarTodasLasCategoriasDePrendas(){
-        List<Categoria> categorias = new ArrayList<Categoria>();
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.buscarTodasLasCategoriasDePrendas");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return categorias;
-    }
-    public static boolean eliminarCategoria(int idCategoria) {
-        SqlSession conn = null;
-        try{
-            conn = ConexionDB.getSession();
-            int numerofilasafectadas = 0;
-            numerofilasafectadas = conn.insert("Categoria.eliminar", idCategoria);
-            conn.commit();
-            if (numerofilasafectadas > 0) {
-                return true;
-            }
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            if (conn == null) {
-                conn.close();
-            }
-        }
         return false;
     }
 
-   public static boolean actualizarCategoria(Integer idCategoria, String nombre, Integer Categorias_idCategoria) {
+    public static boolean actualizarCategoria(Integer idCategoria, String nombre) {
         SqlSession conn = null;
         try {
             //LLAVE   VALOR
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("nombre", nombre);
             parametros.put("idCategoria", idCategoria);
-            parametros.put("Categorias_idCategoria", Categorias_idCategoria);
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
@@ -243,5 +91,197 @@ public class CategoriaDAO {
         }
         return false;
     }
-    
+
+    //BUSCAR CATEGORIAS POR ROL
+    public static List<Categoria> obtenerTodosLosRoles() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerTodosLosRoles");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    public static Categoria obtenerRolPorID(String idCategoria) {
+        Categoria categoria = new Categoria();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categoria = conn.selectOne("Categoria.obtenerRolPorID", idCategoria);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categoria;
+    }
+
+    public static Categoria obtenerRolPorNombre(String nombre) {
+        Categoria categoria = new Categoria();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categoria = conn.selectOne("Categoria.obtenerRolPorNombre", nombre);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categoria;
+    }
+
+    //BUSCAR CATEGORIAS POR PRENDAS
+    public static List<Categoria> obtenerCategoriasPrincipalesPrendas() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategoriasPrincipalesPrendas");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    public static List<Categoria> obtenerSubCategoriasPrendas() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerSubCategoriasPrendas");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    public static List<Categoria> buscarTodasLasCategoriasDePrendas() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.buscarTodasLasCategoriasDePrendas");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    //BUSCAR CATEGORIAS DE VENTA O APARTADO
+    public static List<Categoria> obtenerCategoriasVentaApartado() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategoriasVentaApartado");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    //BUSCAR CATEGORIAS DE PERIODOS
+    public static List<Categoria> obtenerCategoriasPeriodos() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategoriasPeriodos");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    //BUSCAR CATEGORIAS DE OCUPACIONES
+    public static List<Categoria> obtenerCategoriasOcupacion() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategoriasOcupacion");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    //BUSCAR CATEGORIA DE FORMA GENERAL
+    public static List<Categoria> busquedaGenerica(HashMap<String, String> filtros) {
+        List<Categoria> categorias = new ArrayList<>();
+        SqlSession conn = null;
+        String criterios = "";
+        try {
+            if (filtros != null) {
+                for (Map.Entry<String, String> entry : filtros.entrySet()) {
+                    String campo = entry.getKey();
+                    String valor = entry.getValue();
+
+                    criterios += (criterios.isEmpty())
+                            ? String.format("%s LIKE '%s'", campo, valor)
+                            : String.format("AND %s LIKE '%s'", campo, valor);
+                }
+                conn = ConexionDB.getSession();
+                categorias = conn.selectList("Categoria.busquedaGenerica", criterios);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (conn == null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    public static Categoria obtenerCategoriaNombre(String nombre) {
+        Categoria categoria = new Categoria();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categoria = conn.selectOne("Categoria.obtenerCategoriaNombre", nombre);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categoria;
+    }
 }

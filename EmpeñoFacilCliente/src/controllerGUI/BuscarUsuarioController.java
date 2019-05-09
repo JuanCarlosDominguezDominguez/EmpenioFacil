@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -92,6 +91,13 @@ public class BuscarUsuarioController implements Initializable {
     private TableColumn<Usuario, Date> colFechaIngreso;
 
     private Usuario usuario;
+    
+    @FXML
+    void restringirNumeroDePersonal(KeyEvent event) {
+        if(numPersonalTxt.getText().length() >= 11){
+            event.consume();
+        }
+    }
 
     @FXML
     public void obtenerUsuario(Usuario usuario) {
@@ -125,17 +131,22 @@ public class BuscarUsuarioController implements Initializable {
 
     @FXML
     void modificarUsuario(ActionEvent event) {
-        Categoria c = new Categoria();
-        if (categoriasTbl.getSelectionModel().getSelectedIndex() >= 0) {
-            c = categoriasTbl.getSelectionModel().getSelectedItem();
+        Usuario u = new Usuario();
+        if (listaUsuariosTb.getSelectionModel().getSelectedIndex() >= 0) {
+            u = listaUsuariosTb.getSelectionModel().getSelectedItem();
 
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
+            Parent root = null;
+            try {
+                root = loader.load(getClass().getResource("/gui/RegistrarUsuario.fxml").openStream());
+            } catch (IOException ex) {
+                Logger.getLogger(BuscarUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-            AgregarCategoriaController acc = (AgregarCategoriaController) loader.getController();
+            RegistrarUsuarioController ruc = (RegistrarUsuarioController) loader.getController();
 
-            acc.obtenerDatos(c, "modificar");
+            ruc.obtenerDatos(u, "modificar");
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -169,7 +180,7 @@ public class BuscarUsuarioController implements Initializable {
 
     public void cargarRoles() {
         categorias = new ArrayList<Categoria>();
-        categorias = CategoriaDAO.buscarCategoriasRoles();
+        categorias = CategoriaDAO.obtenerTodosLosRoles();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
             acciones.add(categorias.get(i).getNombre());
@@ -180,22 +191,21 @@ public class BuscarUsuarioController implements Initializable {
     public void cargarTabla() {
         colNumPersonal.setCellValueFactory(new PropertyValueFactory<>("numPersonal"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
-
+        colRol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colFechaIngreso.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
 
         List<Usuario> usuarios = new ArrayList<>();
-        usuarios = UsuarioDAO.getUsuarios();
+        usuarios = UsuarioDAO.obtenerUsuarios();
         for (int i = 0; i < usuarios.size(); i++) {
             listaUsuariosTb.getItems().addAll(usuarios.get(i));
             System.out.println(listaUsuariosTb.getColumns().get(1).getId());
         }
-
+        /*
         List<Categoria> roles = new ArrayList<>();
-        roles = CategoriaDAO.buscarCategoriasRoles();
-        colRol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        roles = CategoriaDAO.obtenerTodosLosRoles();
         for (int i = 0; i < roles.size(); i++) {
             listaUsuariosTb.getItems().get(2).setRol(roles.get(i).getNombre());
-        }
+        }*/
 
     }
 

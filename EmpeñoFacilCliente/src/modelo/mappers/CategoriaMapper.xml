@@ -10,42 +10,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES(#{nombre}, #{idCategoria});
     </insert>
     
-    <select id="buscarCategoriasRoles" resultType="modelo.beans.Categoria">
+    <delete id="eliminar" parameterType="int">
+        DELETE FROM empenio.categorias WHERE idCategoria = #{idCategoria};
+    </delete>
+    
+    <update id="actualizar" parameterType="map">
+        UPDATE empenio.categorias SET nombre = #{nombre}
+        WHERE idCategoria = #{idCategoria};    
+    </update>
+    
+    <!--BUSCAR CATEGORIAS DE ROL -->
+    <select id="obtenerTodosLosRoles" resultType="modelo.beans.Categoria">
         SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
     </select>
     
-    <select id="obtenerRol" resultType="modelo.beans.Categoria" parameterType="string">
+    <select id="obtenerRolPorID" resultType="modelo.beans.Categoria" parameterType="string">
         SELECT * FROM empenio.categorias WHERE idCategoria = #{idCategoria};
     </select>
     
-    <select id="buscarCategoriasPrendas" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categorias 
-        WHERE idCategoria = '2' OR idCategoria = '3'  ORDER BY nombre;
+    <select id="obtenerRolPorNombre" resultType="modelo.beans.Categoria" parameterType="string">
+        SELECT * FROM empenio.categorias WHERE nombre = #{nombre};
     </select>
     
-    <select id="buscarCategoriasPrendasSecundarias" resultType="modelo.beans.Categoria">
+    <!--BUSCAR CATEGORIAS DE PRENDAS -->
+    <select id="obtenerCategoriasPrincipalesPrendas" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias 
+        WHERE idCategoria = 2 OR idCategoria = 3 ORDER BY nombre;
+    </select>
+    
+    <select id="obtenerSubCategoriasPrendas" resultType="modelo.beans.Categoria">
         SELECT * FROM empenio.categorias 
         WHERE Categorias_idCategoria = '2' OR Categorias_idCategoria = '3'  ORDER BY nombre;
-    </select>
-    
-    <select id="buscarCategoriasVentaApartado" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categorias 
-        WHERE Categorias_idCategoria = '4' ORDER BY nombre;
-    </select>
-    
-    <select id="buscarCategoriasPeriodos" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categorias
-        WHERE Categorias_idCategoria = '5' ORDER BY nombre;
-    </select>
-    
-    <select id="buscarCategoriasOcupacion" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categorias
-        WHERE Categorias_idCategoria = '6' ORDER BY nombre;
-    </select>
-    
-    <select id="busquedaGenerica" resultType="modelo.beans.Categoria" parameterType="string">
-        SELECT * FROM empenio.categorias
-        WHERE #{criterios};
     </select>
     
     <select id="buscarTodasLasCategoriasDePrendas" resultType="modelo.beans.Categoria" >
@@ -53,13 +48,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         OR Categorias_idCategoria = 2 OR Categorias_idCategoria = 3;
     </select>
     
-    <delete id="eliminar" parameterType="int">
-        DELETE FROM empenio.categorias WHERE idCategoria = #{idCategoria};
-    </delete>
+    <!--BUSCAR CATEGORIAS DE VENTA O APARTADO -->
+    <select id="obtenerCategoriasVentaApartado" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias 
+        WHERE Categorias_idCategoria = '4' ORDER BY nombre;
+    </select>
     
-    <update id="actualizar" parameterType="map">
-        UPDATE empenio.categorias SET nombre = #{nombre}, Categorias_idCategoria = #{Categorias_idCategoria}
-        WHERE idCategoria = #{idCategoria};    
-    </update>
+    <!--BUSCAR CATEGORIAS DE PERIODOS -->
+    <select id="obtenerCategoriasPeriodos" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias
+        WHERE Categorias_idCategoria = '5' ORDER BY nombre;
+    </select>
+    
+    <!--BUSCAR CATEGORIAS DE OCUPACIONES -->
+    <select id="obtenerCategoriasOcupacion" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias
+        WHERE Categorias_idCategoria = '6' ORDER BY nombre;
+    </select>
+    
+    <!--BUSCAR CATEGORIAS DE FORMA GENERAL -->
+    <select id="busquedaGenerica" resultType="modelo.beans.Categoria" parameterType="string">
+        SELECT * FROM empenio.categorias
+        WHERE #{criterios};
+    </select>
+    
+    <select id="obtenerCategoriaNombre" resultType="modelo.beans.Categoria" parameterType="string">
+        SELECT * FROM empenio.categorias 
+        WHERE nombre = #{nombre}  ORDER BY nombre;
+    </select>
+    
+    
    
 </mapper>

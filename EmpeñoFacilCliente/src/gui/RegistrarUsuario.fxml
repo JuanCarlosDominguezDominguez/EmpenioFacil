@@ -19,8 +19,8 @@
             <ComboBox fx:id="rolCbx" layoutX="135.0" layoutY="125.0" prefHeight="25.0" prefWidth="210.0" style="-fx-background-color: #f2bc68;" />
             <Button fx:id="guardarBtn" layoutX="94.0" layoutY="238.0" mnemonicParsing="false" onAction="#guardar" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
             <Button fx:id="cancelarBtn" layoutX="241.0" layoutY="238.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
-            <TextField fx:id="nombreTxt" layoutX="135.0" layoutY="84.0" prefHeight="25.0" prefWidth="210.0" />
-            <PasswordField fx:id="contraseniaTxt" layoutX="135.0" layoutY="167.0" prefHeight="25.0" prefWidth="210.0" />
+            <TextField fx:id="nombreTxt" layoutX="135.0" layoutY="84.0" onKeyTyped="#restringirNombre" prefHeight="25.0" prefWidth="210.0" />
+            <PasswordField fx:id="contraseniaTxt" layoutX="135.0" layoutY="167.0" onKeyTyped="#restringirCintrasenia" prefHeight="25.0" prefWidth="210.0" />
          </children>
       </Pane>
    </children>

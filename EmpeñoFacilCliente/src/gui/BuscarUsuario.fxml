@@ -17,7 +17,7 @@
             <Label layoutX="31.0" layoutY="73.0" text="Número de personal:" />
             <Label layoutX="238.0" layoutY="73.0" text="Rol:" />
             <Label layoutX="446.0" layoutY="73.0" text="Fecha:" />
-            <TextField fx:id="numPersonalTxt" layoutX="31.0" layoutY="97.0" prefHeight="25.0" prefWidth="188.0" />
+            <TextField fx:id="numPersonalTxt" layoutX="31.0" layoutY="97.0" onKeyTyped="#restringirNumeroDePersonal" prefHeight="25.0" prefWidth="188.0" />
             <ComboBox fx:id="rolCbx" layoutX="238.0" layoutY="97.0" prefHeight="25.0" prefWidth="188.0" style="-fx-background-color: #f2bc68;" />
             <DatePicker fx:id="fechaTxt" editable="false" layoutX="446.0" layoutY="97.0" prefHeight="25.0" prefWidth="188.0" />
             <Button fx:id="buscarBtn" layoutX="544.0" layoutY="150.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #f2bc68;" text="Buscar" />

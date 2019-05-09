@@ -10,23 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES(#{nombreCompleto},#{contrasenia},#{rol},NOW());
     </insert>
     
-    <select id="getUsuarios" resultType="modelo.beans.Usuario">
-        SELECT * FROM empenio.usuario;
-    </select>
-    
-    <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
-        SELECT * FROM empenio.usuario
-        WHERE #{criterios};
-    </select>
-    
-    <select id="buscarUsuarioParaLogin" resultType="int" parameterType="map">
-        SELECT COUNT(*) FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
-    </select>
-    
-    <select id="obtenerUsuario" resultType="modelo.beans.Usuario" parameterType="string">
-        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal};
-    </select>
-    
     <delete id="eliminar" parameterType="int">
         DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
     </delete>
@@ -36,5 +19,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         contrasenia = #{contrasenia}, rol #{rol}
         WHERE numPersonal = #{numPersonal};    
     </update>
+    
+    <!--UPDATE usuario SET nombreCompleto = 'Prueba Actualizar', contrasenia = '1234'
+    -> , rol = 8 where numPersonal = 7; -->
+    
+    <select id="obtenerUsuarios" resultType="modelo.beans.Usuario">
+        SELECT * FROM empenio.usuario;
+    </select>
+    
+    <select id="obtenerUsuarioParaLogin" resultType="int" parameterType="map">
+        SELECT COUNT(*) FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
+    </select>
+    
+    <select id="obtenerUsuarioPorNumeroDePersonal" resultType="modelo.beans.Usuario" parameterType="string">
+        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal};
+    </select>
+    
+    <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
+        SELECT * FROM empenio.usuario
+        WHERE #{criterios};
+    </select>
        
 </mapper>
