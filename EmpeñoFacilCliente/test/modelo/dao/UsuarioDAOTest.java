@@ -38,14 +38,14 @@ public class UsuarioDAOTest {
         assertEquals("Usuario eliminado", valorEsperado, valorObtenido);
     }
     
-    /*@Test
+    @Test
     public void eliminarUsuarioFracaso(){
         boolean valorEsperado = false;
         boolean valorObtenido = UsuarioDAO.eliminarUsuario(100);
         assertEquals("Usuario no eliminado", valorEsperado, valorObtenido);
-    }*/
+    }
     
-    public void actualizarUsuarioExito(){
+    /*public void actualizarUsuarioExito(){
         boolean valorEsperado = true;
         boolean valorObtenido = UsuarioDAO.actualizarUsuario();
         assertEquals("Usuario actualizado", valorEsperado, valorObtenido);
@@ -55,5 +55,5 @@ public class UsuarioDAOTest {
         boolean valorEsperado = false;
         boolean valorObtenido = UsuarioDAO.actualizarUsuario();
         assertEquals("Usuario no actualizado", valorEsperado, valorObtenido);
-    }
+    }*/
 }
