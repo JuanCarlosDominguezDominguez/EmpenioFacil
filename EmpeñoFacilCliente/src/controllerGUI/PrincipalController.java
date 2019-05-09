@@ -56,10 +56,22 @@ public class PrincipalController implements Initializable {
     private MenuItem adminUsuariosMenuItem;
 
     @FXML
+    private MenuItem modificarParametrosMenuItem;
+
+    @FXML
+    private MenuItem aumentarFondosMenuItem;
+
+    @FXML
     private Menu gerenteMenu;
 
     @FXML
+    private MenuItem registrarGastosMenuItem;
+
+    @FXML
     private Menu usuarioMenu;
+
+    @FXML
+    private MenuItem clientesMenuItem;
 
     @FXML
     private Menu bodegueroMenu;
@@ -96,6 +108,82 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
+    void clientes(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarCliente.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
+    void modificarParametros(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ModificarParametrosSucursal.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
+    void registrarGastos(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/RegistrarGasto.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
+    void aumentarFondos(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/AumentoFondos.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
     void cerrarSesion(ActionEvent event) {
         Parent root = null;
         try {
@@ -107,7 +195,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         escenario.setScene(scene);
         escenario.show();
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML

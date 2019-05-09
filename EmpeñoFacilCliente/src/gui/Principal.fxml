@@ -39,16 +39,18 @@
                       <Menu fx:id="administradorMenu" mnemonicParsing="false" text="Administrador">
                            <items>
                               <MenuItem fx:id="adminUsuariosMenuItem" mnemonicParsing="false" onAction="#administrarUsuarios" text="Administrar usuarios" />
+                              <MenuItem fx:id="modificarParametrosMenuItem" mnemonicParsing="false" onAction="#modificarParametros" text="Modificar parametros de sucursal" />
+                              <MenuItem fx:id="aumentarFondosMenuItem" mnemonicParsing="false" onAction="#aumentarFondos" text="Aumentar fondos" />
                            </items>
                       </Menu>
                         <Menu fx:id="gerenteMenu" mnemonicParsing="false" text="Gerente">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem fx:id="registrarGastosMenuItem" mnemonicParsing="false" onAction="#registrarGastos" text="Registrar gastos" />
                           </items>
                         </Menu>
                       <Menu fx:id="usuarioMenu" mnemonicParsing="false" text="Usuario">
                         <items>
-                              <MenuItem mnemonicParsing="false" text="Algo" />
+                              <MenuItem fx:id="clientesMenuItem" mnemonicParsing="false" onAction="#clientes" text="Clientes" />
                         </items>
                       </Menu>
                       <Menu fx:id="bodegueroMenu" mnemonicParsing="false" text="Bodeguero">
