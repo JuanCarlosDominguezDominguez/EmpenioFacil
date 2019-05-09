@@ -28,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
+import modelo.beans.Usuario;
 import modelo.dao.CategoriaDAO;
 
 /**
@@ -69,6 +70,13 @@ public class BuscarCategoriaController implements Initializable {
 
     @FXML
     private ComboBox<String> subcategoriasCbx;
+    
+    private Usuario usuario;
+
+    @FXML
+    public void obtenerUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @FXML
     void buscarCategorias(ActionEvent event) {
@@ -138,7 +146,7 @@ public class BuscarCategoriaController implements Initializable {
 
     public void cargarCategoriasPrincipales() {
         categoriasPrincipales = new ArrayList<Categoria>();
-        categoriasPrincipales = CategoriaDAO.buscarCategoriasPrendas();
+        categoriasPrincipales = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categoriasPrincipales.size(); i++) {
             acciones.add(categoriasPrincipales.get(i).getNombre());
@@ -149,7 +157,7 @@ public class BuscarCategoriaController implements Initializable {
 
     public void cargarSubCategorias() {
         subcategorias = new ArrayList<Categoria>();
-        subcategorias = CategoriaDAO.buscarCategoriasPrendasSecundarias();
+        subcategorias = CategoriaDAO.obtenerSubCategoriasPrendas();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < subcategorias.size(); i++) {
             acciones.add(subcategorias.get(i).getNombre());

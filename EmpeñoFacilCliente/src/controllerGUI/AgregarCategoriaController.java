@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
+import modelo.beans.Usuario;
 import modelo.dao.CategoriaDAO;
 import utileria.Validar;
 
@@ -52,7 +53,7 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     private TextField nombreCategoriaTxt;
-
+    
     @FXML
     void obtenerDatos(Categoria categoria, String tipo) {
         if (categoria == null) {
@@ -82,79 +83,27 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void guardar(ActionEvent event) {
-        System.out.println(nombreCategoriaTxt.getText());
-        System.out.println(categoriaCbx.getValue());
-        if (validarCampos()) {
-            if (!existe()) {
-                if (tipo.equals("nuevo")) {
-                    if (categoriaCbx.getValue().equals(null)) {
-                        //Guarda una categoria principal nueva
-                        CategoriaDAO.registrarCategoria(null, nombreCategoriaTxt.getText());
-
-                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                        BuscarCategoriaController bcc = new BuscarCategoriaController();
-                        bcc.categoriasTbl.getItems().clear();
-                        bcc.cargarTabla();
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
-                    } else {
-                        //Guarda una subcategoria nueva
-                        int idCategoria = 0;
-                        for (int i = 0; i < categorias.size(); i++) {
-                            if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
-                                idCategoria = categorias.get(i).getIdCategoria();
-                            }
-                        }
-                        CategoriaDAO.registrarCategoria(idCategoria, nombreCategoriaTxt.getText());
-
-                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                        BuscarCategoriaController bcc = new BuscarCategoriaController();
-                        bcc.categoriasTbl.getItems().clear();
-                        bcc.cargarTabla();
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
-                    }
-                } else {
-                    if (categoriaSelecionada.getCategorias_IdCategoria() < 0) {
-                        //Actualiza una Categoria principal
-                        int idCategoria = 0;
-                        for (int i = 0; i < categorias.size(); i++) {
-                            if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
-                                idCategoria = categorias.get(i).getIdCategoria();
-                            }
-                        }
-                        CategoriaDAO.actualizarCategoria(idCategoria, nombreCategoriaTxt.getText(), null);
-
-                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                        BuscarCategoriaController bcc = new BuscarCategoriaController();
-                        bcc.categoriasTbl.getItems().clear();
-                        bcc.cargarTabla();
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
-                    } else {
-                        //Actualiza una subcategoria
-                        int idCategoria = 0;
-                        for (int i = 0; i < categorias.size(); i++) {
-                            if (categorias.get(i).getNombre().equals(categoriaCbx.getValue())) {
-                                idCategoria = categorias.get(i).getIdCategoria();
-                            }
-                        }
-                        CategoriaDAO.actualizarCategoria(idCategoria, nombreCategoriaTxt.getText(), categoriaSelecionada.getCategorias_IdCategoria());
-
-                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                        BuscarCategoriaController bcc = new BuscarCategoriaController();
-                        bcc.categoriasTbl.getItems().clear();
-                        bcc.cargarTabla();
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
-                    }
+        nombre = nombreCategoriaTxt.getText();
+        categoria = categoriaCbx.getValue();
+        int idCategoria;
+        
+        if(tipo.equals("modificar")){
+            if(!existe()){
+                if(CategoriaDAO.actualizarCategoria(Integer.BYTES, nombre, Integer.MIN_VALUE)){
+                    
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "El nombre de la categoria ya existe.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "El nombre de la categoria es incorrecto o un campo esta vacio.");
+        }else{
+            if(tipo.equals("nuevo")){
+                if(!existe()){
+                    
+                }
+            }
         }
     }
 
     public boolean existe() {
-        List<Categoria> categoriasSecundarias = CategoriaDAO.buscarCategoriasPrendasSecundarias();
+        List<Categoria> categoriasSecundarias = CategoriaDAO.obtenerSubCategoriasPrendas();
         for (int i = 0; i < categoriasSecundarias.size(); i++) {
             if (nombreCategoriaTxt.getText().equals(categoriasSecundarias.get(i).getNombre())) {
                 return true;
@@ -166,7 +115,7 @@ public class AgregarCategoriaController implements Initializable {
     private List<Categoria> categorias = new ArrayList<>();
 
     public void cargarCategoriasPrincipales() {
-        categorias = CategoriaDAO.buscarCategoriasPrendas();
+        categorias = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
             acciones.add(categorias.get(i).getNombre());

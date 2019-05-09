@@ -27,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
+import modelo.beans.Usuario;
 import modelo.dao.CategoriaDAO;
 import modelo.dao.UsuarioDAO;
 
@@ -59,6 +60,8 @@ public class RegistrarUsuarioController implements Initializable {
 
     @FXML
     private PasswordField contraseniaTxt;
+    
+    private Usuario usuario;
 
     public boolean validarCampos() {
         nombre = nombreTxt.getText();
@@ -104,7 +107,7 @@ public class RegistrarUsuarioController implements Initializable {
 
     public void cargarRoles() {
         categorias = new ArrayList<Categoria>();
-        categorias = CategoriaDAO.buscarCategoriasRoles();
+        categorias = CategoriaDAO.obtenerTodosLosRoles();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
             acciones.add(categorias.get(i).getNombre());
@@ -112,8 +115,10 @@ public class RegistrarUsuarioController implements Initializable {
         rolCbx.setItems(acciones);
     }
     
-    public void obtenerUsuario(){
-        
+    @FXML
+    public void obtenerDatos(Usuario usuario, String tipo){
+        this.usuario = usuario;
+        this.tipo = tipo;
     }
 
     @Override
