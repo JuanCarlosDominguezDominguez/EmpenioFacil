@@ -80,7 +80,7 @@ public class BuscarCategoriaController implements Initializable {
 
     @FXML
     void buscarCategorias(ActionEvent event) {
-
+        
     }
 
     @FXML

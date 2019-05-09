@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.beans.Categoria;
 import modelo.dataBase.ConexionDB;
 import org.apache.ibatis.session.SqlSession;
@@ -64,7 +66,7 @@ public class CategoriaDAO {
         }
         return false;
     }
-    
+
     public static boolean actualizarCategoria(Integer idCategoria, String nombre) {
         SqlSession conn = null;
         try {
@@ -89,7 +91,7 @@ public class CategoriaDAO {
         }
         return false;
     }
-    
+
     //BUSCAR CATEGORIAS POR ROL
     public static List<Categoria> obtenerTodosLosRoles() {
         List<Categoria> categorias = new ArrayList<Categoria>();
@@ -106,12 +108,13 @@ public class CategoriaDAO {
         }
         return categorias;
     }
+
     public static Categoria obtenerRolPorID(String idCategoria) {
         Categoria categoria = new Categoria();
         SqlSession conn = null;
         try {
             conn = ConexionDB.getSession();
-            categoria = conn.selectOne("Categoria.obtenerRolPorID",idCategoria);
+            categoria = conn.selectOne("Categoria.obtenerRolPorID", idCategoria);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -121,13 +124,13 @@ public class CategoriaDAO {
         }
         return categoria;
     }
-    
+
     public static Categoria obtenerRolPorNombre(String nombre) {
         Categoria categoria = new Categoria();
         SqlSession conn = null;
         try {
             conn = ConexionDB.getSession();
-            categoria = conn.selectOne("Categoria.obtenerRolPorNombre",nombre);
+            categoria = conn.selectOne("Categoria.obtenerRolPorNombre", nombre);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -137,7 +140,7 @@ public class CategoriaDAO {
         }
         return categoria;
     }
-    
+
     //BUSCAR CATEGORIAS POR PRENDAS
     public static List<Categoria> obtenerCategoriasPrincipalesPrendas() {
         List<Categoria> categorias = new ArrayList<Categoria>();
@@ -154,7 +157,7 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
+
     public static List<Categoria> obtenerSubCategoriasPrendas() {
         List<Categoria> categorias = new ArrayList<Categoria>();
         SqlSession conn = null;
@@ -170,7 +173,7 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
+
     public static List<Categoria> buscarTodasLasCategoriasDePrendas() {
         List<Categoria> categorias = new ArrayList<Categoria>();
         SqlSession conn = null;
@@ -186,7 +189,7 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
+
     //BUSCAR CATEGORIAS DE VENTA O APARTADO
     public static List<Categoria> obtenerCategoriasVentaApartado() {
         List<Categoria> categorias = new ArrayList<Categoria>();
@@ -203,7 +206,7 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
+
     //BUSCAR CATEGORIAS DE PERIODOS
     public static List<Categoria> obtenerCategoriasPeriodos() {
         List<Categoria> categorias = new ArrayList<Categoria>();
@@ -220,7 +223,7 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
+
     //BUSCAR CATEGORIAS DE OCUPACIONES
     public static List<Categoria> obtenerCategoriasOcupacion() {
         List<Categoria> categorias = new ArrayList<Categoria>();
@@ -237,14 +240,41 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
+
     //BUSCAR CATEGORIA DE FORMA GENERAL
+    public static List<Categoria> busquedaGenerica(HashMap<String, String> filtros) {
+        List<Categoria> categorias = new ArrayList<>();
+        SqlSession conn = null;
+        String criterios = "";
+        try {
+            if (filtros != null) {
+                for (Map.Entry<String, String> entry : filtros.entrySet()) {
+                    String campo = entry.getKey();
+                    String valor = entry.getValue();
+
+                    criterios += (criterios.isEmpty())
+                            ? String.format("%s LIKE '%s'", campo, valor)
+                            : String.format("AND %s LIKE '%s'", campo, valor);
+                }
+                conn = ConexionDB.getSession();
+                categorias = conn.selectList("Categoria.busquedaGenerica", criterios);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            if (conn == null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
     public static Categoria obtenerCategoriaNombre(String nombre) {
         Categoria categoria = new Categoria();
         SqlSession conn = null;
         try {
             conn = ConexionDB.getSession();
-            categoria = conn.selectOne("Categoria.obtenerCategoriaNombre",nombre);
+            categoria = conn.selectOne("Categoria.obtenerCategoriaNombre", nombre);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
