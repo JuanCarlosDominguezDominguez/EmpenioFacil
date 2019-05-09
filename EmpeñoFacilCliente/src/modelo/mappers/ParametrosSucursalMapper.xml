@@ -18,17 +18,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         LIMIT 1;
     </select>
     
-    <update id="actualizar" parameterType="map">
+    <update id="actualizarParametros" parameterType="map">
         UPDATE empenio.parametrossucursal
-        SET 
-            fondo = #{fondo}, 
+        SET  
             interesOrdinario = #{interesOrdinario}, 
             interesAlmacen = #{interesAlmacen},
             tipoPeriodo = #{idTipoPeriodo}
         WHERE idSucursal = #{idSucursal};    
     </update>
     
+    <update id="actualizarFondo" parameterType="map">
+        UPDATE empenio.parametrossucursal
+        SET  
+            fondo = fondo + #{monto}
+        WHERE idSucursal = #{idSucursal};    
+    </update>
     
+    <select id="getPeriodos" resultType="modelo.beans.Periodo" >
+        SELECT categorias.idCategoria, categorias.nombre 
+        FROM empenio.categorias 
+        WHERE Categorias_idCategoria = 5;
+    </select>
     <!-->   
     <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
         SELECT * FROM empenio.usuario

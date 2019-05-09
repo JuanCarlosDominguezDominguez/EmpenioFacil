@@ -18,7 +18,7 @@ public class Validar {
     //private Pattern patronCadenaEntero = Pattern.compile("A-Za-z0-9 ");
     
     public static boolean validarCadena(String cadena){
-        return cadena.matches("^[a-zA-Z ]+$");
+        return cadena.matches("^[a-zA-ZáéíóúÁÉÍÓÚ ]+$");
     }
     
     public static boolean validarEntero(String entero){
@@ -26,6 +26,10 @@ public class Validar {
     }
     
     public static boolean validarCadenaEntero(String cadena){
-        return cadena.matches("^[a-zA-Z0-9]+$");
+        return cadena.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚ ]+$");
+    }
+    
+    public static boolean validarMoneda(String entero){
+        return entero.matches("^([0-9]+)(.[0-9][0-9])?$");
     }
 }
