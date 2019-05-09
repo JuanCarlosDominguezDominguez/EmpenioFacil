@@ -40,6 +40,7 @@
                            <items>
                               <MenuItem fx:id="adminUsuariosMenuItem" mnemonicParsing="false" onAction="#administrarUsuarios" text="Administrar usuarios" />
                               <MenuItem fx:id="modificarParametrosMenuItem" mnemonicParsing="false" onAction="#modificarParametros" text="Modificar parametros de sucursal" />
+                              <MenuItem fx:id="aumentarFondosMenuItem" mnemonicParsing="false" onAction="#aumentarFondos" text="Aumentar fondos" />
                            </items>
                       </Menu>
                         <Menu fx:id="gerenteMenu" mnemonicParsing="false" text="Gerente">

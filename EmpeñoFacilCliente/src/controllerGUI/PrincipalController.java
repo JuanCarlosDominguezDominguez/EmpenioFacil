@@ -59,6 +59,9 @@ public class PrincipalController implements Initializable {
     private MenuItem modificarParametrosMenuItem;
 
     @FXML
+    private MenuItem aumentarFondosMenuItem;
+
+    @FXML
     private Menu gerenteMenu;
 
     @FXML
@@ -139,7 +142,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
@@ -158,7 +161,26 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
+    void aumentarFondos(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/AumentoFondos.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
@@ -173,7 +195,7 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         escenario.setScene(scene);
         escenario.show();
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
