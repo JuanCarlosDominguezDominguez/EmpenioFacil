@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import modelo.beans.Cliente;
+import modelo.beans.Ocupacion;
 import modelo.dataBase.ConexionDB;
 import org.apache.ibatis.session.SqlSession;
 
@@ -86,13 +87,22 @@ public class ClienteDAO {
                     }
                     criterios += String.format("%s %s ", campo, condicion);
                 }
-                System.out.println(criterios);
                 resultado = conn.selectList("Cliente.busqueda", criterios);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return resultado;
+    }
+    
+    public static List<Ocupacion> getOcupaciones() {
+        List<Ocupacion> ocupaciones = new ArrayList<>();
+        try (SqlSession conn = ConexionDB.getSession()) {
+            ocupaciones = conn.selectList("Cliente.getOcupaciones");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return ocupaciones;
     }
 
 }

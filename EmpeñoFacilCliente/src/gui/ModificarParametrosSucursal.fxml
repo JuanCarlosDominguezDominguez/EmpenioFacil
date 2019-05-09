@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="218.0" prefWidth="594.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controllerGUI.ModificarParametrosSucursalController">
+    <stylesheets>
+        <URL value="@estilos.css" />
+    </stylesheets>
+   <children>
+      <Pane layoutX="-5.0" layoutY="-7.0" prefHeight="225.0" prefWidth="602.0" styleClass="mainPane">
+         <children>
+            <Pane layoutX="30.0" layoutY="20.0" prefHeight="54.0" prefWidth="550.0" styleClass="topPane">
+               <children>
+                  <Label layoutX="214.0" layoutY="13.0" text="Parámetros de sucursal" />
+               </children>
+            </Pane>
+            <Label layoutX="30.0" layoutY="89.0" text="Interés Ordinario:" />
+            <Label layoutX="199.0" layoutY="89.0" text="Interés almacén:" />
+            <Label layoutX="400.0" layoutY="89.0" text="Tipo de periodo:" />
+            <TextField fx:id="txtInteresOrdinario" layoutX="30.0" layoutY="106.0" prefHeight="25.0" prefWidth="59.0" />
+            <TextField fx:id="txtInteresAlmacen" layoutX="199.0" layoutY="106.0" prefHeight="25.0" prefWidth="59.0" />
+            <ComboBox fx:id="cmbTipoPeriodo" layoutX="400.0" layoutY="106.0" prefWidth="150.0" />
+            <Label layoutX="94.0" layoutY="110.0" text="\%" />
+            <Label layoutX="266.0" layoutY="110.0" text="\%" />
+            <Button layoutX="471.0" layoutY="155.0" mnemonicParsing="false" onAction="#guardar" prefHeight="39.0" prefWidth="79.0" text="Guardar" />
+            <Button cancelButton="true" layoutX="376.0" layoutY="155.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="39.0" prefWidth="79.0" text="Cancelar" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

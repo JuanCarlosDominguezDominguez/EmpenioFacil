@@ -95,7 +95,13 @@ public class Cliente {
     }
 
     public Date getFechaIngreso() {
-        return fechaIngreso;
+        Date d = new Date(fechaIngreso.getTime()){
+            @Override
+            public String toString(){
+                return "" + this.getDate() + "/" + (this.getMonth() + 1) + "/" + ( 1900 + this.getYear());
+            }
+        };
+        return d;
     }
 
     public void setFechaIngreso(Date fechaIngreso) {

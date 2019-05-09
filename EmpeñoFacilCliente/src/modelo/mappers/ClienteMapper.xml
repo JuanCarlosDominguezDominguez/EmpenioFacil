@@ -67,6 +67,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE rfc = #{rfc};    
     </update>
     
+    <select id="getOcupaciones" resultType="modelo.beans.Ocupacion" >
+        SELECT categorias.idCategoria, categorias.nombre 
+        FROM empenio.categorias 
+        WHERE Categorias_idCategoria = 6;
+    </select>
     
     <!-->   
     <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">

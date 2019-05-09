@@ -1,0 +1,27 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.mainPane {
+    -fx-background-color: #E3CFAF;
+}
+
+.topPane {
+    -fx-background-color: #f2bc68;
+}
+
+Button {
+    -fx-background-color: #f2bc68;
+}
+
+TableView {
+    -fx-background-color: #f2bc68;
+}
+
+ComboBox {
+    -fx-background-color: #f2bc68;
+}
