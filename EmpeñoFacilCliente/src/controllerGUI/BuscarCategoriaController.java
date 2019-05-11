@@ -91,8 +91,7 @@ public class BuscarCategoriaController implements Initializable {
             if (opcion == 0) {
                 int identificador = categoriasTbl.getSelectionModel().getSelectedItem().getIdCategoria();
                 if (CategoriaDAO.eliminarCategoria(identificador)) {
-                    categoriasTbl.getItems().clear();
-                    cargarTabla();
+                    inicializarComunas();
                     JOptionPane.showMessageDialog(null, "La Categoria seleccionada se ha eliminado correctamente.");
                 } else {
                     JOptionPane.showMessageDialog(null, "La Categoria seleccionada no se pudo eliminar.");
@@ -119,7 +118,8 @@ public class BuscarCategoriaController implements Initializable {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            stage.showAndWait();
+            inicializarComunas();
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas modificar.");
         }
@@ -137,8 +137,8 @@ public class BuscarCategoriaController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-
+        stage.showAndWait();
+        inicializarComunas();
     }
 
     private List<Categoria> categoriasPrincipales;
@@ -164,15 +164,19 @@ public class BuscarCategoriaController implements Initializable {
         }
         subcategoriasCbx.setItems(acciones);
     }
-
-    @FXML
-    public void cargarTabla() {
+    
+    private void inicializarComunas(){
         categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        //subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-
-        List<Categoria> categorias = new ArrayList<>();
-        categorias = CategoriaDAO.buscarTodasLasCategoriasDePrendas();
-
+        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+    }
+    
+    private void inicializarTabla(){
+        List<Categoria> categorias =CategoriaDAO.buscarTodasLasCategoriasDePrendas();
+        cargarTabla(categorias);
+    }
+    @FXML
+    public void cargarTabla(List<Categoria> categorias) {        
+        categoriasTbl.getItems().clear();
         for (int i = 0; i < categorias.size(); i++) {
             if (categorias.get(i).getCategorias_IdCategoria() == 0) {
                 System.out.println(categorias.get(i).toString());
@@ -193,7 +197,8 @@ public class BuscarCategoriaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cargarCategoriasPrincipales();
         cargarSubCategorias();
-        cargarTabla();
+        inicializarComunas();
+        inicializarTabla();
     }
 
 }

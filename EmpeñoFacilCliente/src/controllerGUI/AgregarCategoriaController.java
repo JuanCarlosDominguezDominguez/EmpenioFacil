@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
 import modelo.beans.Usuario;
@@ -86,7 +87,7 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void cancelar(ActionEvent event) {
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
@@ -103,7 +104,7 @@ public class AgregarCategoriaController implements Initializable {
             if (tipo.equals("nuevo")) {
                 if (CategoriaDAO.registrarCategoria(idCategoria, nombre)) {
                     JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                    ((Node) (event.getSource())).getScene().getWindow().hide();
+                    ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo registrar la categoria");
                 }
@@ -111,7 +112,7 @@ public class AgregarCategoriaController implements Initializable {
                 if (tipo.equals("modificar")) {
                     if (CategoriaDAO.actualizarCategoria(categoriaSelecionada.getIdCategoria(), nombre)) {
                         JOptionPane.showMessageDialog(null, "Categoria actualizada exitosamente.");
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo actualizar la categoria");
                     }

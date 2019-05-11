@@ -91,8 +91,7 @@ public class RegistrarUsuarioController implements Initializable {
 
     @FXML
     void cancelar(ActionEvent event) {
-        Parent root;
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
@@ -110,7 +109,7 @@ public class RegistrarUsuarioController implements Initializable {
             if (tipo.equals("nuevo")) {
                 if (UsuarioDAO.registrarUsuario(nombre, contrasenia, Integer.toString(idrol))) {
                     JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente.");
-                    ((Node) (event.getSource())).getScene().getWindow().hide();
+                    ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo registrar al usuario");
                 }
@@ -118,7 +117,7 @@ public class RegistrarUsuarioController implements Initializable {
                 if (tipo.equals("modificar")) {
                     if (UsuarioDAO.actualizarUsuario(nombre, contrasenia, Integer.toString(idrol), (Integer)usuario.getNumPersonal())) {
                         JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo actualizar al usuario");
                     }
@@ -147,13 +146,14 @@ public class RegistrarUsuarioController implements Initializable {
             this.usuario = usuario;
             this.tipo = tipo;
             this.nombreTxt.setText(usuario.getNombreCompleto());
+            this.rolCbx.setValue(usuario.getNombreRol());
+            this.contraseniaTxt.setText(usuario.getContrasenia());
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarRoles();
-        System.out.println("el tipo es: " + tipo);
     }
 
 }

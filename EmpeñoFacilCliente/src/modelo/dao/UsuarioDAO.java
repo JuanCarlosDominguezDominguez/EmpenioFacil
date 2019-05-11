@@ -125,6 +125,29 @@ public class UsuarioDAO {
         }
         return existe;
     }
+    
+    public static List<Usuario> busquedaGenerica(HashMap<String, String> filtros){
+        List<Usuario> usuarios = new ArrayList<>();
+        SqlSession conn = null;
+        String criterios = "";
+        try{
+            if(filtros != null){
+                for(Map.Entry<String, String> entry : filtros.entrySet()){
+                    String campo = entry.getKey();
+                    String condicion = entry.getValue();
+                    if(!criterios.isEmpty()){
+                        criterios += "AND ";
+                    }
+                    criterios += String.format("%s %s ", campo, condicion);
+                }
+                System.out.println(conn.selectList("Usuario.busquedaGenerica", criterios).size());
+                usuarios = conn.selectList("Usuario.busquedaGenerica", criterios);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return usuarios;
+    }
 
     public static Usuario obtenerUsuarioPorNumeroDePersonal(String numPersonal) {
         Usuario usuario = new Usuario();

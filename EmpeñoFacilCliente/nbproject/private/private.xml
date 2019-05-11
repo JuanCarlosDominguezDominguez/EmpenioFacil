@@ -1,43 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
-        <file>
-            <url>src/controllerGUI/BuscarUsuarioController.java</url>
-            <bookmark id="2">
-                <name/>
-                <line>92</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/controllerGUI/IniciarSesionController.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>49</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dao/UsuarioDAO.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarUsuarioController.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarCategoriaController.java</file>
             <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/RegistrarUsuarioController.java</file>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/test/modelo/dao/UsuarioDAOTest.java</file>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/PrincipalController.java</file>
-=======
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/gui/BuscarCliente.fxml</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarUsuarioController.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dao/ParametrosSucursalDAO.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/AumentoFondosController.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/gui/RegistrarGasto.fxml</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/gui/FormularioCliente.fxml</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dataBase/mybatis-config.xml</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/utileria/Validar.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/RegistrarGastoController.java</file>
->>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
