@@ -140,7 +140,7 @@ public class UsuarioDAO {
                     }
                     criterios += String.format("%s %s ", campo, condicion);
                 }
-                System.out.println(conn.selectList("Usuario.busquedaGenerica", criterios).size());
+                conn = ConexionDB.getSession();
                 usuarios = conn.selectList("Usuario.busquedaGenerica", criterios);
             }
         }catch(Exception ex){
