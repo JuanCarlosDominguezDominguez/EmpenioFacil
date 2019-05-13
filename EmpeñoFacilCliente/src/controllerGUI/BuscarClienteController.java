@@ -7,20 +7,19 @@ package controllerGUI;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,11 +29,13 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Modality;
-import javax.swing.JOptionPane;
+import javafx.util.StringConverter;
 import modelo.beans.Cliente;
 import modelo.dao.ClienteDAO;
 import utileria.Dialogos;
+import utileria.LocalDateStringConverter;
 import utileria.Validar;
 
 /**
@@ -63,6 +64,8 @@ public class BuscarClienteController implements Initializable {
     @FXML
     private TableColumn<Cliente, Date> colFechaIngreso;
     @FXML
+    private TableColumn<Cliente, Boolean> colEnListaNegra;
+    @FXML
     private TextField txtRfc;
     @FXML
     private TextField txtNumeroIdentificacion;
@@ -76,6 +79,8 @@ public class BuscarClienteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         inicializarColumnas();
         inicializarTabla();
+        txtFechaIngreso.setConverter(new LocalDateStringConverter("dd/MM/yyyy"));
+        
     }
 
     private void inicializarColumnas() {
@@ -87,6 +92,14 @@ public class BuscarClienteController implements Initializable {
         colNumeroIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
         colNombreOcupacion.setCellValueFactory(new PropertyValueFactory<>("nombreOcupacion"));
         colFechaIngreso.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
+        colEnListaNegra.setCellValueFactory(new PropertyValueFactory<>("enListaNegra"));
+        colEnListaNegra.setCellFactory(col -> {
+            CheckBoxTableCell<Cliente, Boolean> cell = new CheckBoxTableCell<>(index -> {
+                BooleanProperty active = new SimpleBooleanProperty(tblClientes.getItems().get(index).getEnListaNegra());
+                return active;
+            });
+            return cell;
+        });
     }
 
     private void inicializarTabla() {
@@ -114,17 +127,9 @@ public class BuscarClienteController implements Initializable {
             filtros.put("numeroIdentificacion", "LIKE '" + numeroIdentificacion + "%'");
         }
         if (fechaSeleccionada != null) {
-            //TODO: Abstraer la creación de cadenas de fecha a una utilería
-            String dia = Integer.toString(fechaSeleccionada.getDayOfMonth());
-            String mes = Integer.toString(fechaSeleccionada.getMonthValue());
-            String anio = Integer.toString(fechaSeleccionada.getYear());
-            if (dia.length() < 2) {
-                dia = "0" + dia;
-            }
-            if (mes.length() < 2) {
-                mes = "0" + mes;
-            }
-            String fechaIngreso = anio + "-" + mes + "-" + dia;
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            String fechaIngreso = dateFormatter.format(fechaSeleccionada);
             filtros.put("fechaIngreso", "= '" + fechaIngreso + "'");
         }
         if (filtros.size() > 0) {
@@ -152,15 +157,15 @@ public class BuscarClienteController implements Initializable {
     @FXML
     void modificar(ActionEvent event) {
         Cliente clienteSeleccionado = tblClientes.getSelectionModel().getSelectedItem();
-        if(clienteSeleccionado == null){
+        if (clienteSeleccionado == null) {
             Dialogos.showWarning("Modificar cliente", "Debe seleccionar un cliente de la tabla");
         } else {
             FormularioClienteController.clienteSeleccionado = clienteSeleccionado;
             mostrarFormulario();
         }
     }
-    
-    public void mostrarFormulario () {
+
+    public void mostrarFormulario() {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/FormularioCliente.fxml"));
         Parent root = null;

@@ -45,7 +45,7 @@ public class AumentoFondosController implements Initializable {
     }
 
     @FXML
-    void guardar(ActionEvent event) {
+    void guardarAumento(ActionEvent event) {
         if (validar()) {
             String strMonto = txtMonto.getText();
             Integer monto;

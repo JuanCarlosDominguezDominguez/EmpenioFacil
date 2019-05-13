@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.beans.Cliente;
@@ -45,6 +46,10 @@ public class FormularioClienteController implements Initializable {
     private TextField txtNumeroIdentificacion;
     @FXML
     private ComboBox<Ocupacion> cmbOcupacion;
+    @FXML
+    private Label lblListaNegra;
+    @FXML
+    private Button btnListaNegra;
 
     /**
      * Initializes the controller class.
@@ -64,8 +69,8 @@ public class FormularioClienteController implements Initializable {
             cmbOcupacion.getItems().add(ocupacion);
         });
     }
-    
-    private void cargarCliente(){
+
+    private void cargarCliente() {
         txtNombre.setText(clienteSeleccionado.getNombre());
         txtApellidoPaterno.setText(clienteSeleccionado.getApellidoPaterno());
         txtApellidoMaterno.setText(clienteSeleccionado.getApellidoMaterno());
@@ -73,11 +78,22 @@ public class FormularioClienteController implements Initializable {
         txtRfc.setEditable(false);
         txtCurp.setText(clienteSeleccionado.getCurp());
         txtNumeroIdentificacion.setText(clienteSeleccionado.getNumeroIdentificacion());
-        for(Ocupacion ocupacion : cmbOcupacion.getItems()){
-            if(ocupacion.getIdCategoria() == clienteSeleccionado.getIdOcupacion()) {
+        for (Ocupacion ocupacion : cmbOcupacion.getItems()) {
+            if (ocupacion.getIdCategoria() == clienteSeleccionado.getIdOcupacion()) {
                 cmbOcupacion.getSelectionModel().select(ocupacion);
                 break;
             }
+        }
+        cargarComponentesListaNegra();
+    }
+
+    private void cargarComponentesListaNegra() {
+        btnListaNegra.setVisible(true);
+        if (clienteSeleccionado.getEnListaNegra()) {
+            lblListaNegra.setVisible(true);
+            btnListaNegra.setText("Sacar de lista negra");
+        } else {
+            btnListaNegra.setText("Enviar a lista negra");
         }
     }
 
@@ -111,6 +127,29 @@ public class FormularioClienteController implements Initializable {
     @FXML
     void cancelar(ActionEvent event) {
         ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
+    void accionListaNegra(ActionEvent event) {
+        try {
+            if (clienteSeleccionado.getEnListaNegra()) {
+                if(ClienteDAO.sacarDeListaNegra(txtRfc.getText())) {
+                    Dialogos.showInformation("Cliente sacado de lista negra", "El cliente se ha sacado de la lista negra.");
+                } else {
+                    Dialogos.showError("Cliente no sacado de lista negra", "Error al sacar al cliente de lista negra");
+                }
+            } else {
+                if(ClienteDAO.enviarAListaNegra(txtRfc.getText())) {
+                    Dialogos.showInformation("Cliente ha sido enviado a lista negra", "El cliente ha sido enviado a la lista negra.");
+                } else {
+                    Dialogos.showError("Cliente no enviado a lista negra", "Error al enviar al cliente a lista negra.");
+                }
+            }
+        } catch (IllegalStateException ex) {
+            Dialogos.showError("Error de lista negra", ex.getMessage());
+        } finally {
+            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
     }
 
     private boolean validar() {
