@@ -90,10 +90,10 @@ public class PrincipalController implements Initializable {
     @FXML
     void administrarUsuarios(ActionEvent event) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarUsuario.fxml"));
         Parent root = null;
         try {
-            root = loader.load(getClass().getResource("/gui/BuscarUsuario.fxml").openStream());
+            root = loader.load();
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,7 +103,7 @@ public class PrincipalController implements Initializable {
         buc.obtenerUsuario(usuario);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
@@ -202,7 +202,7 @@ public class PrincipalController implements Initializable {
     void obtenerUsuario(Usuario usuario) {
         this.usuario = usuario;
         txtNumPersonal.setText(Integer.toString(usuario.getNumPersonal()));
-        Categoria c = CategoriaDAO.obtenerRolPorID(usuario.getRol());
+        Categoria c = CategoriaDAO.obtenerRolPorID(usuario.getIdRol());
         txtRol.setText(c.getNombre());
         txtnombre.setText(usuario.getNombreCompleto());
         identificarUsuario(txtRol.getText());

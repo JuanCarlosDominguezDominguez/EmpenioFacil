@@ -22,17 +22,40 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class CategoriaDAO {
 
-    public static boolean registrarCategoria(Integer idCategoria, String nombre) {
+    public static boolean registrarCategoriaPrincipal(String nombre) {
         SqlSession conn = null;
         try {
             //LLAVE   VALOR
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("nombre", nombre);
-            parametros.put("idCategoria", idCategoria);
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
-            numerofilasafectadas = conn.insert("Categoria.registrar", parametros);
+            numerofilasafectadas = conn.insert("Categoria.registrarPrincipal", parametros);
+            conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+    
+    public static boolean registrarSubCategoria(Integer Categorias_idCategoria, String nombre) {
+        SqlSession conn = null;
+        try {
+            //LLAVE   VALOR
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("nombre", nombre);
+
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Categoria.registrarSubCategoria", parametros);
             conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
             if (numerofilasafectadas > 0) {
                 return true;
@@ -67,7 +90,7 @@ public class CategoriaDAO {
         return false;
     }
 
-    public static boolean actualizarCategoria(Integer idCategoria, String nombre) {
+    public static boolean actualizarCategoriaPrincipal(Integer idCategoria, String nombre) {
         SqlSession conn = null;
         try {
             //LLAVE   VALOR
@@ -77,7 +100,33 @@ public class CategoriaDAO {
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
-            numerofilasafectadas = conn.insert("Categoria.actualizar", parametros);
+            numerofilasafectadas = conn.insert("Categoria.actualizarPrincipal", parametros);
+            conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+    
+    public static boolean actualizarSubCategoria(Integer idCategoria, String nombre, Integer Categorias_idCategoria) {
+        SqlSession conn = null;
+        try {
+            //LLAVE   VALOR
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("nombre", nombre);
+            parametros.put("idCategoria", idCategoria);
+            parametros.put("Categorias_idCategoria", Categorias_idCategoria);
+
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Categoria.actualizarSubCategoria", parametros);
             conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
             if (numerofilasafectadas > 0) {
                 return true;

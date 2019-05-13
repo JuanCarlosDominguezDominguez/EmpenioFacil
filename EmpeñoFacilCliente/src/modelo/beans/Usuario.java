@@ -15,7 +15,8 @@ public class Usuario {
     private int numPersonal;
     private String nombreCompleto;
     private String contrasenia;
-    private String rol;
+    private String idRol;
+    private String nombreRol;
     private Date fechaIngreso;
 
     public Usuario() {
@@ -23,7 +24,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "numPersonal=" + numPersonal + ", nombreCompleto=" + nombreCompleto + ", contrasenia=" + contrasenia + ", rol=" + rol + ", fehcaIngreso=" + fechaIngreso + '}';
+        return "Usuario{" + "numPersonal=" + numPersonal + ", nombreCompleto=" + nombreCompleto + ", contrasenia=" + contrasenia + ", idRol=" + idRol + ", nombreRol=" + nombreRol+", fehcaIngreso=" + fechaIngreso + '}';
     }
 
     public int getNumPersonal() {
@@ -38,6 +39,22 @@ public class Usuario {
         return nombreCompleto;
     }
 
+    public String getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(String idRol) {
+        this.idRol = idRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
+
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
@@ -48,14 +65,6 @@ public class Usuario {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
     }
 
     public Date getFechaIngreso() {

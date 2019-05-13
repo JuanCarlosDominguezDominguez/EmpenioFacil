@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
 import modelo.beans.Usuario;
@@ -38,7 +39,7 @@ public class AgregarCategoriaController implements Initializable {
      * Initializes the controller class.
      */
     private Categoria categoriaSelecionada;
-    private String tipo;
+    private boolean esNuevo;
     private List<Categoria> categorias = new ArrayList<>();
 
     private String nombre;
@@ -63,12 +64,12 @@ public class AgregarCategoriaController implements Initializable {
     }
 
     @FXML
-    void obtenerDatos(Categoria categoria, String tipo) {
+    void obtenerDatos(Categoria categoria, boolean esNuevo) {
         if (categoria == null) {
-            this.tipo = tipo;
+            this.esNuevo = esNuevo;
         } else {
             this.categoriaSelecionada = categoria;
-            this.tipo = tipo;
+            this.esNuevo = esNuevo;
             this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
         }
     }
@@ -86,7 +87,7 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void cancelar(ActionEvent event) {
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
@@ -100,20 +101,40 @@ public class AgregarCategoriaController implements Initializable {
             }
         }
         if (validarCampos()) {
-            if (tipo.equals("nuevo")) {
-                if (CategoriaDAO.registrarCategoria(idCategoria, nombre)) {
-                    JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
-                    ((Node) (event.getSource())).getScene().getWindow().hide();
+            if (esNuevo) {
+                if (categoriaCbx.getValue().equals(null)) {
+                    //Registrar Categoria principal
+                    if (CategoriaDAO.registrarCategoriaPrincipal(nombre)) {
+                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo registrar la categoria");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo registrar la categoria");
+                    //Registrar SubCategoria
+                    if (CategoriaDAO.registrarSubCategoria(idCategoria, nombre)) {
+                        JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
+                        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo registrar la categoria");
+                    }
                 }
             } else {
-                if (tipo.equals("modificar")) {
-                    if (CategoriaDAO.actualizarCategoria(categoriaSelecionada.getIdCategoria(), nombre)) {
-                        JOptionPane.showMessageDialog(null, "Categoria actualizada exitosamente.");
-                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                if (!esNuevo) {
+                    if (categoriaSelecionada.getCategorias_IdCategoria() == 0) {
+                        if (CategoriaDAO.actualizarCategoriaPrincipal(categoriaSelecionada.getIdCategoria(), nombre)) {
+                            JOptionPane.showMessageDialog(null, "Categoria actualizada exitosamente.");
+                            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se pudo actualizar la categoria");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo actualizar la categoria");
+                        if (CategoriaDAO.actualizarSubCategoria(categoriaSelecionada.getIdCategoria(), nombre, CategoriaDAO.obtenerCategoriaNombre(categoriaCbx.getValue()).getCategorias_IdCategoria())) {
+                            JOptionPane.showMessageDialog(null, "Categoria actualizada exitosamente.");
+                            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se pudo actualizar la categoria");
+                        }
                     }
                 }
             }

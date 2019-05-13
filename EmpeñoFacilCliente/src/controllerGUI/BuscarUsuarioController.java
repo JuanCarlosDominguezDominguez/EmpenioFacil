@@ -8,8 +8,10 @@ package controllerGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -40,6 +42,8 @@ import modelo.beans.Categoria;
 import modelo.beans.Usuario;
 import modelo.dao.CategoriaDAO;
 import modelo.dao.UsuarioDAO;
+import utileria.Dialogos;
+import utileria.Validar;
 
 /**
  * FXML Controller class
@@ -85,16 +89,16 @@ public class BuscarUsuarioController implements Initializable {
     private TableColumn<Usuario, String> colNombre;
 
     @FXML
-    private TableColumn<Categoria, String> colRol;
+    private TableColumn<Usuario, String> colRol;
 
     @FXML
     private TableColumn<Usuario, Date> colFechaIngreso;
 
     private Usuario usuario;
-    
+
     @FXML
     void restringirNumeroDePersonal(KeyEvent event) {
-        if(numPersonalTxt.getText().length() >= 11){
+        if (numPersonalTxt.getText().length() >= 11) {
             event.consume();
         }
     }
@@ -106,7 +110,31 @@ public class BuscarUsuarioController implements Initializable {
 
     @FXML
     void buscarUsuarios(ActionEvent event) {
-
+        String numeroDePersonal = numPersonalTxt.getText();
+        String rolSeleccionado = "";
+        if(rolCbx.getValue() != null){
+            rolSeleccionado = Integer.toString(CategoriaDAO.obtenerRolPorNombre(rolCbx.getValue()).getIdCategoria());
+        }
+        LocalDate fechaSeleccionada = fechaTxt.getValue();
+        System.out.println("numero = " + numeroDePersonal);
+        System.out.println("rol = " + rolSeleccionado);
+        System.out.println("fecha = " + fechaSeleccionada);
+        HashMap<String, String> filtros = new HashMap<>();
+        if (Validar.validarCadenaEntero(numeroDePersonal)) {
+            filtros.put("numPersonal", "LIKE '" + numeroDePersonal + "%'");
+        }
+        if (Validar.validarCadenaEntero(rolSeleccionado)) {
+            filtros.put("rol", "LIKE '" + rolSeleccionado + "%'");
+        }
+        if (fechaSeleccionada != null) {
+            filtros.put("fechaIngreso", "= '" + fechaSeleccionada + "'");
+        }
+        if (filtros.size() > 0) {
+            List<Usuario> usuarios = UsuarioDAO.busquedaGenerica(filtros);
+            cargarTabla(usuarios);
+        } else {
+            Dialogos.showWarning("Buscar Cliente", "Introduzca al menos un criterio de búsqueda");
+        }
     }
 
     @FXML
@@ -117,8 +145,7 @@ public class BuscarUsuarioController implements Initializable {
             if (opcion == 0) {
                 int identificador = listaUsuariosTb.getSelectionModel().getSelectedItem().getNumPersonal();
                 if (UsuarioDAO.eliminarUsuario(identificador)) {
-                    listaUsuariosTb.getItems().clear();
-                    cargarTabla();
+                    inicialiazarTabla();
                     JOptionPane.showMessageDialog(null, "El Usuario seleccionado se ha eliminado correctamente.");
                 } else {
                     JOptionPane.showMessageDialog(null, "El Usuario seleccionado no se pudo eliminar.");
@@ -150,7 +177,8 @@ public class BuscarUsuarioController implements Initializable {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            stage.showAndWait();
+            inicialiazarTabla();
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas modificar.");
         }
@@ -173,7 +201,8 @@ public class BuscarUsuarioController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
+        stage.showAndWait();
+        inicialiazarTabla();
     }
 
     private List<Categoria> categorias;
@@ -188,25 +217,24 @@ public class BuscarUsuarioController implements Initializable {
         rolCbx.setItems(acciones);
     }
 
-    public void cargarTabla() {
+    private void inicializarComunas() {
         colNumPersonal.setCellValueFactory(new PropertyValueFactory<>("numPersonal"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
-        colRol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colRol.setCellValueFactory(new PropertyValueFactory<>("nombreRol"));
         colFechaIngreso.setCellValueFactory(new PropertyValueFactory<>("fechaIngreso"));
+    }
 
-        List<Usuario> usuarios = new ArrayList<>();
-        usuarios = UsuarioDAO.obtenerUsuarios();
+    private void inicialiazarTabla() {
+        List<Usuario> usuarios = UsuarioDAO.obtenerUsuarios();
+        cargarTabla(usuarios);
+    }
+
+    public void cargarTabla(List<Usuario> usuarios) {
+        listaUsuariosTb.getItems().clear();
         for (int i = 0; i < usuarios.size(); i++) {
             listaUsuariosTb.getItems().addAll(usuarios.get(i));
             System.out.println(listaUsuariosTb.getColumns().get(1).getId());
         }
-        /*
-        List<Categoria> roles = new ArrayList<>();
-        roles = CategoriaDAO.obtenerTodosLosRoles();
-        for (int i = 0; i < roles.size(); i++) {
-            listaUsuariosTb.getItems().get(2).setRol(roles.get(i).getNombre());
-        }*/
-
     }
 
     public void iniciarCalendario() {
@@ -236,8 +264,9 @@ public class BuscarUsuarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarRoles();
-        cargarTabla();
+        inicializarComunas();
+        inicialiazarTabla();
         iniciarCalendario();
+        cargarRoles();
     }
 }
