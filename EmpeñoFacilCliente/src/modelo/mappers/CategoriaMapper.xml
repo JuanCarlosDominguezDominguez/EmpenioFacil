@@ -5,17 +5,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Categoria">
     
-    <insert id="registrar" parameterType="map">
+    <insert id="registrarPrincipal" parameterType="map">
+        INSERT INTO empenio.categorias (nombre)
+        VALUES(#{nombre});
+    </insert>
+    
+    <insert id="registrarSubCategoria" parameterType="map">
         INSERT INTO empenio.categorias (nombre, Categorias_idCategoria)
-        VALUES(#{nombre}, #{idCategoria});
+        VALUES(#{nombre}, #{Categorias_idCategoria});
     </insert>
     
     <delete id="eliminar" parameterType="int">
         DELETE FROM empenio.categorias WHERE idCategoria = #{idCategoria};
     </delete>
     
-    <update id="actualizar" parameterType="map">
+    <update id="actualizarPrincipal" parameterType="map">
         UPDATE empenio.categorias SET nombre = #{nombre}
+        WHERE idCategoria = #{idCategoria};    
+    </update>
+    
+    <update id="actualizarSubCategoria" parameterType="map">
+        UPDATE empenio.categorias SET nombre = #{nombre} Categorias_idCategoria = #{Categorias_idCategoria}
         WHERE idCategoria = #{idCategoria};    
     </update>
     
