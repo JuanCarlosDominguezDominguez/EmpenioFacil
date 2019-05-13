@@ -5,28 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Cliente">
     
-    <insert id="registrar" parameterType="map">
-        INSERT INTO 
-        empenio.cliente
-            (nombre, 
-            apellidoPaterno, 
-            apellidoMaterno, 
-            rfc, 
-            curp, 
-            numeroIdentificacion, 
-            ocupacion, 
-            fechaIngreso) 
-        VALUES 
-            (#{nombre}, 
-            #{apellidoPaterno}, 
-            #{apellidoMaterno}, 
-            #{rfc}, 
-            #{curp}, 
-            #{numeroIdentificacion}, 
-            #{idOcupacion}, 
-            NOW() );
-    </insert>
-    
     <select id="getClientes" resultType="modelo.beans.Cliente">
         SELECT 
         cliente.nombre, 
@@ -36,7 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         cliente.numeroIdentificacion, 
         cliente.ocupacion AS idOcupacion, 
         categorias.nombre AS nombreOcupacion, 
-        cliente.fechaIngreso 
+        cliente.fechaIngreso, 
+        cliente.enListaNegra 
         FROM empenio.cliente 
         LEFT OUTER JOIN empenio.categorias ON cliente.ocupacion = categorias.idCategoria;
     </select>
@@ -50,10 +29,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         cliente.numeroIdentificacion, 
         cliente.ocupacion AS idOcupacion, 
         categorias.nombre AS nombreOcupacion, 
-        cliente.fechaIngreso 
+        cliente.fechaIngreso, 
+        cliente.enListaNegra  
         FROM empenio.cliente 
         LEFT OUTER JOIN empenio.categorias ON cliente.ocupacion = categorias.idCategoria WHERE ${value};
     </select>
+    
+    <select id="getOcupaciones" resultType="modelo.beans.Ocupacion" >
+        SELECT categorias.idCategoria, categorias.nombre 
+        FROM empenio.categorias 
+        WHERE Categorias_idCategoria = 6;
+    </select>
+    
+    <resultMap id="boolResultMap" type="java.util.Map">
+        <result column="enListaNegra" jdbcType="BOOLEAN" property="enListaNegra" javaType="Boolean"/>
+    </resultMap>
+    
+    <select id="estaEnListaNegra" resultType="boolean" parameterType="string" >
+        SELECT cliente.enListaNegra 
+        FROM empenio.cliente 
+        WHERE rfc = #{rfc};
+    </select>
+    
+    <insert id="registrar" parameterType="map">
+        INSERT INTO 
+        empenio.cliente
+            (nombre, 
+            apellidoPaterno, 
+            apellidoMaterno, 
+            rfc, 
+            curp, 
+            numeroIdentificacion, 
+            ocupacion, 
+            fechaIngreso,
+            enListaNegra) 
+        VALUES 
+            (#{nombre}, 
+            #{apellidoPaterno}, 
+            #{apellidoMaterno}, 
+            #{rfc}, 
+            #{curp}, 
+            #{numeroIdentificacion}, 
+            #{idOcupacion}, 
+            NOW(),
+            0);
+    </insert>
+    
     
     <update id="actualizar" parameterType="map">
         UPDATE empenio.cliente 
@@ -67,30 +88,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE rfc = #{rfc};    
     </update>
     
-    <select id="getOcupaciones" resultType="modelo.beans.Ocupacion" >
-        SELECT categorias.idCategoria, categorias.nombre 
-        FROM empenio.categorias 
-        WHERE Categorias_idCategoria = 6;
-    </select>
-    
-    <!-->   
-    <select id="busquedaGenerica" resultType="modelo.beans.Usuario" parameterType="string">
-        SELECT * FROM empenio.usuario
-        WHERE #{criterios};
-    </select>
-    
-    <select id="buscarUsuarioParaLogin" resultType="modelo.beans.Usuario" parameterType="map">
-        SELECT * FROM empenio.usuario WHERE numPersonal = #{numPersonal} AND contrasenia = #{contrasenia};
-    </select>
-    
-    <delete id="eliminar" parameterType="string">
-        DELETE FROM empenio.usuario WHERE numPersonal = #{numPersonal};
-    </delete>
-    
-    <update id="actualizar" parameterType="map">
-        UPDATE empenio.usuario SET nombreCompleto = #{nombreCompleto},
-        contrasenia = #{contrasenia}, rol #{rol}
-        WHERE numPersonal = #{numPersonal};    
+    <update id="enviarAListaNegra" parameterType="string" >
+        UPDATE empenio.cliente
+        SET
+            enListaNegra = 1 
+        WHERE rfc = #{value};
     </update>
-        <-->
+    
+    <update id="sacarDeListaNegra" parameterType="string" >
+        UPDATE empenio.cliente
+        SET
+            enListaNegra = 0 
+        WHERE rfc = #{value};
+    </update>
+    
 </mapper>

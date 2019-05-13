@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="317.0" prefWidth="526.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.FormularioClienteController">
     <stylesheets>
@@ -36,6 +37,12 @@
             <ComboBox fx:id="cmbOcupacion" layoutX="30.0" layoutY="232.0" prefWidth="150.0" />
             <Button layoutX="450.0" layoutY="232.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
             <Button cancelButton="true" layoutX="361.0" layoutY="232.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button fx:id="btnListaNegra" layoutX="199.0" layoutY="232.0" mnemonicParsing="false" onAction="#accionListaNegra" prefHeight="25.0" prefWidth="126.0" text="Sacar de lista negra" visible="false" />
+            <Label fx:id="lblListaNegra" layoutX="158.0" layoutY="206.0" text="ESTE CLIENTE ESTÁ EN LISTA NEGRA" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

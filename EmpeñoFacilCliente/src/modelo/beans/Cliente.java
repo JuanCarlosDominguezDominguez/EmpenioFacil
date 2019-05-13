@@ -5,6 +5,8 @@
  */
 package modelo.beans;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Date;
  * @author YZ
  */
 public class Cliente {
+
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -21,6 +24,7 @@ public class Cliente {
     private int idOcupacion;
     private String nombreOcupacion;
     private Date fechaIngreso;
+    private Boolean enListaNegra;
 
     public Cliente() {
     }
@@ -95,10 +99,12 @@ public class Cliente {
     }
 
     public Date getFechaIngreso() {
-        Date d = new Date(fechaIngreso.getTime()){
+        Date d = new Date(fechaIngreso.getTime()) {
+            String pattern = "dd/MM/yyyy";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
             @Override
-            public String toString(){
-                return "" + this.getDate() + "/" + (this.getMonth() + 1) + "/" + ( 1900 + this.getYear());
+            public String toString() {
+                return dateFormatter.format(this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             }
         };
         return d;
@@ -107,6 +113,15 @@ public class Cliente {
     public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
+
+    public Boolean getEnListaNegra() {
+        return enListaNegra;
+    }
+
+    public void setEnListaNegra(Boolean enListaNegra) {
+        this.enListaNegra = enListaNegra;
+    }
     
     
+
 }
