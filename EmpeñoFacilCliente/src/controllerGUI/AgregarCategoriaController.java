@@ -70,6 +70,7 @@ public class AgregarCategoriaController implements Initializable {
         } else {
             this.categoriaSelecionada = categoria;
             this.esNuevo = esNuevo;
+            this.categoriaCbx.setValue(CategoriaDAO.obtenerRolPorID(Integer.toString(categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
             this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
         }
     }

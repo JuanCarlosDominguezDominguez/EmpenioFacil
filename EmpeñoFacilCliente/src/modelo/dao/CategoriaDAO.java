@@ -45,7 +45,7 @@ public class CategoriaDAO {
         }
         return false;
     }
-    
+
     public static boolean registrarSubCategoria(Integer Categorias_idCategoria, String nombre) {
         SqlSession conn = null;
         try {
@@ -114,7 +114,7 @@ public class CategoriaDAO {
         }
         return false;
     }
-    
+
     public static boolean actualizarSubCategoria(Integer idCategoria, String nombre, Integer Categorias_idCategoria) {
         SqlSession conn = null;
         try {
@@ -139,6 +139,23 @@ public class CategoriaDAO {
             }
         }
         return false;
+    }
+
+    //BUSCAR TODAS LAS CATEGORIAS 
+    public static List<Categoria> obtenerTodasLasCategorias() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerTodasLasCategorias");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
     }
 
     //BUSCAR CATEGORIAS POR ROL
@@ -310,7 +327,7 @@ public class CategoriaDAO {
             }
         } catch (IOException ex) {
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             if (conn == null) {
                 conn.close();
             }

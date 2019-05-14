@@ -91,6 +91,8 @@ public class BuscarCategoriaController implements Initializable {
             if (opcion == 0) {
                 int identificador = categoriasTbl.getSelectionModel().getSelectedItem().getIdCategoria();
                 if (CategoriaDAO.eliminarCategoria(identificador)) {
+                    cargarCategoriasPrincipales();
+                    cargarSubCategorias();
                     inicializarTabla();
                     JOptionPane.showMessageDialog(null, "La Categoria seleccionada se ha eliminado correctamente.");
                 } else {
@@ -119,6 +121,8 @@ public class BuscarCategoriaController implements Initializable {
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+            cargarCategoriasPrincipales();
+            cargarSubCategorias();
             inicializarTabla();
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas modificar.");
@@ -138,6 +142,8 @@ public class BuscarCategoriaController implements Initializable {
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        cargarCategoriasPrincipales();
+        cargarSubCategorias();
         inicializarTabla();
     }
 
@@ -171,7 +177,7 @@ public class BuscarCategoriaController implements Initializable {
     }
 
     private void inicializarTabla() {
-        List<Categoria> categorias = CategoriaDAO.buscarTodasLasCategoriasDePrendas();
+        List<Categoria> categorias = CategoriaDAO.obtenerTodasLasCategorias();
         cargarTabla(categorias);
     }
 
@@ -179,9 +185,9 @@ public class BuscarCategoriaController implements Initializable {
     public void cargarTabla(List<Categoria> categorias) {
         categoriasTbl.getItems().clear();
         for (int i = 0; i < categorias.size(); i++) {
-            if (categorias.get(i).getCategorias_IdCategoria() == 0) {
-                categoriasTbl.getItems().add(categorias.get(i));
-            }
+            //if (categorias.get(i).getCategorias_IdCategoria() == 0) {
+            categoriasTbl.getItems().add(categorias.get(i));
+            //}
         }
     }
 

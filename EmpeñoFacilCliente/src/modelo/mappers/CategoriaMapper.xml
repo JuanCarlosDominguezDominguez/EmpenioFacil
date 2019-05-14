@@ -43,6 +43,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!--BUSCAR CATEGORIAS DE PRENDAS -->
+    <select id="obtenerTodasLasCategorias" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias;
+    </select>
+    
     <select id="obtenerCategoriasPrincipalesPrendas" resultType="modelo.beans.Categoria">
         SELECT * FROM empenio.categorias 
         WHERE idCategoria = 2 OR idCategoria = 3 ORDER BY nombre;
