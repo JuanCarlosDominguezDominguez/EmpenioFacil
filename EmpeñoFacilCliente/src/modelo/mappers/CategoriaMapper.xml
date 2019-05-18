@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
     </select>
     
-    <select id="obtenerRolPorID" resultType="modelo.beans.Categoria" parameterType="string">
+    <select id="obtenerCategoriaPorID" resultType="modelo.beans.Categoria" parameterType="string">
         SELECT * FROM empenio.categorias WHERE idCategoria = #{idCategoria};
     </select>
     
@@ -91,6 +91,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE nombre = #{nombre}  ORDER BY nombre;
     </select>
     
+    <select id="obtenerCategoriasPrincipales" resultType="modelo.beans.Categoria">
+        SELECT * FROM empenio.categorias 
+        WHERE Categorias_idCategoria IS null ORDER BY nombre;
+    </select>
     
    
 </mapper>

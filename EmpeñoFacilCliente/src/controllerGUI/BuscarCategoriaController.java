@@ -23,7 +23,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -66,12 +68,19 @@ public class BuscarCategoriaController implements Initializable {
     private Button modificarBtn;
 
     @FXML
-    private Button eliminarBtn;
+    private TextField nombretxt;
 
     @FXML
-    private ComboBox<String> subcategoriasCbx;
+    private Button eliminarBtn;
 
     private Usuario usuario;
+
+    @FXML
+    void restringirNombre(KeyEvent event) {
+        if (nombretxt.getText().length() >= 30) {
+            event.consume();
+        }
+    }
 
     @FXML
     public void obtenerUsuario(Usuario usuario) {
@@ -80,7 +89,7 @@ public class BuscarCategoriaController implements Initializable {
 
     @FXML
     void buscarCategorias(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -92,7 +101,6 @@ public class BuscarCategoriaController implements Initializable {
                 int identificador = categoriasTbl.getSelectionModel().getSelectedItem().getIdCategoria();
                 if (CategoriaDAO.eliminarCategoria(identificador)) {
                     cargarCategoriasPrincipales();
-                    cargarSubCategorias();
                     inicializarTabla();
                     JOptionPane.showMessageDialog(null, "La Categoria seleccionada se ha eliminado correctamente.");
                 } else {
@@ -122,7 +130,6 @@ public class BuscarCategoriaController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
             cargarCategoriasPrincipales();
-            cargarSubCategorias();
             inicializarTabla();
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas modificar.");
@@ -143,7 +150,6 @@ public class BuscarCategoriaController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         cargarCategoriasPrincipales();
-        cargarSubCategorias();
         inicializarTabla();
     }
 
@@ -152,32 +158,24 @@ public class BuscarCategoriaController implements Initializable {
 
     public void cargarCategoriasPrincipales() {
         categoriasPrincipales = new ArrayList<Categoria>();
-        categoriasPrincipales = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
+        categoriasPrincipales = CategoriaDAO.obtenerTodasLasCategorias();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categoriasPrincipales.size(); i++) {
-            acciones.add(categoriasPrincipales.get(i).getNombre());
+            if(categoriasPrincipales.get(i).getCategorias_IdCategoria() == 0){
+                acciones.add(categoriasPrincipales.get(i).getNombre());
+            }
         }
         categoriasPrincipalesCbx.setItems(acciones);
 
     }
 
-    public void cargarSubCategorias() {
-        subcategorias = new ArrayList<Categoria>();
-        subcategorias = CategoriaDAO.obtenerSubCategoriasPrendas();
-        ObservableList<String> acciones = FXCollections.observableArrayList();
-        for (int i = 0; i < subcategorias.size(); i++) {
-            acciones.add(subcategorias.get(i).getNombre());
-        }
-        subcategoriasCbx.setItems(acciones);
-    }
-
     private void inicializarComunas() {
         categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombreSub"));
     }
 
     private void inicializarTabla() {
-        List<Categoria> categorias = CategoriaDAO.obtenerTodasLasCategorias();
+        List<Categoria> categorias = CategoriaDAO.obtenerCategoriasPrincipales();
         cargarTabla(categorias);
     }
 
@@ -194,7 +192,6 @@ public class BuscarCategoriaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarCategoriasPrincipales();
-        cargarSubCategorias();
         inicializarComunas();
         inicializarTabla();
     }
