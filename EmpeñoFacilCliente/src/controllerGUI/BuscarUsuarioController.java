@@ -116,9 +116,6 @@ public class BuscarUsuarioController implements Initializable {
             rolSeleccionado = Integer.toString(CategoriaDAO.obtenerRolPorNombre(rolCbx.getValue()).getIdCategoria());
         }
         LocalDate fechaSeleccionada = fechaTxt.getValue();
-        System.out.println("numero = " + numeroDePersonal);
-        System.out.println("rol = " + rolSeleccionado);
-        System.out.println("fecha = " + fechaSeleccionada);
         HashMap<String, String> filtros = new HashMap<>();
         if (Validar.validarCadenaEntero(numeroDePersonal)) {
             filtros.put("numPersonal", "LIKE '" + numeroDePersonal + "%'");

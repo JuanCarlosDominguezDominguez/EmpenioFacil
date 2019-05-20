@@ -72,7 +72,7 @@ public class AgregarCategoriaController implements Initializable {
             this.categoriaSelecionada = categoria;
             this.esNuevo = esNuevo;
             if(categoriaSelecionada.getCategorias_IdCategoria() > 0){
-                this.categoriaCbx.setValue(CategoriaDAO.obtenerRolPorID(Integer.toString(categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
+                this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
             }
             this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
         }

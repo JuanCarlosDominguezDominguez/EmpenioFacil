@@ -35,16 +35,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="obtenerCategoriaPorID" resultType="modelo.beans.Categoria" parameterType="string">
-        SELECT * FROM empenio.categorias WHERE idCategoria = #{idCategoria};
+        SELECT * FROM empenio.categorias WHERE idCategoria = #{idCategoria} ORDER BY nombre;
     </select>
     
     <select id="obtenerRolPorNombre" resultType="modelo.beans.Categoria" parameterType="string">
-        SELECT * FROM empenio.categorias WHERE nombre = #{nombre};
+        SELECT * FROM empenio.categorias WHERE nombre = #{nombre} ORDER BY nombre;
     </select>
     
     <!--BUSCAR CATEGORIAS DE PRENDAS -->
     <select id="obtenerTodasLasCategorias" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categorias;
+        SELECT * FROM empenio.categorias ORDER BY nombre;
     </select>
     
     <select id="obtenerCategoriasPrincipalesPrendas" resultType="modelo.beans.Categoria">
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarTodasLasCategoriasDePrendas" resultType="modelo.beans.Categoria" >
         SELECT * FROM empenio.categorias WHERE idCategoria = 2 OR idCategoria = 3
-        OR Categorias_idCategoria = 2 OR Categorias_idCategoria = 3;
+        OR Categorias_idCategoria = 2 OR Categorias_idCategoria = 3 ORDER BY nombre;
     </select>
     
     <!--BUSCAR CATEGORIAS DE VENTA O APARTADO -->
@@ -81,9 +81,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!--BUSCAR CATEGORIAS DE FORMA GENERAL -->
-    <select id="busquedaGenerica" resultType="modelo.beans.Categoria" parameterType="string">
+    <select id="busquedaGenerica" resultType="modelo.beans.Categoria" parameterType="map">
         SELECT * FROM empenio.categorias
-        WHERE #{criterios};
+        WHERE ${value};
     </select>
     
     <select id="obtenerCategoriaNombre" resultType="modelo.beans.Categoria" parameterType="string">

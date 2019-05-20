@@ -313,15 +313,15 @@ public class CategoriaDAO {
         List<Categoria> categorias = new ArrayList<>();
         SqlSession conn = null;
         String criterios = "";
-        try {
-            if (filtros != null) {
-                for (Map.Entry<String, String> entry : filtros.entrySet()) {
+        try{
+            if(filtros != null){
+                for(Map.Entry<String, String> entry : filtros.entrySet()){
                     String campo = entry.getKey();
-                    String valor = entry.getValue();
-
-                    criterios += (criterios.isEmpty())
-                            ? String.format("%s LIKE '%s'", campo, valor)
-                            : String.format("AND %s LIKE '%s'", campo, valor);
+                    String condicion = entry.getValue();
+                    if(!criterios.isEmpty()){
+                        criterios += "AND ";
+                    }
+                    criterios += String.format("%s %s ", campo, condicion);
                 }
                 conn = ConexionDB.getSession();
                 categorias = conn.selectList("Categoria.busquedaGenerica", criterios);
@@ -351,7 +351,7 @@ public class CategoriaDAO {
         }
         return categoria;
     }
-    
+
     public static List<Categoria> obtenerCategoriasPrincipales() {
         List<Categoria> categorias = new ArrayList<>();
         SqlSession conn = null;

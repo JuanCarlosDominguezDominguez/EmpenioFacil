@@ -8,6 +8,7 @@ package controllerGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -32,6 +33,8 @@ import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
 import modelo.beans.Usuario;
 import modelo.dao.CategoriaDAO;
+import utileria.Dialogos;
+import utileria.Validar;
 
 /**
  * FXML Controller class
@@ -89,7 +92,25 @@ public class BuscarCategoriaController implements Initializable {
 
     @FXML
     void buscarCategorias(ActionEvent event) {
+        String nombre = nombretxt.getText();
+        int idCategoria = 0;
+        if(!categoriasPrincipalesCbx.getValue().equals(null)){
+            idCategoria = CategoriaDAO.obtenerCategoriaNombre(categoriasPrincipalesCbx.getValue()).getIdCategoria();
+        }
         
+        HashMap<String, String> filtros = new HashMap<>();
+        if(idCategoria > 0){
+            filtros.put("Categorias_idCategoria", " = " + Integer.toString(idCategoria));
+        }
+        if(Validar.validarCadenaEntero(nombre)){
+            filtros.put("nombre", "LIKE '" + nombre + "%'");
+        }
+        if(filtros.size() > 0){
+            List<Categoria> categorias = CategoriaDAO.busquedaGenerica(filtros);
+            cargarTabla(categorias);
+        }else{
+            Dialogos.showWarning("Buscar Categoria", "Introduzca al menos un criterio de búsqueda");
+        }
     }
 
     @FXML
