@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.BuscarArticuloController">
+    <stylesheets>
+        <URL value="@estilos.css"/>
+    </stylesheets>
+    <children>
+      <Pane prefHeight="480.0" prefWidth="855.0" styleClass="mainPane">
+         <children>
+            <Pane layoutX="3.0" layoutY="14.0" prefHeight="49.0" prefWidth="837.0" styleClass="topPane">
+               <children>
+                  <Button layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
+                  <Label layoutX="382.0" layoutY="16.0" text="Buscar articulo" />
+               </children>
+            </Pane>
+            <TableView fx:id="tblArticulos" layoutX="14.0" layoutY="162.0" prefHeight="304.0" prefWidth="837.0">
+              <columns>
+                <TableColumn fx:id="colIdArticulo" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="colCategoria" prefWidth="105.0" text="Categoría" />
+                  <TableColumn fx:id="colDescripcion" prefWidth="114.0" text="Descripción" />
+                  <TableColumn fx:id="colPrecio" prefWidth="112.0" text="Precio" />
+                  <TableColumn fx:id="colTipoProducto" prefWidth="83.0" text="Tipo de producto" />
+                  <TableColumn fx:id="colDeBaja" prefWidth="86.0" text="De baja" />
+                  <TableColumn fx:id="colVendido" prefWidth="88.0" text="Vendido" />
+              </columns>
+            </TableView>
+            <Label layoutX="14.0" layoutY="63.0" text="RFC:" />
+            <Label layoutX="353.0" layoutY="61.0" text="Numero Identificación" />
+            <Label layoutX="664.0" layoutY="65.0" text="Fecha Ingreso" />
+            <TextField fx:id="txtRfc" layoutX="14.0" layoutY="80.0" />
+            <TextField fx:id="txtNumeroIdentificacion" layoutX="353.0" layoutY="78.0" />
+            <DatePicker fx:id="txtFechaIngreso" editable="false" layoutX="664.0" layoutY="82.0" />
+            <Button layoutX="765.0" layoutY="113.0" mnemonicParsing="false" onAction="#buscar" prefHeight="33.0" prefWidth="73.0" text="Buscar" />
+            <Button layoutX="668.0" layoutY="113.0" mnemonicParsing="false" onAction="#restablecer" prefHeight="33.0" prefWidth="84.0" text="Restablecer" />
+            <Button layoutX="105.0" layoutY="115.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
