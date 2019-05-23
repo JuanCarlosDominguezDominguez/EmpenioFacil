@@ -313,12 +313,12 @@ public class CategoriaDAO {
         List<Categoria> categorias = new ArrayList<>();
         SqlSession conn = null;
         String criterios = "";
-        try{
-            if(filtros != null){
-                for(Map.Entry<String, String> entry : filtros.entrySet()){
+        try {
+            if (filtros != null) {
+                for (Map.Entry<String, String> entry : filtros.entrySet()) {
                     String campo = entry.getKey();
                     String condicion = entry.getValue();
-                    if(!criterios.isEmpty()){
+                    if (!criterios.isEmpty()) {
                         criterios += "AND ";
                     }
                     criterios += String.format("%s %s ", campo, condicion);
@@ -358,6 +358,22 @@ public class CategoriaDAO {
         try {
             conn = ConexionDB.getSession();
             categorias = conn.selectList("Categoria.obtenerCategoriasPrincipales");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
+    public static List<Categoria> obtenerCategorias() {
+        List<Categoria> categorias = new ArrayList<>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategorias");
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
