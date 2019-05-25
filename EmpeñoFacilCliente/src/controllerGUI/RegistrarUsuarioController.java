@@ -101,7 +101,7 @@ public class RegistrarUsuarioController implements Initializable {
         rol = rolCbx.getValue();
         int idrol = 0;
         for (int i = 0; i < roles.size(); i++) {
-            if (roles.get(i).getNombre().equals(rol)) {
+            if (roles.get(i).getNombreCategoria().equals(rol)) {
                 idrol = roles.get(i).getIdCategoria();
             }
         }
@@ -133,7 +133,7 @@ public class RegistrarUsuarioController implements Initializable {
         roles = CategoriaDAO.obtenerTodosLosRoles();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < roles.size(); i++) {
-            acciones.add(roles.get(i).getNombre());
+            acciones.add(roles.get(i).getNombreCategoria());
         }
         rolCbx.setItems(acciones);
     }

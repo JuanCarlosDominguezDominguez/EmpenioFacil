@@ -18,7 +18,7 @@ public class Ocupacion extends Categoria{
 
     @Override
     public String toString() {
-        return this.getNombre();
+        return this.getNombreCategoria();
     }
 
     

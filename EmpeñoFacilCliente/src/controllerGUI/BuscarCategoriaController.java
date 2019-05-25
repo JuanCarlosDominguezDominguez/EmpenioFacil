@@ -183,7 +183,7 @@ public class BuscarCategoriaController implements Initializable {
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categoriasPrincipales.size(); i++) {
             if(categoriasPrincipales.get(i).getCategorias_IdCategoria() == 0){
-                acciones.add(categoriasPrincipales.get(i).getNombre());
+                acciones.add(categoriasPrincipales.get(i).getNombreCategoria());
             }
         }
         categoriasPrincipalesCbx.setItems(acciones);
@@ -191,12 +191,12 @@ public class BuscarCategoriaController implements Initializable {
     }
 
     private void inicializarComunas() {
-        categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombreSub"));
+        categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombreCategoriaPadre"));
+        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
     }
 
     private void inicializarTabla() {
-        List<Categoria> categorias = CategoriaDAO.obtenerCategoriasPrincipales();
+        List<Categoria> categorias = CategoriaDAO.obtenerNombresCategorias();
         cargarTabla(categorias);
     }
 

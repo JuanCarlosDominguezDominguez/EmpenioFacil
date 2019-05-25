@@ -203,7 +203,7 @@ public class PrincipalController implements Initializable {
         this.usuario = usuario;
         txtNumPersonal.setText(Integer.toString(usuario.getNumPersonal()));
         Categoria c = CategoriaDAO.obtenerCategoriaPorID(usuario.getIdRol());
-        txtRol.setText(c.getNombre());
+        txtRol.setText(c.getNombreCategoria());
         txtnombre.setText(usuario.getNombreCompleto());
         identificarUsuario(txtRol.getText());
     }

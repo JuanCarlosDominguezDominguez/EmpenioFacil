@@ -209,7 +209,7 @@ public class BuscarUsuarioController implements Initializable {
         categorias = CategoriaDAO.obtenerTodosLosRoles();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
-            acciones.add(categorias.get(i).getNombre());
+            acciones.add(categorias.get(i).getNombreCategoria());
         }
         rolCbx.setItems(acciones);
     }

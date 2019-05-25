@@ -367,13 +367,13 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-
-    public static List<Categoria> obtenerCategorias() {
+    
+     public static List<Categoria> obtenerNombresCategorias() {
         List<Categoria> categorias = new ArrayList<>();
         SqlSession conn = null;
         try {
             conn = ConexionDB.getSession();
-            categorias = conn.selectList("Categoria.obtenerCategorias");
+            categorias = conn.selectList("Categoria.obtenerNombresCategorias");
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

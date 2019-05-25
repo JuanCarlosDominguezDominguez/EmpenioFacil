@@ -96,5 +96,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE Categorias_idCategoria IS null ORDER BY nombre;
     </select>
     
+    <select id="obtenerNombresCategorias" resultType="modelo.beans.Categoria">
+        SELECT
+	categoriasPrincipales.nombre AS nombreCategoriaPadre,
+	categorias.nombre AS nombreCategoria
+	FROM empenio.categorias
+	LEFT OUTER JOIN empenio.categorias AS categoriasPrincipales ON categorias.Categorias_idCategoria = categoriasPrincipales.idCategoria;
+    </select>
+    
    
 </mapper>

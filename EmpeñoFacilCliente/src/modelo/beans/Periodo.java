@@ -17,6 +17,6 @@ public class Periodo extends Categoria{
     
     @Override
     public String toString() {
-        return this.getNombre();
+        return this.getNombreCategoria();
     }
 }

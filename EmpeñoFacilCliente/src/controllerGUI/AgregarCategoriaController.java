@@ -72,9 +72,10 @@ public class AgregarCategoriaController implements Initializable {
             this.categoriaSelecionada = categoria;
             this.esNuevo = esNuevo;
             if(categoriaSelecionada.getCategorias_IdCategoria() > 0){
-                this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
+                this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaNombre(categoriaSelecionada.getNombreCategoria()).getNombreCategoria());
+                System.out.println(CategoriaDAO.obtenerCategoriaNombre(categoriaSelecionada.getNombreCategoria()).getNombreCategoria());
             }
-            this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
+            this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombreCategoria());
         }
     }
 
@@ -100,7 +101,7 @@ public class AgregarCategoriaController implements Initializable {
         categoria = categoriaCbx.getValue();
         int idCategoria = 0;
         for (int i = 0; i < categorias.size(); i++) {
-            if (categorias.get(i).getNombre().equals(categoria)) {
+            if (categorias.get(i).getNombreCategoria().equals(categoria)) {
                 idCategoria = categorias.get(i).getIdCategoria();
             }
         }
@@ -150,7 +151,7 @@ public class AgregarCategoriaController implements Initializable {
     public boolean existe() {
         List<Categoria> categoriasSecundarias = CategoriaDAO.obtenerSubCategoriasPrendas();
         for (int i = 0; i < categoriasSecundarias.size(); i++) {
-            if (nombreCategoriaTxt.getText().equals(categoriasSecundarias.get(i).getNombre())) {
+            if (nombreCategoriaTxt.getText().equals(categoriasSecundarias.get(i).getNombreCategoria())) {
                 return true;
             }
         }
@@ -161,7 +162,7 @@ public class AgregarCategoriaController implements Initializable {
         categorias = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
-            acciones.add(categorias.get(i).getNombre());
+            acciones.add(categorias.get(i).getNombreCategoria());
         }
         categoriaCbx.setItems(acciones);
     }
