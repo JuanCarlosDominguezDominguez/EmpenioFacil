@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import modelo.beans.Articulo;
+import modelo.beans.TipoProducto;
 import modelo.dataBase.ConexionDB;
 import org.apache.ibatis.session.SqlSession;
 
@@ -50,6 +51,30 @@ public class ArticuloDAO {
             ex.printStackTrace();
         } finally {
             return articulos;
+        }
+    }
+    
+    public static boolean darDeBaja(Integer idArticulo){
+        try (SqlSession conn = ConexionDB.getSession()) {
+            int numeroFilasAfectadas = conn.update("Articulo.darDeBaja", idArticulo);
+            conn.commit();
+            if (numeroFilasAfectadas > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static List<TipoProducto> getTiposProducto(){
+        List<TipoProducto> tiposProducto = new ArrayList<>();
+        try (SqlSession conn = ConexionDB.getSession()) {
+            tiposProducto = conn.selectList("Articulo.getTiposProducto");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            return tiposProducto;
         }
     }
     

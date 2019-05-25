@@ -90,9 +90,11 @@ public class Dialogos {
     }
 
     public static final String YES = "Yes";
+    public static final String SI = "Sí";
     public static final String NO = "No";
     public static final String OK = "OK";
     public static final String CANCEL = "Cancel";
+    public static final String CANCELAR = "Cancelar";
 
     public static String showConfirm(String title, String message, String... options) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

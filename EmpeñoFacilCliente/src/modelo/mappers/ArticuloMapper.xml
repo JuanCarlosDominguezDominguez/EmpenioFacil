@@ -82,14 +82,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     <update id="darDeBaja" parameterType="integer" >
-        UPDATE empenio.cliente
+        UPDATE empenio.articulo
         SET
             deBaja = 1 
         WHERE idArticulo = #{value};
     </update>
     
     <update id="marcarVendido" parameterType="integer" >
-        UPDATE empenio.cliente
+        UPDATE empenio.articulo
         SET
             vendido = 0 
         WHERE idArticulo = #{value};
