@@ -66,16 +66,16 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void obtenerDatos(Categoria categoria, boolean esNuevo) {
-        if (categoria == null) {
+        if (esNuevo) {
             this.esNuevo = esNuevo;
         } else {
             this.categoriaSelecionada = categoria;
             this.esNuevo = esNuevo;
             if(categoriaSelecionada.getCategorias_IdCategoria() > 0){
-                this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaNombre(categoriaSelecionada.getNombreCategoria()).getNombreCategoria());
-                System.out.println(CategoriaDAO.obtenerCategoriaNombre(categoriaSelecionada.getNombreCategoria()).getNombreCategoria());
+                this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(
+                        categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
             }
-            this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombreCategoria());
+            this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
         }
     }
 
@@ -101,7 +101,7 @@ public class AgregarCategoriaController implements Initializable {
         categoria = categoriaCbx.getValue();
         int idCategoria = 0;
         for (int i = 0; i < categorias.size(); i++) {
-            if (categorias.get(i).getNombreCategoria().equals(categoria)) {
+            if (categorias.get(i).getNombre().equals(categoria)) {
                 idCategoria = categorias.get(i).getIdCategoria();
             }
         }
@@ -151,7 +151,7 @@ public class AgregarCategoriaController implements Initializable {
     public boolean existe() {
         List<Categoria> categoriasSecundarias = CategoriaDAO.obtenerSubCategoriasPrendas();
         for (int i = 0; i < categoriasSecundarias.size(); i++) {
-            if (nombreCategoriaTxt.getText().equals(categoriasSecundarias.get(i).getNombreCategoria())) {
+            if (nombreCategoriaTxt.getText().equals(categoriasSecundarias.get(i).getNombre())) {
                 return true;
             }
         }
@@ -159,10 +159,12 @@ public class AgregarCategoriaController implements Initializable {
     }
 
     public void cargarCategoriasPrincipales() {
-        categorias = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
+        categorias = CategoriaDAO.obtenerTodasLasCategorias();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
-            acciones.add(categorias.get(i).getNombreCategoria());
+            if(categorias.get(i).getCategorias_IdCategoria()  == 0){
+                acciones.add(categorias.get(i).getNombre());
+            }
         }
         categoriaCbx.setItems(acciones);
     }

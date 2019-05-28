@@ -11,7 +11,7 @@ package modelo.beans;
  */
 public class Categoria {
     private int idCategoria;
-    private String nombreCategoria;
+    private String nombre;
     private int Categorias_IdCategoria;
     private String nombreCategoriaPadre;
 
@@ -20,7 +20,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombreCategoria + ", Categorias_IdCategoria=" + Categorias_IdCategoria + '}';
+        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", Categorias_IdCategoria=" + Categorias_IdCategoria + '}';
     }
 
     public String getNombreCategoriaPadre() {
@@ -40,12 +40,12 @@ public class Categoria {
         this.idCategoria = idCategoria;
     }
 
-    public String getNombreCategoria() {
-        return nombreCategoria;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreCategoria(String nombre) {
-        this.nombreCategoria = nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getCategorias_IdCategoria() {

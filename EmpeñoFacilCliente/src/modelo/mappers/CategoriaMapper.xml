@@ -44,7 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!--BUSCAR CATEGORIAS DE PRENDAS -->
     <select id="obtenerTodasLasCategorias" resultType="modelo.beans.Categoria">
-        SELECT * FROM empenio.categorias ORDER BY nombre;
+        SELECT idCategoria, nombre , Categorias_idCategoria
+        FROM empenio.categorias ORDER BY nombre;
     </select>
     
     <select id="obtenerCategoriasPrincipalesPrendas" resultType="modelo.beans.Categoria">
@@ -99,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerNombresCategorias" resultType="modelo.beans.Categoria">
         SELECT
 	categoriasPrincipales.nombre AS nombreCategoriaPadre,
-	categorias.nombre AS nombreCategoria
+	categorias.nombre 
 	FROM empenio.categorias
 	LEFT OUTER JOIN empenio.categorias AS categoriasPrincipales ON categorias.Categorias_idCategoria = categoriasPrincipales.idCategoria;
     </select>

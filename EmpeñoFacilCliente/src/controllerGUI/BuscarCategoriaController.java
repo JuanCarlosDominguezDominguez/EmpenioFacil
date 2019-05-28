@@ -137,8 +137,8 @@ public class BuscarCategoriaController implements Initializable {
     void modificarCategoria(ActionEvent event) throws IOException {
         Categoria c = new Categoria();
         if (categoriasTbl.getSelectionModel().getSelectedIndex() >= 0) {
-            c = categoriasTbl.getSelectionModel().getSelectedItem();
-
+            c = CategoriaDAO.obtenerCategoriaNombre(categoriasTbl.getSelectionModel().getSelectedItem().getNombre());
+            
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
@@ -183,7 +183,7 @@ public class BuscarCategoriaController implements Initializable {
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categoriasPrincipales.size(); i++) {
             if(categoriasPrincipales.get(i).getCategorias_IdCategoria() == 0){
-                acciones.add(categoriasPrincipales.get(i).getNombreCategoria());
+                acciones.add(categoriasPrincipales.get(i).getNombre());
             }
         }
         categoriasPrincipalesCbx.setItems(acciones);
@@ -192,7 +192,7 @@ public class BuscarCategoriaController implements Initializable {
 
     private void inicializarComunas() {
         categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombreCategoriaPadre"));
-        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+        subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     }
 
     private void inicializarTabla() {
