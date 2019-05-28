@@ -5,15 +5,21 @@
  */
 package controllerGUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -21,6 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modelo.beans.Articulo;
 import modelo.beans.TipoProducto;
 import modelo.dao.ArticuloDAO;
@@ -146,7 +154,7 @@ public class BuscarArticuloController implements Initializable {
         if (articuloSeleccionado != null) {
             String respuesta = Dialogos.showConfirm("Dar de baja artículo", "¿Desea dar de baja el artículo seleccionado? Esta operación no se puede deshacer.", Dialogos.SI, Dialogos.NO);
             if (respuesta.equals(Dialogos.SI)) {
-                if(ArticuloDAO.darDeBaja(articuloSeleccionado.getIdArticulo())) {
+                if (ArticuloDAO.darDeBaja(articuloSeleccionado.getIdArticulo())) {
                     Dialogos.showInformation("Dar de baja artículo", "El artículo fue dado de baja exitosamente.");
                     restablecer(null);
                 } else {
@@ -161,7 +169,32 @@ public class BuscarArticuloController implements Initializable {
 
     @FXML
     void modificar(ActionEvent event) {
+        Articulo articuloSeleccionado = tblArticulos.getSelectionModel().getSelectedItem();
+        if (articuloSeleccionado == null) {
+            Dialogos.showWarning("Modificar artículo", "Debe seleccionar un artículo de la tabla");
+        } else {
+            FormularioArticuloController.articulo = articuloSeleccionado;
+            mostrarFormulario();
+        }
+    }
 
+    
+    public void mostrarFormulario() {
+        
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/FormularioArticulo.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(BuscarUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //RegistrarUsuarioController ruc = (RegistrarUsuarioController) loader.getController();Scene scene = new Scene(root);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        inicializarTabla();
     }
 
 }

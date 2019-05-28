@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="318.0" prefWidth="449.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controllerGUI.FormularioArticuloController">
+    <stylesheets>
+        <URL value="@estilos.css" />
+    </stylesheets>
+    <children>
+      <Pane prefHeight="387.0" prefWidth="456.0" styleClass="mainPane">
+         <children>
+            <Pane layoutX="18.0" layoutY="14.0" prefHeight="49.0" prefWidth="420.0" styleClass="topPane">
+               <children>
+                  <Label layoutX="192.0" layoutY="16.0" text="Cliente" />
+               </children>
+            </Pane>
+            <Label layoutX="28.0" layoutY="74.0" text="Categoria" />
+            <Label layoutX="28.0" layoutY="251.0" text="Precio:" />
+            <Label layoutX="265.0" layoutY="74.0" text="Tipo de producto:" />
+            <Label layoutX="28.0" layoutY="129.0" text="Descripción:" />
+            <TextField fx:id="txtPrecio" layoutX="34.0" layoutY="268.0" />
+            <ComboBox fx:id="cmbCategoria" layoutX="28.0" layoutY="91.0" onAction="#cambiarCategoria" prefWidth="150.0" />
+            <Button layoutX="372.0" layoutY="315.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
+            <Button cancelButton="true" layoutX="291.0" layoutY="315.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <ComboBox fx:id="cmbTipoProducto" layoutX="265.0" layoutY="91.0" prefWidth="150.0" />
+            <TextArea fx:id="txtDescripcion" layoutX="28.0" layoutY="146.0" prefHeight="95.0" prefWidth="412.0" />
+            <Label layoutX="28.0" layoutY="272.0" text="\$" />
+            
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

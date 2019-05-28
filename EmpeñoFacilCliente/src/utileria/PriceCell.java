@@ -10,6 +10,7 @@ import javafx.scene.control.TableCell;
 /**
  *
  * @author YZ
+ * @param <S>
  */
 public class PriceCell<S> extends TableCell<S, Integer> {
 

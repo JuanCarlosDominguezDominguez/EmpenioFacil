@@ -5,6 +5,7 @@
  */
 package modelo.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +77,25 @@ public class ArticuloDAO {
         } finally {
             return tiposProducto;
         }
+    }
+    
+    public static boolean actualizarArticulo(Integer idArticulo, Integer idCategoria, Integer idTipoProducto, Integer precio, String descripcion){
+        try (SqlSession conn = ConexionDB.getSession()) {
+            HashMap<String, Object> parametros = new HashMap<>();
+            parametros.put("idArticulo", idArticulo);
+            parametros.put("idCategoria", idCategoria);
+            parametros.put("idTipoProducto", idTipoProducto);
+            parametros.put("precio", precio);
+            parametros.put("descripcion", descripcion);
+            int numeroFilasAfectadas = conn.update("Articulo.actualizar", parametros);
+            conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
+            if (numeroFilasAfectadas > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
     
 }

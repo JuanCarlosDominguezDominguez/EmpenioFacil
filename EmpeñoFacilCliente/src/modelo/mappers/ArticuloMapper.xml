@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="getTiposProducto" resultType="modelo.beans.TipoProducto" >
-        SELECT categorias.idCategoria, categorias.nombre 
+        SELECT categorias.idCategoria, categorias.nombre, categorias.Categorias_IdCategoria 
         FROM empenio.categorias 
         WHERE Categorias_idCategoria = 2 OR Categorias_idCategoria = 3;
     </select>
