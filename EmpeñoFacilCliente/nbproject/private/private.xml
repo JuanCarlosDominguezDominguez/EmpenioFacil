@@ -5,13 +5,13 @@
         <group>
             <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/mappers/ArticuloMapper.xml</file>
             <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarArticuloController.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/FormularioArticuloController.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/FormularioClienteController.java</file>
             <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/utileria/PriceCell.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/beans/Articulo.java</file>
             <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dataBase/mybatis-config.xml</file>
             <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dao/ArticuloDAO.java</file>
             <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/modelo/dao/ClienteDAO.java</file>
-            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/utileria/Dialogos.java</file>
+            <file>file:/C:/Users/YZ/Repos/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarClienteController.java</file>
         </group>
     </open-files>
 </project-private>
