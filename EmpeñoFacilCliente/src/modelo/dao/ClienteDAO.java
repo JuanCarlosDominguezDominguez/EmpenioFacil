@@ -104,7 +104,6 @@ public class ClienteDAO {
                 throw new IllegalStateException("El cliente ya está en la lista negra.");
             }
             int numeroFilasAfectadas = conn.update("Cliente.enviarAListaNegra", rfc);
-            System.out.println("num filas: " + numeroFilasAfectadas);
             conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
             if (numeroFilasAfectadas > 0) {
                 return true;

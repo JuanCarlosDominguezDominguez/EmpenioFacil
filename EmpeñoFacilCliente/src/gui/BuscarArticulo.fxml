@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.BuscarArticuloController">
+    <stylesheets>
+        <URL value="@estilos.css" />
+    </stylesheets>
+    <children>
+      <Pane prefHeight="480.0" prefWidth="855.0" styleClass="mainPane">
+         <children>
+            <Pane layoutX="3.0" layoutY="14.0" prefHeight="49.0" prefWidth="837.0" styleClass="topPane">
+               <children>
+                  <Button layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
+                  <Label layoutX="382.0" layoutY="16.0" text="Buscar articulo" />
+               </children>
+            </Pane>
+            <TableView fx:id="tblArticulos" layoutX="14.0" layoutY="162.0" prefHeight="304.0" prefWidth="837.0">
+              <columns>
+                <TableColumn fx:id="colIdArticulo" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="colCategoria" prefWidth="105.0" text="Categoría" />
+                  <TableColumn fx:id="colDescripcion" prefWidth="226.0" text="Descripción" />
+                  <TableColumn fx:id="colPrecio" prefWidth="117.0" text="Precio" />
+                  <TableColumn fx:id="colTipoProducto" prefWidth="161.0" text="Tipo de producto" />
+                  <TableColumn fx:id="colDeBaja" prefWidth="74.0" text="De baja" />
+                  <TableColumn fx:id="colVendido" prefWidth="77.0" text="Vendido" />
+              </columns>
+            </TableView>
+            <Label layoutX="14.0" layoutY="63.0" text="ID de artículo:" />
+            <Label layoutX="353.0" layoutY="61.0" text="Tipo de producto" />
+            <TextField fx:id="txtIdArticulo" layoutX="14.0" layoutY="80.0" />
+            <Button layoutX="765.0" layoutY="113.0" mnemonicParsing="false" onAction="#buscar" prefHeight="33.0" prefWidth="73.0" text="Buscar" />
+            <Button layoutX="668.0" layoutY="113.0" mnemonicParsing="false" onAction="#restablecer" prefHeight="33.0" prefWidth="84.0" text="Restablecer" />
+            <Button layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
+            <ComboBox fx:id="cmbTipoProducto" layoutX="353.0" layoutY="80.0" prefWidth="150.0" />
+            <Button layoutX="109.0" layoutY="114.0" mnemonicParsing="false" onAction="#darDeBaja" prefHeight="33.0" prefWidth="92.0" text="Dar de baja" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
