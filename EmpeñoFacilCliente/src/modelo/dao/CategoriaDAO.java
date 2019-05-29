@@ -52,6 +52,7 @@ public class CategoriaDAO {
             //LLAVE   VALOR
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("nombre", nombre);
+            parametros.put("Categorias_idCategoria", Categorias_idCategoria);
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
@@ -175,12 +176,12 @@ public class CategoriaDAO {
         return categorias;
     }
 
-    public static Categoria obtenerRolPorID(String idCategoria) {
+    public static Categoria obtenerCategoriaPorID(String idCategoria) {
         Categoria categoria = new Categoria();
         SqlSession conn = null;
         try {
             conn = ConexionDB.getSession();
-            categoria = conn.selectOne("Categoria.obtenerRolPorID", idCategoria);
+            categoria = conn.selectOne("Categoria.obtenerCategoriaPorID", idCategoria);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -316,11 +317,11 @@ public class CategoriaDAO {
             if (filtros != null) {
                 for (Map.Entry<String, String> entry : filtros.entrySet()) {
                     String campo = entry.getKey();
-                    String valor = entry.getValue();
-
-                    criterios += (criterios.isEmpty())
-                            ? String.format("%s LIKE '%s'", campo, valor)
-                            : String.format("AND %s LIKE '%s'", campo, valor);
+                    String condicion = entry.getValue();
+                    if (!criterios.isEmpty()) {
+                        criterios += "AND ";
+                    }
+                    criterios += String.format("%s %s ", campo, condicion);
                 }
                 conn = ConexionDB.getSession();
                 categorias = conn.selectList("Categoria.busquedaGenerica", criterios);
@@ -349,5 +350,37 @@ public class CategoriaDAO {
             }
         }
         return categoria;
+    }
+
+    public static List<Categoria> obtenerCategoriasPrincipales() {
+        List<Categoria> categorias = new ArrayList<>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategoriasPrincipales");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+    
+     public static List<Categoria> obtenerNombresCategorias() {
+        List<Categoria> categorias = new ArrayList<>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerNombresCategorias");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
     }
 }

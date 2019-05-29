@@ -52,22 +52,22 @@ DROP TABLE IF EXISTS `articulo`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `articulo` (
   `idArticulo` int(11) NOT NULL AUTO_INCREMENT,
-  `Prenda_idPrenda` int(11) NOT NULL,
-  `Nota_idNota` int(11) NOT NULL,
+  `prenda_idPrenda` int(11) NOT NULL,
   `categoria` int(11) NOT NULL,
   `descripcion` varchar(120) NOT NULL,
-  `precio` float NOT NULL,
-  `Comercializacion_idComercializacion1` int(11) NOT NULL,
+  `precio` int(11) NOT NULL,
+  `comercializacion_idComercializacion` int(11) NOT NULL,
   `tipoProducto` int(11) NOT NULL,
   `deBaja` tinyint(4) NOT NULL DEFAULT '0',
+  `vendido` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idArticulo`),
-  KEY `fk_Articulo_Prenda1_idx` (`Prenda_idPrenda`),
+  KEY `fk_Articulo_Prenda1_idx` (`prenda_idPrenda`),
   KEY `fk_Articulo_Categorias1_idx` (`categoria`),
-  KEY `fk_Articulo_Comercializacion2_idx` (`Comercializacion_idComercializacion1`),
+  KEY `fk_Articulo_Comercializacion_idx` (`comercializacion_idComercializacion`),
   KEY `fk_Articulo_Categorias2_idx` (`tipoProducto`),
   CONSTRAINT `fk_Articulo_Categorias1` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`idCategoria`),
   CONSTRAINT `fk_Articulo_Categorias2` FOREIGN KEY (`tipoProducto`) REFERENCES `categorias` (`idCategoria`),
-  CONSTRAINT `fk_Articulo_Comercializacion2` FOREIGN KEY (`Comercializacion_idComercializacion1`) REFERENCES `comercializacion` (`idComercializacion`),
+  CONSTRAINT `fk_Articulo_Comercializacion` FOREIGN KEY (`comercializacion_idComercializacion`) REFERENCES `comercializacion` (`idComercializacion`),
   CONSTRAINT `fk_Articulo_Prenda1` FOREIGN KEY (`Prenda_idPrenda`) REFERENCES `prenda` (`idPrenda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -398,7 +398,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Yeriel Zamora Ortiz','pass',7,'2019-05-09'),(2,'Juan','123',8,'2019-05-09');
+INSERT INTO `usuario` VALUES (1,'Yeriel Zamora Ortiz','pass',7,'2019-05-09', 0),(2,'Juan','123',8,'2019-05-09', 0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 

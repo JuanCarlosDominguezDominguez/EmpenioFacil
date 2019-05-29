@@ -47,6 +47,7 @@ public class AgregarCategoriaController implements Initializable {
     @FXML
     private Button guardarBtn;
 
+
     @FXML
     private Button cancelarBtn;
 
@@ -65,12 +66,15 @@ public class AgregarCategoriaController implements Initializable {
 
     @FXML
     void obtenerDatos(Categoria categoria, boolean esNuevo) {
-        if (categoria == null) {
+        if (esNuevo) {
             this.esNuevo = esNuevo;
         } else {
             this.categoriaSelecionada = categoria;
             this.esNuevo = esNuevo;
-            this.categoriaCbx.setValue(CategoriaDAO.obtenerRolPorID(Integer.toString(categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
+            if(categoriaSelecionada.getCategorias_IdCategoria() > 0){
+                this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(
+                        categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
+            }
             this.nombreCategoriaTxt.setText(categoriaSelecionada.getNombre());
         }
     }
@@ -97,13 +101,13 @@ public class AgregarCategoriaController implements Initializable {
         categoria = categoriaCbx.getValue();
         int idCategoria = 0;
         for (int i = 0; i < categorias.size(); i++) {
-            if (categorias.get(i).getNombre().equalsIgnoreCase(categoria)) {
+            if (categorias.get(i).getNombre().equals(categoria)) {
                 idCategoria = categorias.get(i).getIdCategoria();
             }
         }
         if (validarCampos()) {
             if (esNuevo) {
-                if (categoriaCbx.getValue().equals(null)) {
+                if (idCategoria == 0) {
                     //Registrar Categoria principal
                     if (CategoriaDAO.registrarCategoriaPrincipal(nombre)) {
                         JOptionPane.showMessageDialog(null, "Categoria guardada exitosamente.");
@@ -155,10 +159,12 @@ public class AgregarCategoriaController implements Initializable {
     }
 
     public void cargarCategoriasPrincipales() {
-        categorias = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
+        categorias = CategoriaDAO.obtenerTodasLasCategorias();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
-            acciones.add(categorias.get(i).getNombre());
+            if(categorias.get(i).getCategorias_IdCategoria()  == 0){
+                acciones.add(categorias.get(i).getNombre());
+            }
         }
         categoriaCbx.setItems(acciones);
     }

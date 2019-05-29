@@ -8,6 +8,7 @@ package controllerGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -23,13 +24,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import modelo.beans.Categoria;
 import modelo.beans.Usuario;
 import modelo.dao.CategoriaDAO;
+import utileria.Dialogos;
+import utileria.Validar;
 
 /**
  * FXML Controller class
@@ -66,12 +71,19 @@ public class BuscarCategoriaController implements Initializable {
     private Button modificarBtn;
 
     @FXML
-    private Button eliminarBtn;
+    private TextField nombretxt;
 
     @FXML
-    private ComboBox<String> subcategoriasCbx;
+    private Button eliminarBtn;
 
     private Usuario usuario;
+
+    @FXML
+    void restringirNombre(KeyEvent event) {
+        if (nombretxt.getText().length() >= 30) {
+            event.consume();
+        }
+    }
 
     @FXML
     public void obtenerUsuario(Usuario usuario) {
@@ -80,7 +92,25 @@ public class BuscarCategoriaController implements Initializable {
 
     @FXML
     void buscarCategorias(ActionEvent event) {
-
+        String nombre = nombretxt.getText();
+        int idCategoria = 0;
+        if(!categoriasPrincipalesCbx.getValue().equals(null)){
+            idCategoria = CategoriaDAO.obtenerCategoriaNombre(categoriasPrincipalesCbx.getValue()).getIdCategoria();
+        }
+        
+        HashMap<String, String> filtros = new HashMap<>();
+        if(idCategoria > 0){
+            filtros.put("Categorias_idCategoria", " = " + Integer.toString(idCategoria));
+        }
+        if(Validar.validarCadenaEntero(nombre)){
+            filtros.put("nombre", "LIKE '" + nombre + "%'");
+        }
+        if(filtros.size() > 0){
+            List<Categoria> categorias = CategoriaDAO.busquedaGenerica(filtros);
+            cargarTabla(categorias);
+        }else{
+            Dialogos.showWarning("Buscar Categoria", "Introduzca al menos un criterio de búsqueda");
+        }
     }
 
     @FXML
@@ -92,7 +122,6 @@ public class BuscarCategoriaController implements Initializable {
                 int identificador = categoriasTbl.getSelectionModel().getSelectedItem().getIdCategoria();
                 if (CategoriaDAO.eliminarCategoria(identificador)) {
                     cargarCategoriasPrincipales();
-                    cargarSubCategorias();
                     inicializarTabla();
                     JOptionPane.showMessageDialog(null, "La Categoria seleccionada se ha eliminado correctamente.");
                 } else {
@@ -108,8 +137,8 @@ public class BuscarCategoriaController implements Initializable {
     void modificarCategoria(ActionEvent event) throws IOException {
         Categoria c = new Categoria();
         if (categoriasTbl.getSelectionModel().getSelectedIndex() >= 0) {
-            c = categoriasTbl.getSelectionModel().getSelectedItem();
-
+            c = CategoriaDAO.obtenerCategoriaNombre(categoriasTbl.getSelectionModel().getSelectedItem().getNombre());
+            
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
@@ -122,7 +151,6 @@ public class BuscarCategoriaController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
             cargarCategoriasPrincipales();
-            cargarSubCategorias();
             inicializarTabla();
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar el elemento que deseas modificar.");
@@ -143,7 +171,6 @@ public class BuscarCategoriaController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         cargarCategoriasPrincipales();
-        cargarSubCategorias();
         inicializarTabla();
     }
 
@@ -152,32 +179,24 @@ public class BuscarCategoriaController implements Initializable {
 
     public void cargarCategoriasPrincipales() {
         categoriasPrincipales = new ArrayList<Categoria>();
-        categoriasPrincipales = CategoriaDAO.obtenerCategoriasPrincipalesPrendas();
+        categoriasPrincipales = CategoriaDAO.obtenerTodasLasCategorias();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categoriasPrincipales.size(); i++) {
-            acciones.add(categoriasPrincipales.get(i).getNombre());
+            if(categoriasPrincipales.get(i).getCategorias_IdCategoria() == 0){
+                acciones.add(categoriasPrincipales.get(i).getNombre());
+            }
         }
         categoriasPrincipalesCbx.setItems(acciones);
 
     }
 
-    public void cargarSubCategorias() {
-        subcategorias = new ArrayList<Categoria>();
-        subcategorias = CategoriaDAO.obtenerSubCategoriasPrendas();
-        ObservableList<String> acciones = FXCollections.observableArrayList();
-        for (int i = 0; i < subcategorias.size(); i++) {
-            acciones.add(subcategorias.get(i).getNombre());
-        }
-        subcategoriasCbx.setItems(acciones);
-    }
-
     private void inicializarComunas() {
-        categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        categoriaPrincipalCol.setCellValueFactory(new PropertyValueFactory<>("nombreCategoriaPadre"));
         subcategoriaCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     }
 
     private void inicializarTabla() {
-        List<Categoria> categorias = CategoriaDAO.obtenerTodasLasCategorias();
+        List<Categoria> categorias = CategoriaDAO.obtenerNombresCategorias();
         cargarTabla(categorias);
     }
 
@@ -194,7 +213,6 @@ public class BuscarCategoriaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarCategoriasPrincipales();
-        cargarSubCategorias();
         inicializarComunas();
         inicializarTabla();
     }

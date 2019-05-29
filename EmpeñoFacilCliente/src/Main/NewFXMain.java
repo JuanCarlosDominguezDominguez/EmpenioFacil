@@ -7,6 +7,7 @@ package Main;
 
 import controllerGUI.IniciarSesionController;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -19,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import sun.security.x509.AlgIdDSA;
 
 /**
  *
@@ -34,6 +36,8 @@ public class NewFXMain extends Application {
         escenario.setScene(scene);
         escenario.show();
     }
+    ArrayList<String> algo = new ArrayList();
+    
 
     /**
      * @param args the command line arguments

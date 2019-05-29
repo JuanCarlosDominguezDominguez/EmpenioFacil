@@ -13,6 +13,7 @@ public class Categoria {
     private int idCategoria;
     private String nombre;
     private int Categorias_IdCategoria;
+    private String nombreCategoriaPadre;
 
     public Categoria() {
     }
@@ -22,6 +23,15 @@ public class Categoria {
         return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", Categorias_IdCategoria=" + Categorias_IdCategoria + '}';
     }
 
+    public String getNombreCategoriaPadre() {
+        return nombreCategoriaPadre;
+    }
+
+    public void setNombreCategoriaPadre(String nombreCategoriaPadre) {
+        this.nombreCategoriaPadre = nombreCategoriaPadre;
+    }
+    
+    
     public int getIdCategoria() {
         return idCategoria;
     }
