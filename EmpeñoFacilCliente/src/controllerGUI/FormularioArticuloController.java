@@ -33,9 +33,9 @@ public class FormularioArticuloController implements Initializable {
     public static Articulo articulo = null;
     
     @FXML
-    private ComboBox<TipoProducto> cmbCategoria;
+    private ComboBox<TipoProducto> cmbCategoria = new ComboBox<TipoProducto>();
     @FXML
-    private ComboBox<TipoProducto> cmbTipoProducto;
+    private ComboBox<TipoProducto> cmbTipoProducto = new ComboBox<TipoProducto>();
     @FXML
     private TextArea txtDescripcion;
     @FXML
