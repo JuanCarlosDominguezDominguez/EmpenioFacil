@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="639.0" prefWidth="746.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllerGUI.RegistrarContratoController">
+   <children>
+      <Pane prefHeight="758.0" prefWidth="754.0" style="-fx-background-color: #E3CFAF;">
+         <children>
+            <Button fx:id="buscarBtn" layoutX="420.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
+            <Label layoutX="325.0" layoutY="6.0" text="Registrar contrato" />
+            <Label layoutX="28.0" layoutY="65.0" text="Nombre dle cliente: " />
+            <TextField fx:id="nombreClienteTxt" layoutX="142.0" layoutY="61.0" onKeyTyped="#restringirNombreCliente" prefHeight="25.0" prefWidth="270.0" />
+            <Button fx:id="registrarClienteTxt" layoutX="530.0" layoutY="61.0" mnemonicParsing="false" onAction="#registrarCliente" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Registrar" />
+            <Line endX="638.0" layoutX="108.0" layoutY="108.0" startX="-108.0" />
+            <Label layoutX="359.0" layoutY="109.0" text="Prendas" />
+            <TableView fx:id="prendasTbl" layoutX="14.0" layoutY="126.0" prefHeight="189.0" prefWidth="571.0" style="-fx-background-color: #f2bc68;">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Num." />
+                <TableColumn prefWidth="138.0" text="Categoria" />
+                  <TableColumn prefWidth="175.0" text="Avalúo" />
+                  <TableColumn prefWidth="182.0" text="Préstamo" />
+              </columns>
+            </TableView>
+            <Button fx:id="agregarPrendaBtn" layoutX="615.0" layoutY="147.0" mnemonicParsing="false" onAction="#agregarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Agregar" />
+            <Button fx:id="actualizarPrendaBtn" layoutX="615.0" layoutY="196.0" mnemonicParsing="false" onAction="#actualizarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Actualizar" />
+            <Button fx:id="eliminarPrendaBtn" layoutX="615.0" layoutY="245.0" mnemonicParsing="false" onAction="#eliminarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Eliminar" />
+            <Label layoutX="365.0" layoutY="346.0" text="Fotos" />
+            <Line endX="645.0" layoutX="101.0" layoutY="338.0" startX="-100.0" />
+            <ImageView fitHeight="85.0" fitWidth="95.0" layoutX="17.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="tomarFotoBtn" layoutX="615.0" layoutY="351.0" mnemonicParsing="false" onAction="#tomarFotoBtn" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Tomar" />
+            <Line endX="645.0" layoutX="101.0" layoutY="466.0" startX="-100.0" />
+            <Label layoutX="28.0" layoutY="481.0" text="Interes ordinario:" />
+            <Label layoutX="209.0" layoutY="481.0" text="Interes de almacen:" />
+            <Label layoutX="446.0" layoutY="481.0" text="Periodo:" />
+            <Label layoutX="82.0" layoutY="521.0" text="Fecha de inicio: " />
+            <Label layoutX="429.0" layoutY="521.0" text="Fecha de finiquito: " />
+            <TableView fx:id="pagosTbl" layoutX="12.0" layoutY="546.0" prefHeight="155.0" prefWidth="715.0" style="-fx-background-color: #f2bc68;">
+              <columns>
+                <TableColumn prefWidth="119.0" text="Num. Pago" />
+                <TableColumn prefWidth="202.0" text="Monto" />
+                  <TableColumn prefWidth="212.0" text="Refrendar" />
+                  <TableColumn prefWidth="190.0" text="Finiquitar" />
+              </columns>
+            </TableView>
+            <Button fx:id="guardarBtn" layoutX="482.0" layoutY="720.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
+            <Button fx:id="cancelarBtn" layoutX="615.0" layoutY="720.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
+            <ScrollBar layoutX="740.0" layoutY="6.0" orientation="VERTICAL" prefHeight="752.0" prefWidth="14.0" style="-fx-background-color: #f2bc68;" />
+            <Label fx:id="interesOrdinarioTXT" layoutX="128.0" layoutY="481.0" />
+            <Label text="Label" />
+            <Label fx:id="interesAlmacenTxt" layoutX="318.0" layoutY="481.0" text="Label" />
+            <Label fx:id="periodoTxt" layoutX="501.0" layoutY="481.0" />
+            <Label fx:id="fechaInicioTxt" layoutX="174.0" layoutY="521.0" />
+            <Label fx:id="fechaFinTxt" layoutX="539.0" layoutY="521.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

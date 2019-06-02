@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="721.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllerGUI.BuscarContratoController">
+   <children>
+      <Pane prefHeight="456.0" prefWidth="721.0" style="-fx-background-color: #E3CFAF;">
+         <children>
+            <Button fx:id="buscarBtn" layoutX="243.0" layoutY="47.0" mnemonicParsing="false" onAction="#buscar" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
+            <Label layoutX="22.0" layoutY="56.0" text="Folio:" />
+            <Label layoutX="310.0" layoutY="14.0" text="Buscar contratos" />
+            <TextField fx:id="folioTxt" layoutX="59.0" layoutY="52.0" prefHeight="25.0" prefWidth="162.0" />
+            <Button fx:id="nuevoBtn" layoutX="36.0" layoutY="104.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Nuevo" />
+            <Button fx:id="cancelarBtn" layoutX="165.0" layoutY="104.0" mnemonicParsing="false" onAction="#cancelarContrato" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #f2bc68;" text="Cancelar contrato" />
+            <Button fx:id="recuperarBtn" layoutX="290.0" layoutY="104.0" mnemonicParsing="false" onAction="#recuperarContrato" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: #f2bc68;" text="Recuperar contrato" />
+            <Button fx:id="finiquitarBtn" layoutX="634.0" layoutY="104.0" mnemonicParsing="false" onAction="#finiquitar" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Finiquitar" />
+            <Button fx:id="refrendarBtn" layoutX="547.0" layoutY="104.0" mnemonicParsing="false" onAction="#refrendar" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Refrendar" />
+            <TableView fx:id="contratosTbl" layoutX="14.0" layoutY="148.0" prefHeight="296.0" prefWidth="694.0" style="-fx-background-color: #f2bc68;">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Folio" />
+                <TableColumn editable="false" prefWidth="492.0" text="Nombre del cliente" />
+              </columns>
+            </TableView>
+            <Button fx:id="regresarBtn" layoutX="634.0" layoutY="56.0" mnemonicParsing="false" onAction="#regresar" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #f2bc68;" text="Regresar" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
