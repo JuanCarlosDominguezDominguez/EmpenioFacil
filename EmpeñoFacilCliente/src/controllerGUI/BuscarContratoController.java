@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -24,7 +25,6 @@ public class BuscarContratoController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private Button buscarBtn;
 
@@ -45,7 +45,7 @@ public class BuscarContratoController implements Initializable {
 
     @FXML
     private Button refrendarBtn;
-    
+
     @FXML
     private TableView<?> contratosTbl;
 
@@ -86,10 +86,17 @@ public class BuscarContratoController implements Initializable {
     void regresar(ActionEvent event) {
 
     }
-    
+
+    @FXML
+    void restringirFolio(KeyEvent event) {
+        if (folioTxt.getText().length() >= 11) {
+            event.consume();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

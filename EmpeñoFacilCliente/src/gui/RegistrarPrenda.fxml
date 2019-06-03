@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="404.0" style="-fx-background-color: #E3CFAF;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllerGUI.RegistrarPrendaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="404.0" style="-fx-background-color: #E3CFAF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.RegistrarPrendaController">
    <children>
       <Pane prefHeight="400.0" prefWidth="472.0">
          <children>
@@ -19,7 +18,7 @@
             <Label layoutX="39.0" layoutY="74.0" text="Descripción: " />
             <Label layoutX="70.0" layoutY="204.0" text="Avalúo: " />
             <Label layoutX="52.0" layoutY="239.0" text="Préstamo:" />
-            <ComboBox fx:id="categoriasCbx" layoutX="123.0" layoutY="277.0" prefWidth="150.0" />
+            <ComboBox fx:id="categoriasCbx" layoutX="123.0" layoutY="277.0" prefWidth="150.0" style="-fx-background-color: #f2bc68;" />
             <Label layoutX="50.0" layoutY="281.0" text="Categoria: " />
             <TextField fx:id="prestamoTxt" layoutX="124.0" layoutY="235.0" onKeyTyped="#restringirPrestamo" />
             <TextField fx:id="avaluoTxt" layoutX="124.0" layoutY="200.0" onKeyTyped="#restringirAvaluo" />

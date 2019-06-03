@@ -26,7 +26,6 @@ public class RegistrarContratoController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private Button buscarBtn;
 
@@ -112,17 +111,19 @@ public class RegistrarContratoController implements Initializable {
 
     @FXML
     void restringirNombreCliente(KeyEvent event) {
-
+        if (nombreClienteTxt.getText().length() >= 30) {
+            event.consume();
+        }
     }
 
     @FXML
     void tomarFotoBtn(ActionEvent event) {
 
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
