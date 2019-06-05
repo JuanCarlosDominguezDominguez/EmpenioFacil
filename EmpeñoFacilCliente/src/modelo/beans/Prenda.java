@@ -31,6 +31,14 @@ public class Prenda {
         this.categoria = categoria;
         this.nombreCategoria = nombreCategoria;
     }
+    
+    public Prenda(String descripcion, Integer avaluo, Integer prestamo, Integer idContrato, Integer categoria) {
+        this.descripcion = descripcion;
+        this.avaluo = avaluo;
+        this.prestamo = prestamo;
+        this.idContrato = idContrato;
+        this.categoria = categoria;
+    }
 
     public String getDescripcion() {
         return descripcion;

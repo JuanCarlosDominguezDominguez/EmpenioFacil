@@ -5,6 +5,7 @@
  */
 package controllerGUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modelo.beans.Categoria;
+import modelo.beans.Prenda;
 import modelo.dao.CategoriaDAO;
 import modelo.dao.PrendaDAO;
 import utileria.Dialogos;
@@ -42,6 +50,9 @@ public class RegistrarPrendaController implements Initializable {
     private Button cancelarBtn;
 
     @FXML
+    private Button nuevaCategoriaBtn;
+
+    @FXML
     private ComboBox<String> categoriasCbx;
 
     @FXML
@@ -53,25 +64,62 @@ public class RegistrarPrendaController implements Initializable {
     @FXML
     private TextArea descripcionTxt;
 
+    private boolean esNuevo;
+    
+    private int posicion = 0;
+
+    @FXML
+    void agregarCategoria(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("/gui/AgregarCategoria.fxml").openStream());
+
+        AgregarCategoriaController acc = (AgregarCategoriaController) loader.getController();
+
+        acc.obtenerDatos(null, true);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        cargarCategorias();
+    }
+
+    public void cargarDatos(boolean esNuevo, Prenda prenda, int posicion) {
+        this.esNuevo = esNuevo;
+        if (!esNuevo) {
+            descripcionTxt.setText(prenda.getDescripcion());
+            avaluoTxt.setText(Integer.toString(prenda.getAvaluo()));
+            prestamoTxt.setText(Integer.toString(prenda.getPrestamo()));
+            categoriasCbx.setValue(prenda.getNombreCategoria());
+            this.posicion = posicion;
+        }
+    }
+
     @FXML
     void cancelar(ActionEvent event) {
-
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
     void guardar(ActionEvent event) {
-        if(validarCampos()){
-            int idCategoria = CategoriaDAO.obtenerCategoriaNombre(categoriasCbx.getValue()).getIdCategoria();
-            PrendaDAO.registrarPrenda(descripcionTxt.getText(), Integer.parseInt(avaluoTxt.getText()),
-                    Integer.parseInt(prestamoTxt.getText()), idCategoria , 1);
-            if(PrendaDAO.registrarPrenda(descripcionTxt.getText(), Integer.parseInt(avaluoTxt.getText()),
-                    Integer.parseInt(prestamoTxt.getText()), idCategoria , 1)){
-                Dialogos.showInformation("Registro exitoso", "La prenda se ha registrado exitosamente.");
+        if (validarCampos()) {
+            if (esNuevo) {
+                int idCategoria = CategoriaDAO.obtenerCategoriaNombre(categoriasCbx.getValue()).getIdCategoria();
+                Prenda prenda = new Prenda(descripcionTxt.getText(), Integer.parseInt(avaluoTxt.getText()),
+                        Integer.parseInt(prestamoTxt.getText()), idCategoria, 1);
+                prenda.setNombreCategoria(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(idCategoria)).getNombre());
+                RegistrarContratoController.agregarPrenda(prenda);
+                ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
             }else{
-                Dialogos.showError("Error de Registro", "Ocurrio un error al registra la prenda");
+                int idCategoria = CategoriaDAO.obtenerCategoriaNombre(categoriasCbx.getValue()).getIdCategoria();
+                Prenda prenda = new Prenda(descripcionTxt.getText(), Integer.parseInt(avaluoTxt.getText()),
+                        Integer.parseInt(prestamoTxt.getText()), idCategoria, 1);
+                prenda.setNombreCategoria(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(idCategoria)).getNombre());
+                RegistrarContratoController.insertarPrenda(prenda, posicion);
+                ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
             }
-        }else{
-            Dialogos.showWarning("Error", "No puede haber campos nulos");
+        } else {
+            Dialogos.showWarning("Error", "No puede haber campos nulos o erroneos");
         }
     }
 
@@ -80,15 +128,14 @@ public class RegistrarPrendaController implements Initializable {
         String avaluo = avaluoTxt.getText();
         String descripcion = descripcionTxt.getText();
         String categoria = categoriasCbx.getValue();
-        if(!prestamo.equals(null)|| !avaluo.equals(null) || !descripcion.equals(null) || !categoria.equals(null)){
-            if(Validar.validarMoneda(avaluo) && Validar.validarMoneda(prestamo) && Validar.validarCadenaEntero(categoria)
-                    && Validar.validarCadenaEntero(descripcion)){
+        if (prestamo.equals("") || avaluo.equals("") || descripcion.equals("") || categoria == null) {
+            return false;
+        } else {
+            if (Validar.validarMoneda(avaluo) && Validar.validarMoneda(prestamo) && Validar.validarCadenaEntero(descripcion)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
-            return false;
         }
     }
 
@@ -118,9 +165,7 @@ public class RegistrarPrendaController implements Initializable {
         categorias = CategoriaDAO.obtenerCategoriasPrendas();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
-            if (categorias.get(i).getCategorias_IdCategoria() == 0) {
-                acciones.add(categorias.get(i).getNombre());
-            }
+            acciones.add(categorias.get(i).getNombre());
         }
         categoriasCbx.setItems(acciones);
     }

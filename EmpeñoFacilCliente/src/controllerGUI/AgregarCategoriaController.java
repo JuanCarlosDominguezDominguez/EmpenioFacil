@@ -47,7 +47,6 @@ public class AgregarCategoriaController implements Initializable {
     @FXML
     private Button guardarBtn;
 
-
     @FXML
     private Button cancelarBtn;
 
@@ -71,7 +70,7 @@ public class AgregarCategoriaController implements Initializable {
         } else {
             this.categoriaSelecionada = categoria;
             this.esNuevo = esNuevo;
-            if(categoriaSelecionada.getCategorias_IdCategoria() > 0){
+            if (categoriaSelecionada.getCategorias_IdCategoria() > 0) {
                 this.categoriaCbx.setValue(CategoriaDAO.obtenerCategoriaPorID(Integer.toString(
                         categoriaSelecionada.getCategorias_IdCategoria())).getNombre());
             }
@@ -161,7 +160,7 @@ public class AgregarCategoriaController implements Initializable {
         categorias = CategoriaDAO.obtenerCategoriasPrendas();
         ObservableList<String> acciones = FXCollections.observableArrayList();
         for (int i = 0; i < categorias.size(); i++) {
-            if(categorias.get(i).getCategorias_IdCategoria()  == 0){
+            if (categorias.get(i).getCategorias_IdCategoria() == 0) {
                 acciones.add(categorias.get(i).getNombre());
             }
         }

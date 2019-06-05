@@ -51,13 +51,10 @@
                       <Menu fx:id="usuarioMenu" mnemonicParsing="false" text="Usuario">
                         <items>
                               <MenuItem fx:id="clientesMenuItem" mnemonicParsing="false" onAction="#clientes" text="Clientes" />
+                              <MenuItem fx:id="contratosMenuItem" mnemonicParsing="false" onAction="#contratos" text="Contratos" />
                         </items>
                       </Menu>
-                      <Menu fx:id="bodegueroMenu" mnemonicParsing="false" text="Bodeguero">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="About" />
-                        </items>
-                      </Menu>
+                      <Menu fx:id="bodegueroMenu" mnemonicParsing="false" text="Bodeguero" />
                     </menus>
                   </MenuBar>
                   <Label fx:id="txtnombre" layoutX="64.0" layoutY="279.0" />
