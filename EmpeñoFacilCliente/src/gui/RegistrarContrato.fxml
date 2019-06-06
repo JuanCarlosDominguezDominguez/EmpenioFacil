@@ -13,10 +13,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="639.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.RegistrarContratoController">
    <children>
-      <Pane prefHeight="673.0" prefWidth="746.0" style="-fx-background-color: #E3CFAF;">
+      <Pane prefHeight="673.0" prefWidth="862.0" style="-fx-background-color: #E3CFAF;">
          <children>
             <Button fx:id="buscarBtn" layoutX="419.0" layoutY="34.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Buscar" />
-            <Label layoutX="325.0" layoutY="6.0" text="Registrar contrato">
+            <Label layoutX="398.0" layoutY="4.0" text="Registrar contrato">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
@@ -26,66 +26,69 @@
                </font></Label>
             <TextField fx:id="nombreClienteTxt" layoutX="141.0" layoutY="34.0" onKeyTyped="#restringirNombreCliente" prefHeight="25.0" prefWidth="270.0" />
             <Button fx:id="registrarClienteTxt" layoutX="529.0" layoutY="34.0" mnemonicParsing="false" onAction="#registrarCliente" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Registrar" />
-            <Line endX="638.0" layoutX="107.0" layoutY="81.0" startX="-108.0" />
-            <Label layoutX="362.0" layoutY="82.0" text="Prendas">
+            <Line endX="755.0" layoutX="107.0" layoutY="81.0" startX="-108.0" />
+            <Label layoutX="427.0" layoutY="83.0" text="Prendas">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TableView fx:id="prendasTbl" layoutX="17.0" layoutY="99.0" prefHeight="189.0" prefWidth="571.0" style="-fx-background-color: #f2bc68;">
+            <TableView fx:id="prendasTbl" layoutX="17.0" layoutY="99.0" prefHeight="189.0" prefWidth="733.0" style="-fx-background-color: #f2bc68;">
               <columns>
-                <TableColumn fx:id="colCategoria" prefWidth="209.0" text="Categoria" />
-                  <TableColumn fx:id="colAvaluo" prefWidth="171.0" text="Avalúo" />
-                  <TableColumn fx:id="colPrestamo" prefWidth="190.0" text="Préstamo" />
+                <TableColumn fx:id="colCategoria" prefWidth="133.0" text="Categoria" />
+                  <TableColumn prefWidth="360.66668701171875" text="Descripción" />
+                  <TableColumn fx:id="colAvaluo" prefWidth="125.33331298828125" text="Avalúo" />
+                  <TableColumn fx:id="colPrestamo" prefWidth="113.66668701171875" text="Préstamo" />
               </columns>
             </TableView>
-            <Button fx:id="agregarPrendaBtn" layoutX="618.0" layoutY="120.0" mnemonicParsing="false" onAction="#agregarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Agregar" />
-            <Button fx:id="actualizarPrendaBtn" layoutX="618.0" layoutY="169.0" mnemonicParsing="false" onAction="#actualizarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Actualizar" />
-            <Button fx:id="eliminarPrendaBtn" layoutX="618.0" layoutY="218.0" mnemonicParsing="false" onAction="#eliminarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Eliminar" />
-            <Label layoutX="363.0" layoutY="303.0" text="Fotos">
+            <Button fx:id="agregarPrendaBtn" layoutX="762.0" layoutY="120.0" mnemonicParsing="false" onAction="#agregarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Agregar" />
+            <Button fx:id="actualizarPrendaBtn" layoutX="762.0" layoutY="169.0" mnemonicParsing="false" onAction="#actualizarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Actualizar" />
+            <Button fx:id="eliminarPrendaBtn" layoutX="762.0" layoutY="217.0" mnemonicParsing="false" onAction="#eliminarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Eliminar" />
+            <Label layoutX="433.0" layoutY="300.0" text="Fotos">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Line endX="645.0" layoutX="99.0" layoutY="295.0" startX="-100.0" />
+            <Line endX="763.0" layoutX="99.0" layoutY="295.0" startX="-100.0" />
             <ImageView fitHeight="85.0" fitWidth="95.0" layoutX="15.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="tomarFotoBtn" layoutX="613.0" layoutY="308.0" mnemonicParsing="false" onAction="#tomarFotoBtn" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Tomar" />
-            <Line endX="645.0" layoutX="99.0" layoutY="423.0" startX="-100.0" />
+            <Button fx:id="tomarFotoBtn" layoutX="760.0" layoutY="308.0" mnemonicParsing="false" onAction="#tomarFotoBtn" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Tomar" />
+            <Line endX="763.0" layoutX="99.0" layoutY="423.0" startX="-100.0" />
             <Label layoutX="30.0" layoutY="430.0" text="Interes ordinario:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label layoutX="211.0" layoutY="430.0" text="Interes de almacen:">
+            <Label layoutX="374.0" layoutY="430.0" text="Interes de almacen:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label layoutX="448.0" layoutY="430.0" text="Periodo:">
+            <Label layoutX="720.0" layoutY="430.0" text="Periodo:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label layoutX="84.0" layoutY="453.0" text="Fecha de inicio: ">
+            <Label layoutX="190.0" layoutY="453.0" text="Fecha de inicio: ">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label layoutX="431.0" layoutY="453.0" text="Fecha de finiquito: ">
+            <Label layoutX="543.0" layoutY="453.0" text="Fecha de finiquito: ">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TableView fx:id="pagosTbl" layoutX="14.0" layoutY="478.0" prefHeight="155.0" prefWidth="715.0" style="-fx-background-color: #f2bc68;">
+            <TableView fx:id="pagosTbl" layoutX="14.0" layoutY="478.0" prefHeight="155.0" prefWidth="840.0" style="-fx-background-color: #f2bc68;">
               <columns>
                 <TableColumn fx:id="colNumPago" prefWidth="119.0" text="Num. Pago" />
-                <TableColumn fx:id="colMonto" prefWidth="202.0" text="Monto" />
-                  <TableColumn fx:id="colRefrendar" prefWidth="212.0" text="Refrendar" />
-                  <TableColumn fx:id="colFiniquitar" prefWidth="190.0" text="Finiquitar" />
+                <TableColumn fx:id="colMonto" prefWidth="126.0" text="Prestamo" />
+                  <TableColumn prefWidth="151.0" text="Fecha" />
+                  <TableColumn prefWidth="101.66665649414062" text="Intereses" />
+                  <TableColumn fx:id="colRefrendar" prefWidth="160.6666259765625" text="Refrendar" />
+                  <TableColumn fx:id="colFiniquitar" prefWidth="180.0" text="Finiquitar" />
               </columns>
             </TableView>
-            <Button fx:id="guardarBtn" layoutX="481.0" layoutY="642.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
-            <Button fx:id="cancelarBtn" layoutX="614.0" layoutY="642.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
-            <Label fx:id="interesOrdinarioTXT" layoutX="130.0" layoutY="430.0" text="8" />
-            <Label fx:id="interesAlmacenTxt" layoutX="322.0" layoutY="430.0" text="2" />
-            <Label fx:id="periodoTxt" layoutX="503.0" layoutY="430.0" />
-            <Label fx:id="fechaInicioTxt" layoutX="176.0" layoutY="453.0" />
-            <Label fx:id="fechaFinTxt" layoutX="541.0" layoutY="453.0" />
+            <Button fx:id="guardarBtn" layoutX="622.0" layoutY="640.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
+            <Button fx:id="cancelarBtn" layoutX="755.0" layoutY="640.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Cancelar" />
+            <Label fx:id="interesOrdinarioTXT" layoutX="130.0" layoutY="430.0" />
+            <Label fx:id="interesAlmacenTxt" layoutX="487.0" layoutY="430.0" />
+            <Label fx:id="periodoTxt" layoutX="775.0" layoutY="430.0" />
+            <Label fx:id="fechaInicioTxt" layoutX="282.0" layoutY="453.0" />
+            <Label fx:id="fechaFinTxt" layoutX="653.0" layoutY="453.0" />
             <Label layoutX="144.0" layoutY="430.0" text="\%" />
-            <Label layoutX="335.0" layoutY="431.0" text="\%" />
+            <Label layoutX="498.0" layoutY="430.0" text="\%" />
          </children>
       </Pane>
    </children>

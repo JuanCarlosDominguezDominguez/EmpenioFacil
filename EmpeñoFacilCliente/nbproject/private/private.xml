@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/AgregarCategoriaController.java</file>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/BuscarCategoriaController.java</file>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/RegistrarContratoController.java</file>
-            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/controllerGUI/RegistrarPrendaController.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/test/modelo/dao/ClienteDAOTest.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/src/Main/NewFXMain.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/test/modelo/dao/CategoriaDAOTest.java</file>
+            <file>file:/C:/Users/Juuan/Desktop/6to%20semstre/Des.%20Software/Proyecto/EmpenioFacil/EmpeñoFacilCliente/test/modelo/dao/UsuarioDAOTest.java</file>
         </group>
     </open-files>
 </project-private>
