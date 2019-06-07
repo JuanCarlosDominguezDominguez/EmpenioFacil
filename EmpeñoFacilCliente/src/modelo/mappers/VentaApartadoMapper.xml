@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VentaApartado">
+    
+    <insert id="registrarVenta" parameterType="map" >
+        INSERT INTO `empenio`.`ventaapartado` 
+        (`monto`, `fecha`, `Cliente_rfc`, `Usuario_numPersonal`, `tipoVenta`) 
+        VALUES 
+        (#{monto}, NOW(), #{rfc}, #{numPersonal}, '11');
+    </insert>
+    
+    <insert id="agregarTicket" parameterType="map" >
+        INSERT INTO `empenio`.`ticket` 
+        VALUES 
+        (#{idVentaApartado}, #{idArticulo});
+    </insert>
+    
+    
+</mapper>
