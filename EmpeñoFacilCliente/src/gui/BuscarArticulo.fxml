@@ -39,9 +39,10 @@
             <TextField fx:id="txtIdArticulo" layoutX="14.0" layoutY="80.0" />
             <Button layoutX="765.0" layoutY="113.0" mnemonicParsing="false" onAction="#buscar" prefHeight="33.0" prefWidth="73.0" text="Buscar" />
             <Button layoutX="668.0" layoutY="113.0" mnemonicParsing="false" onAction="#restablecer" prefHeight="33.0" prefWidth="84.0" text="Restablecer" />
-            <Button layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
+            <Button fx:id="btnModificar" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
             <ComboBox fx:id="cmbTipoProducto" layoutX="353.0" layoutY="80.0" prefWidth="150.0" />
-            <Button layoutX="109.0" layoutY="114.0" mnemonicParsing="false" onAction="#darDeBaja" prefHeight="33.0" prefWidth="92.0" text="Dar de baja" />
+            <Button fx:id="btnBaja" layoutX="109.0" layoutY="114.0" mnemonicParsing="false" onAction="#darDeBaja" prefHeight="33.0" prefWidth="92.0" text="Dar de baja" />
+            <Button fx:id="btnSeleccionar" layoutX="571.0" layoutY="113.0" mnemonicParsing="false" onAction="#seleccionar" prefHeight="33.0" prefWidth="84.0" text="Seleccionar" />
          </children>
       </Pane>
    </children>

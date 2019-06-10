@@ -30,7 +30,7 @@ public class NewFXMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/RegistrarContrato.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/BuscarVentaApartado.fxml"));
         Stage escenario = new Stage();
         Scene scene = new Scene(root);
         escenario.setScene(scene);
@@ -42,6 +42,7 @@ public class NewFXMain extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        //modelo.dao.VentaApartadoDAO.RegistrarVenta(200, "0000000000000", 0, new java.util.ArrayList<modelo.beans.Articulo>());
     }
 
 }

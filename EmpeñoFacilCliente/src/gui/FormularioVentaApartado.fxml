@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controllerGUI.FormularioVentaApartadoController">
+    <stylesheets>
+        <URL value="@estilos.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="542.0" prefWidth="701.0" styleClass="mainPane">
+         <children>
+            <Pane layoutX="13.0" layoutY="14.0" prefHeight="49.0" prefWidth="675.0" styleClass="topPane">
+               <children>
+                  <Button layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
+                  <Label fx:id="lblTitulo" layoutX="298.0" layoutY="16.0" text="Registrar venta" />
+               </children>
+            </Pane>
+            <Label layoutX="14.0" layoutY="91.0" text="Cliente:" />
+            <Label fx:id="lblCliente" layoutX="66.0" layoutY="91.0" text="[[Seleccionar cliente]]" />
+            <Button fx:id="btnBuscarCliente" layoutX="66.0" layoutY="108.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="33.0" prefWidth="90.0" text="Buscar cliente" />
+            <Label layoutX="13.0" layoutY="167.0" text="Artículos:" />
+            <TableView fx:id="tblArticulos" layoutX="37.0" layoutY="202.0" prefHeight="180.0" prefWidth="434.0">
+              <columns>
+                <TableColumn fx:id="colIdArticulo" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="colDescripcion" prefWidth="286.0" text="Descripción" />
+                  <TableColumn fx:id="colPrecio" prefWidth="72.0" text="Precio" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnBuscarArticulo" layoutX="66.0" layoutY="163.0" mnemonicParsing="false" onAction="#buscarArticulo" prefHeight="33.0" prefWidth="105.0" text="Buscar artículo" />
+            <Button fx:id="btnQuitar" layoutX="202.0" layoutY="164.0" mnemonicParsing="false" onAction="#quitarArticulo" prefHeight="33.0" prefWidth="90.0" text="Quitar artículo" />
+            <Button fx:id="btnGuardar" layoutX="27.0" layoutY="424.0" mnemonicParsing="false" onAction="#guardar" prefHeight="40.0" prefWidth="79.0" text="Guardar" />
+            <Label layoutX="34.0" layoutY="397.0" text="Total:" />
+            <Label fx:id="lblTotal" layoutX="78.0" layoutY="397.0" text="[[TOTAL]]" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

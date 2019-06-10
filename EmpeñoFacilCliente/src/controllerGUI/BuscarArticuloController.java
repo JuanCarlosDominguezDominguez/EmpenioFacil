@@ -18,8 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -63,6 +65,22 @@ public class BuscarArticuloController implements Initializable {
     private TextField txtIdArticulo;
     @FXML
     private ComboBox<TipoProducto> cmbTipoProducto;
+    @FXML
+    private Button btnBaja;
+    @FXML
+    private Button btnModificar;
+    @FXML
+    private Button btnSeleccionar;
+    
+    public static boolean soloBuscar = false;
+    
+    private boolean soloNoVendidos = false;
+    
+    private Articulo seleccionArticulo = null;
+    
+    public Articulo getSeleccionArticulo(){
+        return seleccionArticulo;
+    }
 
     /**
      * Initializes the controller class.
@@ -72,6 +90,17 @@ public class BuscarArticuloController implements Initializable {
         llenarComboBox();
         inicializarColumnas();
         inicializarTabla();
+        if(soloBuscar) {
+            btnModificar.setVisible(false);
+            btnBaja.setVisible(false);
+            btnSeleccionar.setVisible(true);
+        } else {
+            btnModificar.setVisible(true);
+            btnBaja.setVisible(true);
+            btnSeleccionar.setVisible(false);
+        }
+        soloNoVendidos = soloBuscar;
+        soloBuscar = false;
     }
 
     private void llenarComboBox() {
@@ -111,7 +140,15 @@ public class BuscarArticuloController implements Initializable {
     }
 
     private void inicializarTabla() {
-        List<Articulo> articulos = ArticuloDAO.getArticulos();
+        List<Articulo> articulos;
+        if(soloNoVendidos){
+            HashMap<String, String> filtros = new HashMap<>();
+            filtros.put("vendido", "= 0");
+            filtros.put("deBaja", "= 0");
+            articulos = ArticuloDAO.buscar(filtros);
+        } else {
+            articulos = ArticuloDAO.getArticulos();
+        }
         llenarTabla(articulos);
     }
 
@@ -134,6 +171,10 @@ public class BuscarArticuloController implements Initializable {
             filtros.put("tipoProducto", "= " + tipoProducto.getIdCategoria());
         }
         if (filtros.size() > 0) {
+            if(soloNoVendidos) {
+                filtros.put("vendido", "= 0");
+                filtros.put("deBaja", "= 0");
+            }
             List<Articulo> articulos = ArticuloDAO.buscar(filtros);
             llenarTabla(articulos);
         } else {
@@ -165,6 +206,17 @@ public class BuscarArticuloController implements Initializable {
             Dialogos.showWarning("Dar de baja artículo", "Debe seleccionar un artículo de la tabla");
         }
 
+    }
+    
+    @FXML
+    void seleccionar(ActionEvent event) {
+        Articulo articuloSeleccionado = tblArticulos.getSelectionModel().getSelectedItem();
+        if (articuloSeleccionado == null) {
+            Dialogos.showWarning("Seleccionar artículo", "Debe seleccionar un artículo de la tabla");
+        } else {
+            seleccionArticulo = articuloSeleccionado;
+            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
     }
 
     @FXML

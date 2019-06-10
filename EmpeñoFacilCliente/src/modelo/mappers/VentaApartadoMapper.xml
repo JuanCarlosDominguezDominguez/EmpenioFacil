@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VentaApartado">
+    
+    <insert id="registrarVenta" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="idVentaApartado" >
+        INSERT INTO `empenio`.`ventaapartado` 
+        (`monto`, `fecha`, `Cliente_rfc`, `Usuario_numPersonal`, `tipoVenta`) 
+        VALUES 
+        (#{monto}, NOW(), #{rfc}, #{numPersonal}, '11');
+    </insert>
+    
+    <insert id="agregarTicket" parameterType="map" >
+        INSERT INTO empenio.ticket 
+        VALUES 
+        (#{idVentaApartado}, #{idArticulo});
+    </insert>
+    
+    <select id="buscarVenta" resultType="modelo.beans.VentaApartado" parameterType="string" >
+        SELECT  
+        ventaapartado.idVentaApartado,
+        ventaapartado.monto,
+        ventaapartado.fecha,
+        ventaapartado.cliente_rfc AS rfcCliente,
+        CONCAT(cliente.nombre, " ", cliente.apellidoPaterno, " ", cliente.apellidoMaterno) AS nombreCliente,
+        ventaapartado.Usuario_numPersonal AS numPersonal,
+        ventaapartado.tipoVenta AS idTipoVenta
+        FROM empenio.ventaapartado
+        LEFT OUTER JOIN empenio.cliente ON ventaapartado.Cliente_rfc = cliente.rfc
+        WHERE ${value};
+    </select>
+    
+    <select id="getArticulosVenta" resultType="modelo.beans.Articulo" parameterType="Integer" >
+        SELECT 
+        articulo.idArticulo, 
+        articulo.Prenda_idPrenda AS idPrenda, 
+        articulo.categoria AS idCategoria, 
+        categorias.nombre AS nombreCategoria, 
+        articulo.descripcion, 
+        articulo.precio, 
+        articulo.comercializacion_idComercializacion AS idComercializacion, 
+        articulo.tipoProducto AS idTipoProducto, 
+        categorias2.nombre AS nombreTipoProducto, 
+        articulo.deBaja, 
+        articulo.vendido 
+        FROM empenio.articulo 
+        LEFT OUTER JOIN empenio.categorias ON articulo.categoria = categorias.idCategoria 
+        LEFT OUTER JOIN empenio.categorias AS categorias2 ON articulo.tipoProducto = categorias2.idCategoria
+        INNER JOIN empenio.ticket ON articulo.idArticulo = ticket.Articulo_idArticulo
+        WHERE ticket.VentaApartado = #{value};
+    </select>
+    
+</mapper>

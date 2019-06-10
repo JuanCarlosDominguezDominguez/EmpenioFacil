@@ -2,11 +2,6 @@
 -- Sat May 25 15:01:10 2019
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema empenio20190525
 -- -----------------------------------------------------
@@ -17,8 +12,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema empenio
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `empenio` DEFAULT CHARACTER SET utf8 ;
-USE `empenio` ;
+CREATE DATABASE  IF NOT EXISTS `empenio` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `empenio`;
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- -----------------------------------------------------
 -- Table `empenio`.`categorias`
@@ -33,7 +40,6 @@ CREATE TABLE IF NOT EXISTS `empenio`.`categorias` (
     FOREIGN KEY (`Categorias_idCategoria`)
     REFERENCES `empenio`.`categorias` (`idCategoria`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 23
 DEFAULT CHARACTER SET = utf8;
 
 --
@@ -375,15 +381,15 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `empenio`.`ticket`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empenio`.`ticket` (
-  `Venta/apartado` INT(11) NOT NULL,
+  `VentaApartado` INT(11) NOT NULL,
   `Articulo_idArticulo` INT(11) NOT NULL,
-  INDEX `fk_Venta/apartado_has_Articulo_Articulo1_idx` (`Articulo_idArticulo` ASC) VISIBLE,
-  INDEX `fk_Venta/apartado_has_Articulo_Venta/apartado1_idx` (`Venta/apartado` ASC) VISIBLE,
-  CONSTRAINT `fk_Venta/apartado_has_Articulo_Articulo1`
+  INDEX `fk_VentaApartado_has_Articulo_Articulo1_idx` (`Articulo_idArticulo` ASC) VISIBLE,
+  INDEX `fk_VentaApartado_has_Articulo_VentaApartado1_idx` (`VentaApartado` ASC) VISIBLE,
+  CONSTRAINT `fk_VentaApartado_has_Articulo_Articulo1`
     FOREIGN KEY (`Articulo_idArticulo`)
     REFERENCES `empenio`.`articulo` (`idArticulo`),
-  CONSTRAINT `fk_Venta/apartado_has_Articulo_Venta/apartado1`
-    FOREIGN KEY (`Venta/apartado`)
+  CONSTRAINT `fk_VentaApartado_has_Articulo_VentaApartado1`
+    FOREIGN KEY (`VentaApartado`)
     REFERENCES `empenio`.`ventaapartado` (`idVentaApartado`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

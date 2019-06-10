@@ -27,11 +27,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Modality;
-import javafx.util.StringConverter;
 import modelo.beans.Cliente;
 import modelo.dao.ClienteDAO;
 import utileria.Dialogos;
@@ -71,6 +72,21 @@ public class BuscarClienteController implements Initializable {
     private TextField txtNumeroIdentificacion;
     @FXML
     private DatePicker txtFechaIngreso;
+    @FXML
+    private Button btnNuevo;
+    @FXML
+    private Button btnModificar;
+    @FXML
+    private Button btnSeleccionar;
+    
+    private Cliente seleccionCliente = null;
+    
+    public static boolean soloBuscar = false;
+    
+    public Cliente getSeleccionCliente(){
+        return seleccionCliente;
+    }
+    
 
     /**
      * Initializes the controller class.
@@ -80,7 +96,16 @@ public class BuscarClienteController implements Initializable {
         inicializarColumnas();
         inicializarTabla();
         txtFechaIngreso.setConverter(new LocalDateStringConverter("dd/MM/yyyy"));
-        
+        if(soloBuscar) {
+            btnModificar.setVisible(false);
+            btnNuevo.setVisible(true);
+            btnSeleccionar.setVisible(true);
+        } else {
+            btnModificar.setVisible(true);
+            btnNuevo.setVisible(true);
+            btnSeleccionar.setVisible(false);
+        }
+        soloBuscar = false;
     }
 
     private void inicializarColumnas() {
@@ -113,6 +138,17 @@ public class BuscarClienteController implements Initializable {
             tblClientes.getItems().add(cliente);
         });
     }
+    
+    @FXML
+    void seleccionar(ActionEvent event) {
+        Cliente clienteSeleccionado = tblClientes.getSelectionModel().getSelectedItem();
+        if (clienteSeleccionado == null) {
+            Dialogos.showWarning("Seleccionar cliente", "Debe seleccionar un cliente de la tabla");
+        } else {
+            seleccionCliente = clienteSeleccionado;
+            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
+    }
 
     @FXML
     void buscar(ActionEvent event) {
@@ -136,7 +172,7 @@ public class BuscarClienteController implements Initializable {
             List<Cliente> clientes = ClienteDAO.buscar(filtros);
             llenarTabla(clientes);
         } else {
-            Dialogos.showWarning("Buscar Cliente", "Introduzca al menos un criterio de búsqueda");
+            Dialogos.showWarning("Buscar Cliente", "Introduzca al menos un criterio de búsqueda apropiadamente.");
         }
     }
 
