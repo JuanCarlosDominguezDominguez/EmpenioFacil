@@ -30,14 +30,12 @@ public class NewFXMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/BuscarArticulo.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/RegistrarContrato.fxml"));
         Stage escenario = new Stage();
         Scene scene = new Scene(root);
         escenario.setScene(scene);
         escenario.show();
-    }
-    ArrayList<String> algo = new ArrayList();
-    
+    }    
 
     /**
      * @param args the command line arguments

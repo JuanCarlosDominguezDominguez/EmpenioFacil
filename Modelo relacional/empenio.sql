@@ -132,11 +132,9 @@ CREATE TABLE IF NOT EXISTS `empenio`.`Prenda` (
   `idPrenda` INT NOT NULL AUTO_INCREMENT,
   `Contrato_idContrato` INT NOT NULL,
   `categoria` INT NOT NULL,
-  `tipoProducto` INT NOT NULL,
   PRIMARY KEY (`idPrenda`),
   INDEX `fk_Prenda_Contrato1_idx` (`Contrato_idContrato` ASC) VISIBLE,
   INDEX `fk_Prenda_Categorias1_idx` (`categoria` ASC) VISIBLE,
-  INDEX `fk_Prenda_Categorias2_idx` (`tipoProducto` ASC) VISIBLE,
   CONSTRAINT `fk_Prenda_Contrato1`
     FOREIGN KEY (`Contrato_idContrato`)
     REFERENCES `empenio`.`Contrato` (`idContrato`)

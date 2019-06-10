@@ -60,6 +60,9 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private MenuItem aumentarFondosMenuItem;
+    
+     @FXML
+    private MenuItem contratosMenuItem;
 
     @FXML
     private Menu gerenteMenu;
@@ -104,7 +107,8 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.showAndWait();
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
     }
 
     @FXML
@@ -123,7 +127,30 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
+    }
+    
+    @FXML
+    void contratos(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarContrato.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        BuscarContratoController bcc = (BuscarContratoController) loader.getController();
+        bcc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.show();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
     }
 
     @FXML
@@ -142,7 +169,8 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
     }
 
     @FXML
@@ -161,7 +189,8 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
     }
 
     @FXML
@@ -180,7 +209,8 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
     }
 
     @FXML
@@ -195,7 +225,8 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         escenario.setScene(scene);
         escenario.show();
-        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
     }
 
     @FXML

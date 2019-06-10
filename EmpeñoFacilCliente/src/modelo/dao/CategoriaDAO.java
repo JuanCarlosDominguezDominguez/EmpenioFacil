@@ -225,6 +225,22 @@ public class CategoriaDAO {
         return categorias;
     }
 
+    public static List<Categoria> obtenerCategoriasPrendas() {
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            categorias = conn.selectList("Categoria.obtenerCategoriasPrendas");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return categorias;
+    }
+
     public static List<Categoria> obtenerSubCategoriasPrendas() {
         List<Categoria> categorias = new ArrayList<Categoria>();
         SqlSession conn = null;
@@ -367,8 +383,8 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-    
-     public static List<Categoria> obtenerNombresCategorias() {
+
+    public static List<Categoria> obtenerNombresCategorias() {
         List<Categoria> categorias = new ArrayList<>();
         SqlSession conn = null;
         try {

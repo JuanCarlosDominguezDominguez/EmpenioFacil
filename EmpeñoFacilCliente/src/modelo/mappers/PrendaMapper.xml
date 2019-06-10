@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Prenda">
+    <insert id="registrar" parameterType="map">
+        INSERT INTO empenio.prenda(descripcion, avaluo, prestamo, Contrato_idContrato, categoria)
+        VALUES (#{descripcion}, #{avaluo}, #{prestamo}, #{idContrato}, #{idCategoria});
+    </insert>
+</mapper>

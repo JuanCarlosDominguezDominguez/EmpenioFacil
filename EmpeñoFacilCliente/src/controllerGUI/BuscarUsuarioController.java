@@ -251,7 +251,6 @@ public class BuscarUsuarioController implements Initializable {
         }
 
         PrincipalController pc = (PrincipalController) loader.getController();
-        System.out.println(usuario.getNumPersonal());
         pc.obtenerUsuario(usuario);
         Scene scene = new Scene(root);
         stage.setScene(scene);
