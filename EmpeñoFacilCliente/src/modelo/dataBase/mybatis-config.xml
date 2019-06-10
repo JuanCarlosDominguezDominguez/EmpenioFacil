@@ -25,5 +25,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper resource="modelo/mappers/ClienteMapper.xml"/>
         <mapper resource="modelo/mappers/ParametrosSucursalMapper.xml"/>
         <mapper resource="modelo/mappers/ArticuloMapper.xml"/>
+        <mapper resource="modelo/mappers/VentaApartadoMapper.xml"/>
     </mappers>
 </configuration>

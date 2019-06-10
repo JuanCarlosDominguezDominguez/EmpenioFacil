@@ -381,15 +381,15 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `empenio`.`ticket`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empenio`.`ticket` (
-  `Venta/apartado` INT(11) NOT NULL,
+  `VentaApartado` INT(11) NOT NULL,
   `Articulo_idArticulo` INT(11) NOT NULL,
-  INDEX `fk_Venta/apartado_has_Articulo_Articulo1_idx` (`Articulo_idArticulo` ASC) VISIBLE,
-  INDEX `fk_Venta/apartado_has_Articulo_Venta/apartado1_idx` (`Venta/apartado` ASC) VISIBLE,
-  CONSTRAINT `fk_Venta/apartado_has_Articulo_Articulo1`
+  INDEX `fk_VentaApartado_has_Articulo_Articulo1_idx` (`Articulo_idArticulo` ASC) VISIBLE,
+  INDEX `fk_VentaApartado_has_Articulo_VentaApartado1_idx` (`VentaApartado` ASC) VISIBLE,
+  CONSTRAINT `fk_VentaApartado_has_Articulo_Articulo1`
     FOREIGN KEY (`Articulo_idArticulo`)
     REFERENCES `empenio`.`articulo` (`idArticulo`),
-  CONSTRAINT `fk_Venta/apartado_has_Articulo_Venta/apartado1`
-    FOREIGN KEY (`Venta/apartado`)
+  CONSTRAINT `fk_VentaApartado_has_Articulo_VentaApartado1`
+    FOREIGN KEY (`VentaApartado`)
     REFERENCES `empenio`.`ventaapartado` (`idVentaApartado`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

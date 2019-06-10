@@ -44,8 +44,9 @@
             <DatePicker fx:id="txtFechaIngreso" editable="false" layoutX="664.0" layoutY="82.0" />
             <Button layoutX="765.0" layoutY="113.0" mnemonicParsing="false" onAction="#buscar" prefHeight="33.0" prefWidth="73.0" text="Buscar" />
             <Button layoutX="668.0" layoutY="113.0" mnemonicParsing="false" onAction="#restablecer" prefHeight="33.0" prefWidth="84.0" text="Restablecer" />
-            <Button layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="33.0" prefWidth="73.0" text="Nuevo" />
-            <Button layoutX="105.0" layoutY="115.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
+            <Button fx:id="btnNuevo" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="33.0" prefWidth="73.0" text="Nuevo" />
+            <Button fx:id="btnModificar" layoutX="105.0" layoutY="115.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
+            <Button fx:id="btnSeleccionar" layoutX="570.0" layoutY="115.0" mnemonicParsing="false" onAction="#seleccionar" prefHeight="33.0" prefWidth="84.0" text="Seleccionar" />
          </children>
       </Pane>
    </children>

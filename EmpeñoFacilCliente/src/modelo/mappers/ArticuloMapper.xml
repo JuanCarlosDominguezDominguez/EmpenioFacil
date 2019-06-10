@@ -91,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="marcarVendido" parameterType="integer" >
         UPDATE empenio.articulo
         SET
-            vendido = 0 
+            vendido = 1 
         WHERE idArticulo = #{value};
     </update>
     
