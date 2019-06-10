@@ -33,22 +33,22 @@
                </font></Label>
             <TableView fx:id="prendasTbl" layoutX="17.0" layoutY="99.0" prefHeight="189.0" prefWidth="733.0" style="-fx-background-color: #f2bc68;">
               <columns>
-                <TableColumn fx:id="colCategoria" prefWidth="133.0" text="Categoria" />
-                  <TableColumn prefWidth="360.66668701171875" text="Descripción" />
-                  <TableColumn fx:id="colAvaluo" prefWidth="125.33331298828125" text="Avalúo" />
-                  <TableColumn fx:id="colPrestamo" prefWidth="113.66668701171875" text="Préstamo" />
+                <TableColumn fx:id="colCategoria" prefWidth="105.0" text="Categoria" />
+                  <TableColumn fx:id="colDescripcion" prefWidth="434.0" text="Descripción" />
+                  <TableColumn fx:id="colAvaluo" prefWidth="107.0" text="Avalúo" />
+                  <TableColumn fx:id="colPrestamo" prefWidth="88.0" text="Préstamo" />
               </columns>
             </TableView>
             <Button fx:id="agregarPrendaBtn" layoutX="762.0" layoutY="120.0" mnemonicParsing="false" onAction="#agregarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Agregar" />
             <Button fx:id="actualizarPrendaBtn" layoutX="762.0" layoutY="169.0" mnemonicParsing="false" onAction="#actualizarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Actualizar" />
             <Button fx:id="eliminarPrendaBtn" layoutX="762.0" layoutY="217.0" mnemonicParsing="false" onAction="#eliminarPrenda" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Eliminar" />
-            <Label layoutX="433.0" layoutY="300.0" text="Fotos">
+            <Label layoutX="433.0" layoutY="331.0" text="Fotos">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Line endX="763.0" layoutX="99.0" layoutY="295.0" startX="-100.0" />
-            <ImageView fitHeight="85.0" fitWidth="95.0" layoutX="15.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="tomarFotoBtn" layoutX="760.0" layoutY="308.0" mnemonicParsing="false" onAction="#tomarFotoBtn" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Tomar" />
+            <Line endX="763.0" layoutX="99.0" layoutY="326.0" startX="-100.0" />
+            <ImageView fitHeight="71.0" fitWidth="83.0" layoutX="14.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="tomarFotoBtn" layoutX="760.0" layoutY="339.0" mnemonicParsing="false" onAction="#tomarFotoBtn" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Tomar" />
             <Line endX="763.0" layoutX="99.0" layoutY="423.0" startX="-100.0" />
             <Label layoutX="30.0" layoutY="430.0" text="Interes ordinario:">
                <font>
@@ -72,12 +72,12 @@
                </font></Label>
             <TableView fx:id="pagosTbl" layoutX="14.0" layoutY="478.0" prefHeight="155.0" prefWidth="840.0" style="-fx-background-color: #f2bc68;">
               <columns>
-                <TableColumn fx:id="colNumPago" prefWidth="119.0" text="Num. Pago" />
-                <TableColumn fx:id="colMonto" prefWidth="126.0" text="Prestamo" />
-                  <TableColumn prefWidth="151.0" text="Fecha" />
-                  <TableColumn prefWidth="101.66665649414062" text="Intereses" />
-                  <TableColumn fx:id="colRefrendar" prefWidth="160.6666259765625" text="Refrendar" />
-                  <TableColumn fx:id="colFiniquitar" prefWidth="180.0" text="Finiquitar" />
+                <TableColumn fx:id="colMonto" prefWidth="87.0" text="Prestamo" />
+                  <TableColumn fx:id="colFecha" prefWidth="108.0" text="Fecha" />
+                  <TableColumn fx:id="colInteres" prefWidth="130.0" text="Intereses" />
+                  <TableColumn fx:id="colPago" prefWidth="110.0" text="Pago" />
+                  <TableColumn fx:id="colRefrendar" minWidth="0.0" prefWidth="164.0" text="Refrendar" />
+                  <TableColumn fx:id="colFiniquitar" prefWidth="172.0" text="Finiquitar" />
               </columns>
             </TableView>
             <Button fx:id="guardarBtn" layoutX="622.0" layoutY="640.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
@@ -89,6 +89,12 @@
             <Label fx:id="fechaFinTxt" layoutX="653.0" layoutY="453.0" />
             <Label layoutX="144.0" layoutY="430.0" text="\%" />
             <Label layoutX="498.0" layoutY="430.0" text="\%" />
+            <Label layoutX="597.0" layoutY="296.0" text="TOTAL: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalTxt" layoutX="651.0" layoutY="296.0" />
          </children>
       </Pane>
    </children>

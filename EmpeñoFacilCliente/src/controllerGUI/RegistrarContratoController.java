@@ -32,6 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.beans.Pago;
 import modelo.beans.ParametrosSucursal;
 import modelo.beans.Prenda;
 import modelo.beans.Usuario;
@@ -66,7 +67,10 @@ public class RegistrarContratoController implements Initializable {
 
     @FXML
     private TableColumn<Prenda, String> colCategoria;
-
+    
+    @FXML
+    private TableColumn<Prenda, String> colDescripcion;
+    
     @FXML
     private TableColumn<Prenda, String> colAvaluo;
 
@@ -86,19 +90,25 @@ public class RegistrarContratoController implements Initializable {
     private Button tomarFotoBtn;
 
     @FXML
-    private TableView<?> pagosTbl;
+    private TableView<Pago> pagosTbl;
 
     @FXML
-    private TableColumn<?, ?> colNumPago;
+    private TableColumn<Pago, String> colMonto;
+    
+    @FXML
+    private TableColumn<Pago, String> colFecha;
 
     @FXML
-    private TableColumn<?, ?> colMonto;
+    private TableColumn<Pago, String> colInteres;
 
     @FXML
-    private TableColumn<?, ?> colRefrendar;
+    private TableColumn<Pago, String> colPago;
 
     @FXML
-    private TableColumn<?, ?> colFiniquitar;
+    private TableColumn<Pago, String> colRefrendar;
+
+    @FXML
+    private TableColumn<Pago, String> colFiniquitar;
 
     @FXML
     private Button guardarBtn;
@@ -122,20 +132,21 @@ public class RegistrarContratoController implements Initializable {
     private Label fechaFinTxt;
     
     @FXML
-    private ScrollBar scrollBar;
-
+    private Label totalTxt;
 
     private Usuario usuario;
 
     private static List<Prenda> prendas = new ArrayList<Prenda>();
-
+    
+    private static List<Pago> pagos = new ArrayList<Pago>();
+    
     public static void agregarPrenda(Prenda prenda) {
         prendas.add(prenda);
     }
 
     public static void insertarPrenda(Prenda prenda, int posicion) {
         prendas.remove(posicion);
-        prendas.add(posicion, prenda);   
+        prendas.add(posicion, prenda);
     }
 
     @FXML
@@ -156,6 +167,7 @@ public class RegistrarContratoController implements Initializable {
             System.out.println(prendas.size());
             inicialiazarTablaPrendas();
             cargarTablaPrendas(prendas);
+            calcularTotal();
         } else {
             Dialogos.showWarning("Error", "Debes seleccionar una prenda");
         }
@@ -175,6 +187,7 @@ public class RegistrarContratoController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         inicialiazarTablaPrendas();
+        calcularTotal();
     }
 
     @FXML
@@ -220,6 +233,7 @@ public class RegistrarContratoController implements Initializable {
             int numPrenda = prendasTbl.getSelectionModel().getSelectedIndex();
             prendas.remove(numPrenda);
             cargarTablaPrendas(prendas);
+            calcularTotal();
         } else {
             Dialogos.showWarning("Error", "Debes seleccionar una prenda");
         }
@@ -259,10 +273,11 @@ public class RegistrarContratoController implements Initializable {
 
     }
 
-    private void inicializarComunasPrendas() {
+    private void inicializarColumnasPrendas() {
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
         colAvaluo.setCellValueFactory(new PropertyValueFactory<>("avaluo"));
         colPrestamo.setCellValueFactory(new PropertyValueFactory<>("prestamo"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
     }
 
     private void inicialiazarTablaPrendas() {
@@ -275,6 +290,39 @@ public class RegistrarContratoController implements Initializable {
         for (int i = 0; i < prendas.size(); i++) {
             prendasTbl.getItems().addAll(prendas.get(i));
         }
+    }
+    
+    private void inicializarColumnasPagos(){
+        colPrestamo.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+        colInteres.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+        colPago.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+        colRefrendar.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+        colFiniquitar.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+    }
+    
+    private void inicializarTablaPagos(){
+        List<Pago> pagos = this.pagos;
+        cargarTablaPagos(pagos);
+    }
+    
+    public void cargarTablaPagos(List<Pago> pagos){
+        pagosTbl.getItems().clear();
+        for (int i = 0; i < pagos.size(); i++) {
+            pagosTbl.getItems().addAll(pagos.get(i));
+        }
+    }
+    
+    public void calcularPagos(){
+        
+    }
+    
+    public void calcularTotal(){
+        int suma = 0;
+        for(int i = 0; i < prendas.size(); i++){
+            suma = suma + prendas.get(i).getPrestamo();
+        }
+        totalTxt.setText(Integer.toString(suma));
     }
 
     public void cargarParametros() {
@@ -295,8 +343,10 @@ public class RegistrarContratoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        inicializarComunasPrendas();
+        inicializarColumnasPrendas();
         inicialiazarTablaPrendas();
+        inicializarColumnasPagos();
+        inicializarTablaPagos();
         cargarParametros();
     }
 
