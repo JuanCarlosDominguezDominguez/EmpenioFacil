@@ -129,7 +129,7 @@ public class BuscarVentaApartadoController implements Initializable {
             String fechaIngreso = dateFormatter.format(fechaSeleccionada);
             filtros.put("fecha", "= '" + fechaIngreso + "'");
         }
-        if (filtros.size() > 1) {
+        if (filtros.size() > 0) {
             List<VentaApartado> ventasApartados = VentaApartadoDAO.buscar(filtros);
             llenarTabla(ventasApartados);
         } else {
@@ -154,18 +154,24 @@ public class BuscarVentaApartadoController implements Initializable {
                 FormularioVentaApartadoController.modo = FormularioVentaApartadoController.VER_VENTA;
                 FormularioVentaApartadoController.seleccion = seleccion;
                 mostrarFormulario();
+            } else {
+                FormularioVentaApartadoController.modo = FormularioVentaApartadoController.VER_APARTADO;
+                FormularioVentaApartadoController.seleccion = seleccion;
+                mostrarFormulario();
             }
         }
     }
 
     @FXML
     void nuevaVenta(ActionEvent event) {
+        FormularioVentaApartadoController.modo = FormularioVentaApartadoController.NUEVA_VENTA;
         mostrarFormulario();
     }
 
     @FXML
     void nuevoApartado(ActionEvent event) {
-        
+        FormularioVentaApartadoController.modo = FormularioVentaApartadoController.NUEVO_APARTADO;
+        mostrarFormulario();
     }
 
     public void mostrarFormulario() {

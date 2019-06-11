@@ -69,6 +69,7 @@ public class IniciarSesionController implements Initializable {
         if (validarCampos()) {
             if (existe()) {
                 Usuario usuario = UsuarioDAO.obtenerUsuarioPorNumeroDePersonal(numeroDePersonalTxt.getText());
+                PrincipalController.numPersonal = usuario.getNumPersonal();
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = loader.load(getClass().getResource("/gui/Principal.fxml").openStream());

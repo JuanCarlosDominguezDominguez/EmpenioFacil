@@ -89,6 +89,8 @@ public class PrincipalController implements Initializable {
     private Label txtRol;
 
     private Usuario usuario;
+    
+    public static Integer numPersonal = 0;
 
     @FXML
     void administrarUsuarios(ActionEvent event) {

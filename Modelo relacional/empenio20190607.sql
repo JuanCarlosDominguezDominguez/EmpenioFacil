@@ -142,7 +142,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `empenio`.`adelantoapartado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empenio`.`adelantoapartado` (
-  `idadelantoapartado` INT(11) NOT NULL,
+  `idadelantoapartado` INT(11) NOT NULL AUTO_INCREMENT,
   `monto` INT(11) NOT NULL,
   `idVentaApartado` INT(11) NOT NULL,
   PRIMARY KEY (`idadelantoapartado`),
