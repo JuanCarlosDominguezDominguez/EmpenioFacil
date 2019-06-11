@@ -19,7 +19,7 @@
          <children>
             <Pane layoutX="3.0" layoutY="14.0" prefHeight="49.0" prefWidth="837.0" styleClass="topPane" stylesheets="@estilos.css">
                <children>
-                  <Button layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
+                  <Button fx:id="btnRegresar" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#regresar" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
                   <Label layoutX="382.0" layoutY="16.0" text="Buscar cliente" />
                </children>
             </Pane>
@@ -47,6 +47,7 @@
             <Button fx:id="btnNuevo" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="33.0" prefWidth="73.0" text="Nuevo" />
             <Button fx:id="btnModificar" layoutX="105.0" layoutY="115.0" mnemonicParsing="false" onAction="#modificar" prefHeight="33.0" prefWidth="73.0" text="Modificar" />
             <Button fx:id="btnSeleccionar" layoutX="570.0" layoutY="115.0" mnemonicParsing="false" onAction="#seleccionar" prefHeight="33.0" prefWidth="84.0" text="Seleccionar" />
+            <Button fx:id="btnAceptar" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#enviarCliente" prefHeight="33.0" prefWidth="73.0" text="Aceptar" visible="false" />
          </children>
       </Pane>
    </children>

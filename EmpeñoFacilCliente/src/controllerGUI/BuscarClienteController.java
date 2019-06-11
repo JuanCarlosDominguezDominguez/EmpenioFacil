@@ -34,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Modality;
 import modelo.beans.Cliente;
+import modelo.beans.Usuario;
 import modelo.dao.ClienteDAO;
 import utileria.Dialogos;
 import utileria.LocalDateStringConverter;
@@ -48,6 +49,8 @@ public class BuscarClienteController implements Initializable {
 
     @FXML
     private TableView<Cliente> tblClientes;
+    @FXML
+    private Button btnRegresar;
     @FXML
     private TableColumn<Cliente, String> colNombre;
     @FXML
@@ -73,20 +76,93 @@ public class BuscarClienteController implements Initializable {
     @FXML
     private DatePicker txtFechaIngreso;
     @FXML
+    private Button btnAceptar;
+    @FXML
     private Button btnNuevo;
     @FXML
     private Button btnModificar;
     @FXML
     private Button btnSeleccionar;
-    
+
+    private Usuario usuario;
+
     private Cliente seleccionCliente = null;
-    
+
     public static boolean soloBuscar = false;
-    
-    public Cliente getSeleccionCliente(){
+
+    private boolean esRegistrarContrato;
+
+    public Cliente getSeleccionCliente() {
         return seleccionCliente;
     }
-    
+
+    @FXML
+    void regresar(ActionEvent event) {
+        if (esRegistrarContrato) {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = null;
+            try {
+                root = loader.load(getClass().getResource("/gui/RegistrarContrato.fxml").openStream());
+            } catch (IOException ex) {
+                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            RegistrarContratoController rcc = (RegistrarContratoController) loader.getController();
+            rcc.obtenerUsuario(usuario);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            Stage principal = (Stage) btnRegresar.getScene().getWindow();
+            principal.close();
+        } else {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = null;
+            try {
+                root = loader.load(getClass().getResource("/gui/Principal.fxml").openStream());
+            } catch (IOException ex) {
+                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            PrincipalController pc = (PrincipalController) loader.getController();
+            pc.obtenerUsuario(usuario);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            Stage principal = (Stage) btnRegresar.getScene().getWindow();
+            principal.close();
+        }
+    }
+
+    public void obtenerUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @FXML
+    void enviarCliente(ActionEvent event) {
+        Cliente clienteSeleccionado = tblClientes.getSelectionModel().getSelectedItem();
+        if (clienteSeleccionado == null) {
+            Dialogos.showWarning("Modificar cliente", "Debe seleccionar un cliente de la tabla");
+        } else {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = null;
+            try {
+                root = loader.load(getClass().getResource("/gui/RegistrarContrato.fxml").openStream());
+            } catch (IOException ex) {
+                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            RegistrarContratoController bcc = (RegistrarContratoController) loader.getController();
+            bcc.obtenerCliente(clienteSeleccionado);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }
+    }
 
     /**
      * Initializes the controller class.
@@ -96,7 +172,7 @@ public class BuscarClienteController implements Initializable {
         inicializarColumnas();
         inicializarTabla();
         txtFechaIngreso.setConverter(new LocalDateStringConverter("dd/MM/yyyy"));
-        if(soloBuscar) {
+        if (soloBuscar) {
             btnModificar.setVisible(false);
             btnNuevo.setVisible(true);
             btnSeleccionar.setVisible(true);
@@ -138,7 +214,7 @@ public class BuscarClienteController implements Initializable {
             tblClientes.getItems().add(cliente);
         });
     }
-    
+
     @FXML
     void seleccionar(ActionEvent event) {
         Cliente clienteSeleccionado = tblClientes.getSelectionModel().getSelectedItem();
@@ -216,5 +292,14 @@ public class BuscarClienteController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         inicializarTabla();
+    }
+
+    public void esRegistrarContrato(boolean esRegistrarContrato) {
+        if (esRegistrarContrato) {
+            btnNuevo.setVisible(false);
+            btnModificar.setVisible(false);
+            btnAceptar.setVisible(true);
+            this.esRegistrarContrato = esRegistrarContrato;
+        }
     }
 }

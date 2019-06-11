@@ -97,7 +97,8 @@ public class RegistrarPrendaController implements Initializable {
 
     @FXML
     void cancelar(ActionEvent event) {
-        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        Stage principal = (Stage) cancelarBtn.getScene().getWindow();
+            principal.close();
     }
 
     @FXML

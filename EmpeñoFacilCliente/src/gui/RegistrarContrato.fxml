@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -24,8 +23,6 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="nombreClienteTxt" layoutX="141.0" layoutY="34.0" onKeyTyped="#restringirNombreCliente" prefHeight="25.0" prefWidth="270.0" />
-            <Button fx:id="registrarClienteTxt" layoutX="529.0" layoutY="34.0" mnemonicParsing="false" onAction="#registrarCliente" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Registrar" />
             <Line endX="755.0" layoutX="107.0" layoutY="81.0" startX="-108.0" />
             <Label layoutX="427.0" layoutY="83.0" text="Prendas">
                <font>
@@ -72,12 +69,11 @@
                </font></Label>
             <TableView fx:id="pagosTbl" layoutX="14.0" layoutY="478.0" prefHeight="155.0" prefWidth="840.0" style="-fx-background-color: #f2bc68;">
               <columns>
-                <TableColumn fx:id="colMonto" prefWidth="87.0" text="Prestamo" />
-                  <TableColumn fx:id="colFecha" prefWidth="108.0" text="Fecha" />
-                  <TableColumn fx:id="colInteres" prefWidth="130.0" text="Intereses" />
-                  <TableColumn fx:id="colPago" prefWidth="110.0" text="Pago" />
-                  <TableColumn fx:id="colRefrendar" minWidth="0.0" prefWidth="164.0" text="Refrendar" />
-                  <TableColumn fx:id="colFiniquitar" prefWidth="172.0" text="Finiquitar" />
+                  <TableColumn fx:id="colFecha" prefWidth="162.0" text="Fecha" />
+                  <TableColumn fx:id="colInteres" prefWidth="160.0" text="Intereses" />
+                  <TableColumn fx:id="colPago" prefWidth="175.0" text="Pago" />
+                  <TableColumn fx:id="colRefrendar" minWidth="0.0" prefWidth="186.0" text="Refrendar" />
+                  <TableColumn fx:id="colFiniquitar" prefWidth="156.0" text="Finiquitar" />
               </columns>
             </TableView>
             <Button fx:id="guardarBtn" layoutX="622.0" layoutY="640.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #f2bc68;" text="Guardar" />
@@ -95,6 +91,7 @@
                </font>
             </Label>
             <Label fx:id="totalTxt" layoutX="651.0" layoutY="296.0" />
+            <Label fx:id="nombreClienteTxt" layoutX="140.0" layoutY="38.0" />
          </children>
       </Pane>
    </children>

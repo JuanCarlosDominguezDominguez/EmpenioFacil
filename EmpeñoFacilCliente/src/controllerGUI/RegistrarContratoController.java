@@ -7,12 +7,15 @@ package controllerGUI;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -24,7 +27,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,6 +34,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.beans.Articulo;
+import modelo.beans.Cliente;
 import modelo.beans.Pago;
 import modelo.beans.ParametrosSucursal;
 import modelo.beans.Prenda;
@@ -39,6 +43,7 @@ import modelo.beans.Usuario;
 import modelo.dao.ParametrosSucursalDAO;
 import modelo.dao.PrendaDAO;
 import utileria.Dialogos;
+import utileria.PriceCell;
 
 /**
  * FXML Controller class
@@ -54,12 +59,6 @@ public class RegistrarContratoController implements Initializable {
     private Button buscarBtn;
 
     @FXML
-    private TextField nombreClienteTxt;
-
-    @FXML
-    private Button registrarClienteTxt;
-
-    @FXML
     private TableView<Prenda> prendasTbl;
 
     @FXML
@@ -67,10 +66,10 @@ public class RegistrarContratoController implements Initializable {
 
     @FXML
     private TableColumn<Prenda, String> colCategoria;
-    
+
     @FXML
     private TableColumn<Prenda, String> colDescripcion;
-    
+
     @FXML
     private TableColumn<Prenda, String> colAvaluo;
 
@@ -93,22 +92,19 @@ public class RegistrarContratoController implements Initializable {
     private TableView<Pago> pagosTbl;
 
     @FXML
-    private TableColumn<Pago, String> colMonto;
-    
-    @FXML
     private TableColumn<Pago, String> colFecha;
 
     @FXML
-    private TableColumn<Pago, String> colInteres;
+    private TableColumn<Pago, Integer> colInteres;
 
     @FXML
-    private TableColumn<Pago, String> colPago;
+    private TableColumn<Pago, Integer> colPago;
 
     @FXML
-    private TableColumn<Pago, String> colRefrendar;
+    private TableColumn<Pago, Integer> colRefrendar;
 
     @FXML
-    private TableColumn<Pago, String> colFiniquitar;
+    private TableColumn<Pago, Integer> colFiniquitar;
 
     @FXML
     private Button guardarBtn;
@@ -129,17 +125,26 @@ public class RegistrarContratoController implements Initializable {
     private Label fechaInicioTxt;
 
     @FXML
+    private Label nombreClienteTxt;
+
+    @FXML
     private Label fechaFinTxt;
-    
+
     @FXML
     private Label totalTxt;
 
     private Usuario usuario;
 
+    private Cliente cliente;
+
+    private LocalDate fechaInicio = LocalDate.now();
+
+    private LocalDate fechaFin = fechaInicio.plusDays(30);
+
     private static List<Prenda> prendas = new ArrayList<Prenda>();
-    
+
     private static List<Pago> pagos = new ArrayList<Pago>();
-    
+
     public static void agregarPrenda(Prenda prenda) {
         prendas.add(prenda);
     }
@@ -168,6 +173,8 @@ public class RegistrarContratoController implements Initializable {
             inicialiazarTablaPrendas();
             cargarTablaPrendas(prendas);
             calcularTotal();
+            pagos.clear();
+            calcularPagos();
         } else {
             Dialogos.showWarning("Error", "Debes seleccionar una prenda");
         }
@@ -175,37 +182,33 @@ public class RegistrarContratoController implements Initializable {
 
     @FXML
     void agregarPrenda(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResource("/gui/RegistrarPrenda.fxml").openStream());
+        if (nombreClienteTxt.getText().equals("")) {
+            Dialogos.showWarning("No hay Cliente", "Debe agregar a un cliente al contrato.");
+        } else {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("/gui/RegistrarPrenda.fxml").openStream());
 
-        RegistrarPrendaController rpc = (RegistrarPrendaController) loader.getController();
-        Prenda prenda = new Prenda();
-        rpc.cargarDatos(true, prenda, 0);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        inicialiazarTablaPrendas();
-        calcularTotal();
+            RegistrarPrendaController rpc = (RegistrarPrendaController) loader.getController();
+            Prenda prenda = new Prenda();
+            rpc.cargarDatos(true, prenda, 0);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            inicialiazarTablaPrendas();
+            calcularTotal();
+            pagos.clear();
+            calcularPagos();
+        }
     }
 
-    @FXML
-    void buscarCliente(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = null;
-        try {
-            root = loader.load(getClass().getResource("/gui/BuscarCliente.fxml").openStream());
-        } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        inicialiazarTablaPrendas();
+    public void obtenerCliente(Cliente cliente) {
+        this.cliente = cliente;
+        nombreClienteTxt.setText(cliente.getNombre() + " " + cliente.getApellidoMaterno() + " "
+                + cliente.getApellidoMaterno());
     }
 
     @FXML
@@ -234,6 +237,8 @@ public class RegistrarContratoController implements Initializable {
             prendas.remove(numPrenda);
             cargarTablaPrendas(prendas);
             calcularTotal();
+            pagos.clear();
+            calcularPagos();
         } else {
             Dialogos.showWarning("Error", "Debes seleccionar una prenda");
         }
@@ -243,29 +248,24 @@ public class RegistrarContratoController implements Initializable {
     void guardar(ActionEvent event) {
 
     }
-
+    
     @FXML
-    void registrarCliente(ActionEvent event) throws IOException {
+    void buscarCliente(ActionEvent event) throws IOException {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/FormularioCliente.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarCliente.fxml"));
         Parent root = null;
         try {
             root = loader.load();
         } catch (IOException ex) {
-            Logger.getLogger(BuscarUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //RegistrarUsuarioController ruc = (RegistrarUsuarioController) loader.getController();Scene scene = new Scene(root);
+
+        BuscarClienteController bcc = (BuscarClienteController) loader.getController();
+        bcc.esRegistrarContrato(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-    }
-
-    @FXML
-    void restringirNombreCliente(KeyEvent event) {
-        if (nombreClienteTxt.getText().length() >= 30) {
-            event.consume();
-        }
+        stage.show();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @FXML
@@ -291,35 +291,140 @@ public class RegistrarContratoController implements Initializable {
             prendasTbl.getItems().addAll(prendas.get(i));
         }
     }
-    
-    private void inicializarColumnasPagos(){
-        colPrestamo.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
-        colInteres.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
-        colPago.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
-        colRefrendar.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
-        colFiniquitar.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria"));
+
+    private void inicializarColumnasPagos() {
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaLimite"));
+        colInteres.setCellValueFactory(new PropertyValueFactory<>("refrendo"));
+        colInteres.setCellFactory(col -> {
+            PriceCell<Pago> cell = new PriceCell<>();
+            return cell;
+        });
+        colPago.setCellValueFactory(new PropertyValueFactory<>("pago"));
+        colPago.setCellFactory(col -> {
+            PriceCell<Pago> cell = new PriceCell<>();
+            return cell;
+        });
+        colRefrendar.setCellValueFactory(new PropertyValueFactory<>("refrendo"));
+        colRefrendar.setCellFactory(col -> {
+            PriceCell<Pago> cell = new PriceCell<>();
+            return cell;
+        });
+        colFiniquitar.setCellValueFactory(new PropertyValueFactory<>("finiquito"));
+        colFiniquitar.setCellFactory(col -> {
+            PriceCell<Pago> cell = new PriceCell<>();
+            return cell;
+        });
     }
-    
-    private void inicializarTablaPagos(){
+
+    private void inicializarTablaPagos() {
         List<Pago> pagos = this.pagos;
         cargarTablaPagos(pagos);
     }
-    
-    public void cargarTablaPagos(List<Pago> pagos){
+
+    public void cargarTablaPagos(List<Pago> pagos) {
         pagosTbl.getItems().clear();
         for (int i = 0; i < pagos.size(); i++) {
             pagosTbl.getItems().addAll(pagos.get(i));
         }
     }
-    
-    public void calcularPagos(){
-        
+
+    public void calcularPagos() {
+        String periodo = periodoTxt.getText();
+        Double total = Double.parseDouble(totalTxt.getText());
+        Double intereses = Double.parseDouble(interesOrdinarioTXT.getText()) + Double.parseDouble(interesAlmacenTxt.getText());
+        intereses /= 100;
+        switch (periodo) {
+            case "Semanal":
+                //primer pago
+                Pago pago1 = new Pago();
+                pago1.setFechaInicio(java.sql.Date.valueOf(fechaInicio));
+                pago1.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(8)));
+                Double finiquito = (total + total * (intereses / 4));
+                pago1.setFiniquito(finiquito.intValue() * 100);
+                pago1.setPrestamo(total.intValue());
+                Double refrendo = ((total * intereses) / 4) * 100;
+                pago1.setRefrendo(refrendo.intValue());
+                pago1.setPago((finiquito.intValue() * 100) / 4);
+                pagos.add(pago1);
+                //segundo pago
+                Pago pago2 = new Pago();
+                pago2.setFechaInicio(java.sql.Date.valueOf(fechaInicio.plusDays(8)));
+                pago2.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(15)));
+                finiquito = total + total * (intereses / 4) * 2;
+                pago2.setFiniquito(finiquito.intValue() * 100);
+                pago2.setPrestamo(total.intValue());
+                refrendo = (((total * intereses) / 4) * 100) * 2;
+                pago2.setRefrendo(refrendo.intValue());
+                pago2.setPago((finiquito.intValue() * 100) / 4);
+                pagos.add(pago2);
+                //tercero pago
+                Pago pago3 = new Pago();
+                pago3.setFechaInicio(java.sql.Date.valueOf(fechaInicio.plusDays(15)));
+                pago3.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(22)));
+                finiquito = total + total * (intereses / 4) * 3;
+                pago3.setFiniquito(finiquito.intValue() * 100);
+                pago3.setPrestamo(total.intValue());
+                refrendo = (((total * intereses) / 4) * 100) * 3;
+                pago3.setRefrendo(refrendo.intValue());
+                pago3.setPago((finiquito.intValue() * 100) / 4);
+                pagos.add(pago3);
+                //primer pago
+                Pago pago4 = new Pago();
+                pago4.setFechaInicio(java.sql.Date.valueOf(fechaInicio.plusDays(22)));
+                pago4.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(30)));
+                finiquito = (total + total * intereses);
+                pago4.setFiniquito(finiquito.intValue() * 100);
+                pago4.setPrestamo(total.intValue());
+                refrendo = (total * intereses) * 100;
+                pago4.setRefrendo(refrendo.intValue());
+                pago4.setPago((finiquito.intValue() * 100) / 4);
+                pagos.add(pago4);
+                cargarTablaPagos(pagos);
+                break;
+            case "Quincenal":
+                //primer pago
+                Pago pago5 = new Pago();
+                pago5.setFechaInicio(java.sql.Date.valueOf(fechaInicio));
+                pago5.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(15)));
+                finiquito = (total + total * (intereses / 2));
+                pago5.setFiniquito(finiquito.intValue() * 100);
+                pago5.setPrestamo(total.intValue());
+                refrendo = ((total * intereses) / 2) * 100;
+                pago5.setRefrendo(refrendo.intValue());
+                pago5.setPago((finiquito.intValue() * 100) / 2);
+                pagos.add(pago5);
+                //segundo pago
+                Pago pago6 = new Pago();
+                pago6.setFechaInicio(java.sql.Date.valueOf(fechaInicio.plusDays(15)));
+                pago6.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(30)));
+                finiquito = (total + total * intereses);
+                pago6.setFiniquito(finiquito.intValue() * 100);
+                pago6.setPrestamo(total.intValue());
+                refrendo = ((total * intereses)) * 100;
+                pago6.setRefrendo(refrendo.intValue());
+                pago6.setPago((finiquito.intValue() * 100) / 2);
+                pagos.add(pago6);
+                cargarTablaPagos(pagos);
+                break;
+            case "Mensual":
+                Pago pago7 = new Pago();
+                pago7.setFechaInicio(java.sql.Date.valueOf(fechaInicio));
+                pago7.setFechaLimite(java.sql.Date.valueOf(fechaInicio.plusDays(30)));
+                finiquito = (total + total * intereses);
+                pago7.setFiniquito(finiquito.intValue() * 100);
+                pago7.setPrestamo(total.intValue());
+                refrendo = ((total * intereses)) * 100;
+                pago7.setRefrendo(refrendo.intValue());
+                pago7.setPago(finiquito.intValue() * 100);
+                pagos.add(pago7);
+                cargarTablaPagos(pagos);
+                break;
+        }
     }
-    
-    public void calcularTotal(){
+
+    public void calcularTotal() {
         int suma = 0;
-        for(int i = 0; i < prendas.size(); i++){
+        for (int i = 0; i < prendas.size(); i++) {
             suma = suma + prendas.get(i).getPrestamo();
         }
         totalTxt.setText(Integer.toString(suma));
@@ -332,9 +437,8 @@ public class RegistrarContratoController implements Initializable {
         interesAlmacenTxt.setText(Integer.toString(parametros.getInteresAlmacen()));
         periodoTxt.setText(parametros.getTipoPeriodo());
 
-        Calendar c = Calendar.getInstance();
-        fechaInicioTxt.setText(c.get(Calendar.DAY_OF_MONTH) + " / " + c.get(Calendar.MONTH)
-                + " / " + c.get(Calendar.YEAR));
+        fechaInicioTxt.setText(fechaInicio.getDayOfMonth() + "/" + fechaInicio.getMonthValue() + "/" + fechaInicio.getYear());
+        fechaFinTxt.setText(fechaFin.getDayOfMonth() + "/" + fechaFin.getMonthValue() + "/" + fechaFin.getYear());
     }
 
     public void obtenerUsuario(Usuario usuario) {
