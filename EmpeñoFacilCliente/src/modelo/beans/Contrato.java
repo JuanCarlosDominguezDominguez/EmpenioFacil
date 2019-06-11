@@ -19,6 +19,9 @@ public class Contrato {
     private Integer interesAlmacen;
     private Date fechaInicio;
     private Date fechaFin;
+    private String nombre;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
 
     public Contrato() {
     }
@@ -92,6 +95,30 @@ public class Contrato {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
     
     

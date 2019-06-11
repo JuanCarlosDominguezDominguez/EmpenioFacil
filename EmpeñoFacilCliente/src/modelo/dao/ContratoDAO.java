@@ -77,4 +77,20 @@ public class ContratoDAO {
         }
         return contrato;
     }
+    
+    public static List<Contrato> obtenerContratos() {
+        List<Contrato> contratos = new ArrayList<Contrato>();
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            contratos = conn.selectList("Contrato.obtenerContratos");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return contratos;
+    }
 }

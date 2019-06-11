@@ -14,4 +14,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerUltimoContrato" resultType="modelo.beans.Contrato">
         SELECT * FROM empenio.contrato ORDER BY idContrato DESC LIMIT 1;
     </select>
+    
+    <select id="obtenerContratos" resultType="modelo.beans.Contrato">
+        SELECT
+	contrato.idContrato,
+	contrato.fechaFin,
+	cliente.nombre,
+	cliente.apellidoPaterno,
+	cliente.apellidoMaterno 
+	FROM empenio.cliente
+	INNER JOIN empenio.contrato ON contrato.Cliente_rfc = cliente.rfc;
+    </select>
 </mapper>
