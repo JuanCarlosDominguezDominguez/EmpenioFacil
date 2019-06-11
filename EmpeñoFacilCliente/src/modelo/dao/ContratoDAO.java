@@ -19,7 +19,7 @@ import org.apache.ibatis.session.SqlSession;
  * @author Juuan
  */
 public class ContratoDAO {
-    public static boolean registrarPago(Contrato contrato, List<Pago> pagos, List<Prenda> prendas) {
+    public static boolean registrarContrato(Contrato contrato, List<Pago> pagos, List<Prenda> prendas) {
         SqlSession conn = null;
         try {
             //LLAVE   VALOR

@@ -255,7 +255,7 @@ public class RegistrarContratoController implements Initializable {
         contrato.setInteresOrdinario(Integer.parseInt(interesOrdinarioTXT.getText()));
         contrato.setUsuario_numPersonal(3);
 
-        if (ContratoDAO.registrarPago(contrato, pagos, prendas)) {
+        if (ContratoDAO.registrarContrato(contrato, pagos, prendas)) {
             Dialogos.showInformation("Registro exitoso", "Contrato almacenado exitosamente");
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
