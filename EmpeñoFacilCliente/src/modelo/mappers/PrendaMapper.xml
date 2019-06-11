@@ -8,4 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO empenio.prenda(descripcion, avaluo, prestamo, Contrato_idContrato, categoria)
         VALUES (#{descripcion}, #{avaluo}, #{prestamo}, #{idContrato}, #{idCategoria});
     </insert>
+    
+    <select id="obtenerPrendas" resultType="modelo.beans.Prenda" parameterType="int">
+        SELECT * FROM empenio.prenda WHERE Contrato_idContrato = #{Contrato_idContrato} ORDER BY Contrato_idContrato;
+    </select>
 </mapper>

@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Pago">
     <insert id="registrarPago" parameterType="map">
-        INSERT INTO empenio.pago (nombre)
-        VALUES(#{nombre});
+        INSERT INTO empenio.pago (fechaInicio, fechaLimite, contrato_idContrato, pago, refrendo, finiquito)
+        VALUES(#{fechaInicio}, #{fechaLimite}, #{contrato_idContrato}, #{pago}, #{refrendo}, #{finiquito});
     </insert>
     
-    <select id="obtenerPagos" resultType="modelo.beans.Pago">
-        SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
+    <select id="obtenerPagos" resultType="modelo.beans.Pago" parameterType="int">
+        SELECT * FROM empenio.pago WHERE contrato_idContrato = #{contrato_idContrato} ORDER BY contrato_idContrato;
     </select>
 </mapper>
 

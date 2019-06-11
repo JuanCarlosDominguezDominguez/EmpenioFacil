@@ -5,11 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Contrato">
     <insert id="registrarContrato" parameterType="map">
-        INSERT INTO empenio.pago (nombre)
-        VALUES(#{nombre});
+        INSERT INTO empenio.contrato (Cliente_rfc, Usuario_numPersonal,
+        interesOrdinario, interesAlmacen, fechaInicio, fechaFin)
+        VALUES(#{Cliente_rfc}, #{Usuario_numPersonal}, #{interesOrdinario},
+        #{interesAlmacen}, #{fechaInicio}, #{fechaFin});
     </insert>
     
-    <select id="obtenerContratos" resultType="modelo.beans.Contrato">
-        SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
+    <select id="obtenerUltimoContrato" resultType="modelo.beans.Contrato">
+        SELECT * FROM empenio.contrato ORDER BY idContrato DESC LIMIT 1;
     </select>
 </mapper>

@@ -36,10 +36,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.beans.Articulo;
 import modelo.beans.Cliente;
+import modelo.beans.Contrato;
 import modelo.beans.Pago;
 import modelo.beans.ParametrosSucursal;
 import modelo.beans.Prenda;
 import modelo.beans.Usuario;
+import modelo.dao.ContratoDAO;
 import modelo.dao.ParametrosSucursalDAO;
 import modelo.dao.PrendaDAO;
 import utileria.Dialogos;
@@ -201,9 +203,8 @@ public class RegistrarContratoController implements Initializable {
             pagos.clear();
             calcularPagos();
         }
+        
     }
-
-    
 
     public void obtenerCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -246,9 +247,36 @@ public class RegistrarContratoController implements Initializable {
 
     @FXML
     void guardar(ActionEvent event) {
+        Contrato contrato = new Contrato();
+        contrato.setCliente_rfc(cliente.getRfc());
+        contrato.setFechaFin(java.sql.Date.valueOf(fechaFin));
+        contrato.setFechaInicio(java.sql.Date.valueOf(fechaInicio));
+        contrato.setInteresAlmacen(Integer.parseInt(interesAlmacenTxt.getText()));
+        contrato.setInteresOrdinario(Integer.parseInt(interesOrdinarioTXT.getText()));
+        contrato.setUsuario_numPersonal(3);
 
+        if (ContratoDAO.registrarPago(contrato, pagos, prendas)) {
+            Dialogos.showInformation("Registro exitoso", "Contrato almacenado exitosamente");
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = null;
+            try {
+                root = loader.load(getClass().getResource("/gui/BuscarContrato.fxml").openStream());
+            } catch (IOException ex) {
+                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            BuscarContratoController bcc = (BuscarContratoController) loader.getController();
+            bcc.obtenerUsuario(usuario);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        } else {
+            Dialogos.showInformation("Error de Registro", "No se pudo almacenar el contrato.");
+        }
     }
-    
+
     @FXML
     void buscarCliente(ActionEvent event) throws IOException {
         Stage stage = new Stage();
@@ -452,6 +480,7 @@ public class RegistrarContratoController implements Initializable {
         inicializarColumnasPagos();
         inicializarTablaPagos();
         cargarParametros();
+        
     }
 
 }

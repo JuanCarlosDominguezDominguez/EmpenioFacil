@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class Contrato {
     private Integer idContrato;
-    private Integer Cliente_rfc;
+    private String Cliente_rfc;
     private Integer Usuario_numPersonal;
     private Integer interesOrdinario;
     private Integer interesAlmacen;
@@ -23,7 +23,7 @@ public class Contrato {
     public Contrato() {
     }
 
-    public Contrato(Integer idContrato, Integer Cliente_rfc, Integer Usuario_numPersonal, Integer interesOrdinario, Integer interesAlmacen, Date fechaInicio, Date fechaFin) {
+    public Contrato(Integer idContrato, String Cliente_rfc, Integer Usuario_numPersonal, Integer interesOrdinario, Integer interesAlmacen, Date fechaInicio, Date fechaFin) {
         this.idContrato = idContrato;
         this.Cliente_rfc = Cliente_rfc;
         this.Usuario_numPersonal = Usuario_numPersonal;
@@ -46,11 +46,11 @@ public class Contrato {
         this.idContrato = idContrato;
     }
 
-    public Integer getCliente_rfc() {
+    public String getCliente_rfc() {
         return Cliente_rfc;
     }
 
-    public void setCliente_rfc(Integer Cliente_rfc) {
+    public void setCliente_rfc(String Cliente_rfc) {
         this.Cliente_rfc = Cliente_rfc;
     }
 
