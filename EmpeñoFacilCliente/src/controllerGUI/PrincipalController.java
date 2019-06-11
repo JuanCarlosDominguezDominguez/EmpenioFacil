@@ -122,8 +122,8 @@ public class PrincipalController implements Initializable {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
-        //buc.obtenerUsuario(usuario);
+        BuscarClienteController bcc = (BuscarClienteController) loader.getController();
+        bcc.obtenerUsuario(usuario);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
