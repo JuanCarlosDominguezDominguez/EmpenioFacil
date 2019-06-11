@@ -54,6 +54,10 @@ public class FormularioVentaApartadoController implements Initializable {
     @FXML
     private Label lblTotal;
     @FXML
+    private Label lblAdelanto;
+    @FXML
+    private Label lblMontoAdelanto;
+    @FXML
     private Button btnBuscarCliente;
     @FXML
     private Button btnBuscarArticulo;
@@ -61,8 +65,12 @@ public class FormularioVentaApartadoController implements Initializable {
     private Button btnQuitar;
     @FXML
     private Button btnGuardar;
+    @FXML
+    private Button btnFiniquitar;
 
     private Integer totalVenta;
+
+    private Integer montoAdelanto;
 
     private Cliente clienteCompra = null;
 
@@ -86,12 +94,21 @@ public class FormularioVentaApartadoController implements Initializable {
         lblTotal.setText("$0.00");
         switch (modo) {
             case NUEVA_VENTA:
+
                 lblTitulo.setText("Registrar venta");
+                lblAdelanto.setVisible(false);
+                lblMontoAdelanto.setVisible(false);
+                btnFiniquitar.setVisible(false);
                 break;
             case NUEVO_APARTADO:
+                montoAdelanto = 0;
+                btnFiniquitar.setVisible(false);
                 lblTitulo.setText("Registrar apartado");
                 break;
             case VER_VENTA:
+                btnFiniquitar.setVisible(false);
+                lblAdelanto.setVisible(false);
+                lblMontoAdelanto.setVisible(false);
                 lblTitulo.setText("Información de Venta");
                 btnGuardar.setVisible(false);
                 btnBuscarCliente.setVisible(false);
@@ -99,6 +116,7 @@ public class FormularioVentaApartadoController implements Initializable {
                 btnQuitar.setVisible(false);
                 String txtCliente = seleccion.getNombreCliente() + " (" + seleccion.getRfcCliente() + ")";
                 lblCliente.setText(txtCliente);
+                totalVenta = seleccion.getMonto();
                 Integer item = seleccion.getMonto();
                 String precioString = item.toString();
                 String pesos = precioString.substring(0, precioString.length() - 2);
@@ -109,13 +127,33 @@ public class FormularioVentaApartadoController implements Initializable {
                 break;
             case VER_APARTADO:
                 lblTitulo.setText("Información de Apartado");
+                btnGuardar.setVisible(false);
+                btnBuscarCliente.setVisible(false);
+                btnBuscarArticulo.setVisible(false);
+                btnQuitar.setVisible(false);
+                String txtCliente2 = seleccion.getNombreCliente() + " (" + seleccion.getRfcCliente() + ")";
+                lblCliente.setText(txtCliente2);
+                totalVenta = seleccion.getMonto();
+                Integer item2 = seleccion.getMonto();
+                String precioString2 = item2.toString();
+                String pesos2 = precioString2.substring(0, precioString2.length() - 2);
+                String centavos2 = precioString2.substring(precioString2.length() - 2, precioString2.length());
+                lblTotal.setText("$" + pesos2 + "." + centavos2);
+                List<Articulo> articulosVenta2 = VentaApartadoDAO.getArticulosVenta(seleccion.getIdVentaApartado());
+                llenarTabla(articulosVenta2);
+                Integer montoAdelanto3 = totalVenta / 10;
+                Integer item3 = montoAdelanto3;
+                String precioString3 = item3.toString();
+                String pesos3 = precioString3.substring(0, precioString3.length() - 2);
+                String centavos3 = precioString3.substring(precioString3.length() - 2, precioString3.length());
+                lblMontoAdelanto.setText("$" + pesos3 + "." + centavos3);
                 break;
             default:
                 break;
         }
     }
-    
-    private void llenarTabla(List<Articulo> articulos){
+
+    private void llenarTabla(List<Articulo> articulos) {
         tblArticulos.getItems().clear();
         articulos.forEach(articulo -> {
             tblArticulos.getItems().add(articulo);
@@ -189,6 +227,14 @@ public class FormularioVentaApartadoController implements Initializable {
             String pesos = precioString.substring(0, precioString.length() - 2);
             String centavos = precioString.substring(precioString.length() - 2, precioString.length());
             lblTotal.setText("$" + pesos + "." + centavos);
+            if (modo == NUEVO_APARTADO) {
+                montoAdelanto = totalVenta / 10;
+                item = montoAdelanto;
+                precioString = item.toString();
+                pesos = precioString.substring(0, precioString.length() - 2);
+                centavos = precioString.substring(precioString.length() - 2, precioString.length());
+                lblMontoAdelanto.setText("$" + pesos + "." + centavos);
+            }
         }
     }
 
@@ -209,8 +255,16 @@ public class FormularioVentaApartadoController implements Initializable {
 
     @FXML
     void guardar(ActionEvent event) {
+        if (modo == NUEVA_VENTA){
+            guardarVenta(event);
+        } else {
+            guardarApartado(event);
+        }
+    }
+
+    private void guardarVenta(ActionEvent event) {
         // TODO Cambiar info del usuario
-        Integer numPersonal = 0;
+        Integer numPersonal = PrincipalController.numPersonal;
         List<Articulo> articulos = tblArticulos.getItems();
         if (clienteCompra == null) {
             Dialogos.showWarning("Venta no guardada", "Seleccionar cliente");
@@ -226,7 +280,27 @@ public class FormularioVentaApartadoController implements Initializable {
                 Dialogos.showError("Venta no guardada", "Error al guardar la venta");
             }
         }
+    }
 
+    private void guardarApartado(ActionEvent event) {
+        // TODO Cambiar info del usuario
+        Integer numPersonal = PrincipalController.numPersonal;
+        List<Articulo> articulos = tblArticulos.getItems();
+        if (clienteCompra == null) {
+            Dialogos.showWarning("Apartado no guardado", "Seleccionar cliente");
+        } else if (articulos.isEmpty()) {
+            Dialogos.showWarning("Apartado no guardado", "Se necesitan artículos");
+        } else {
+            String rfcCliente = clienteCompra.getRfc();
+            Integer monto = totalVenta;
+            if (VentaApartadoDAO.RegistrarApartado(monto, rfcCliente, numPersonal, articulos, montoAdelanto)) {
+
+                Dialogos.showInformation("Apartado guardado", "El apartado se ha guardado exitosamente.");
+                ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+            } else {
+                Dialogos.showError("Apartado no guardado", "Error al guardar el apartado");
+            }
+        }
     }
 
     @FXML
@@ -235,4 +309,21 @@ public class FormularioVentaApartadoController implements Initializable {
         ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
+    @FXML
+    void finiquitar(ActionEvent event) {
+        Integer restante = totalVenta - montoAdelanto;
+        String precioString = restante.toString();
+        String pesos = precioString.substring(0, precioString.length() - 2);
+        String centavos = precioString.substring(precioString.length() - 2, precioString.length());
+        String strRestante = "$" + pesos + "." + centavos;
+        if (Dialogos.showConfirm("Finiquitar apartado", "¿Está seguro de que desea finiquitar apartado pagando " + strRestante + "?", Dialogos.SI, Dialogos.NO).equals(Dialogos.SI)) {
+            boolean exito = VentaApartadoDAO.marcarFiniquito(seleccion.getIdVentaApartado(), restante);
+            if(exito){
+                Dialogos.showInformation("Apartado finiquitado", "El apartado se ha finiquitado exitosamente.");
+            } else {
+                Dialogos.showError("Apartado no finiquitado", "Error al finiquitar el apartado");
+            }
+            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
+    }
 }

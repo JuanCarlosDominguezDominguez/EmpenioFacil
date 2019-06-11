@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -12,7 +15,7 @@ and open the template in the editor.
         VALUES(#{nombre});
     </insert>
     
-    <select id="obtenerContratos" resultType="modelo.beans.Contrato">
+    <!--<select id="obtenerContratos" resultType="modelo.beans.Contrato">
         SELECT * FROM empenio.categorias WHERE Categorias_idCategoria = '1' ORDER BY nombre;
-    </select>
+    </select>-->
 </mapper>

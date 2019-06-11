@@ -37,6 +37,9 @@
             <Button fx:id="btnGuardar" layoutX="27.0" layoutY="424.0" mnemonicParsing="false" onAction="#guardar" prefHeight="40.0" prefWidth="79.0" text="Guardar" />
             <Label layoutX="34.0" layoutY="397.0" text="Total:" />
             <Label fx:id="lblTotal" layoutX="78.0" layoutY="397.0" text="[[TOTAL]]" />
+            <Label fx:id="lblAdelanto" layoutX="150.0" layoutY="436.0" text="Adelanto apartado:" />
+            <Label fx:id="lblMontoAdelanto" layoutX="264.0" layoutY="436.0" text="[[MONTO ADELANTO]]" />
+            <Button fx:id="btnFiniquitar" layoutX="27.0" layoutY="478.0" mnemonicParsing="false" onAction="#finiquitar" prefHeight="33.0" prefWidth="136.0" text="Finiquitar apartado" />
          </children>
       </Pane>
    </children>

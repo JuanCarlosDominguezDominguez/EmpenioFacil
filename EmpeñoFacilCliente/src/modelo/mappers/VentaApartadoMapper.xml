@@ -12,6 +12,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         (#{monto}, NOW(), #{rfc}, #{numPersonal}, '11');
     </insert>
     
+    <insert id="registrarApartado" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="idVentaApartado" >
+        INSERT INTO `empenio`.`ventaapartado` 
+        (`monto`, `fecha`, `Cliente_rfc`, `Usuario_numPersonal`, `tipoVenta`) 
+        VALUES 
+        (#{monto}, NOW(), #{rfc}, #{numPersonal}, '12');
+    </insert>
+    
+    <insert id="registrarAdelanto" parameterType="map" >
+        INSERT INTO `empenio`.`adelantoapartado` 
+        (`monto`, `idVentaApartado`) 
+        VALUES 
+        (#{montoAdelanto}, #{idVentaApartado});
+    </insert>
+    
     <insert id="agregarTicket" parameterType="map" >
         INSERT INTO empenio.ticket 
         VALUES 
@@ -51,5 +65,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INNER JOIN empenio.ticket ON articulo.idArticulo = ticket.Articulo_idArticulo
         WHERE ticket.VentaApartado = #{value};
     </select>
+    
+    <update id="marcarFiniquito" parameterType="integer" >
+        UPDATE empenio.ventaapartado
+        SET
+            tipoVenta = 11
+        WHERE idVentaApartado = #{value};
+    </update>
     
 </mapper>

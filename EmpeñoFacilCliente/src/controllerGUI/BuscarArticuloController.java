@@ -87,6 +87,7 @@ public class BuscarArticuloController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        soloNoVendidos = soloBuscar;
         llenarComboBox();
         inicializarColumnas();
         inicializarTabla();
@@ -99,7 +100,7 @@ public class BuscarArticuloController implements Initializable {
             btnBaja.setVisible(true);
             btnSeleccionar.setVisible(false);
         }
-        soloNoVendidos = soloBuscar;
+        
         soloBuscar = false;
     }
 
