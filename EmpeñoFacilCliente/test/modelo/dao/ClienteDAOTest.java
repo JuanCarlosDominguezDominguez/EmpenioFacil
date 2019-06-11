@@ -5,12 +5,15 @@
  */
 package modelo.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import modelo.beans.Cliente;
 import modelo.beans.Ocupacion;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,11 +50,8 @@ public class ClienteDAOTest {
     @Test
     public void testGetClientes() {
         System.out.println("getClientes");
-        List<Cliente> expResult = null;
         List<Cliente> result = ClienteDAO.getClientes();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertFalse(result.isEmpty());
     }
 
     /**
@@ -60,18 +60,18 @@ public class ClienteDAOTest {
     @Test
     public void testRegistrarCliente() {
         System.out.println("registrarCliente");
-        String nombre = "";
-        String apellidoPaterno = "";
-        String apellidoMaterno = "";
-        String rfc = "";
-        String curp = "";
-        String numeroIdentificacion = "";
-        Integer idOcupacion = null;
-        boolean expResult = false;
+        String nombre = "Cliente";
+        String apellidoPaterno = "Prueba";
+        String apellidoMaterno = "Unitaria";
+        Random r = new Random();
+        Integer rint = r.nextInt(2000000000);
+        String rfc = rint.toString();
+        String curp = "CURP00000000AAA";
+        String numeroIdentificacion = "122AAA";
+        Integer idOcupacion = 20;
+        boolean expResult = true;
         boolean result = ClienteDAO.registrarCliente(nombre, apellidoPaterno, apellidoMaterno, rfc, curp, numeroIdentificacion, idOcupacion);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -80,18 +80,18 @@ public class ClienteDAOTest {
     @Test
     public void testActualizarCliente() {
         System.out.println("actualizarCliente");
-        String nombre = "";
-        String apellidoPaterno = "";
-        String apellidoMaterno = "";
-        String rfc = "";
-        String curp = "";
-        String numeroIdentificacion = "";
-        Integer idOcupacion = null;
-        boolean expResult = false;
+        Random r = new Random();
+        Integer rint = r.nextInt(2000000000);
+        String nombre = "Cliente no registrado";
+        String apellidoPaterno = " ";
+        String apellidoMaterno = " ";
+        String rfc = "0000000000000";
+        String curp = "000000000000000000";
+        String numeroIdentificacion = rint.toString();
+        Integer idOcupacion = 20;
+        boolean expResult = true;
         boolean result = ClienteDAO.actualizarCliente(nombre, apellidoPaterno, apellidoMaterno, rfc, curp, numeroIdentificacion, idOcupacion);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -100,12 +100,10 @@ public class ClienteDAOTest {
     @Test
     public void testBuscar() {
         System.out.println("buscar");
-        HashMap<String, String> filtros = null;
-        List<Cliente> expResult = null;
+        HashMap<String, String> filtros = new HashMap<>();
+        filtros.put("rfc", "= '0000000000000'");
         List<Cliente> result = ClienteDAO.buscar(filtros);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertFalse(result.isEmpty());
     }
 
     /**
@@ -114,11 +112,8 @@ public class ClienteDAOTest {
     @Test
     public void testGetOcupaciones() {
         System.out.println("getOcupaciones");
-        List<Ocupacion> expResult = null;
         List<Ocupacion> result = ClienteDAO.getOcupaciones();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertFalse(result.isEmpty());
     }
     
 }
