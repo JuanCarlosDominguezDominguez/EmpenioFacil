@@ -60,9 +60,15 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private MenuItem aumentarFondosMenuItem;
-    
-     @FXML
+
+    @FXML
     private MenuItem contratosMenuItem;
+
+    @FXML
+    private MenuItem articulosMenuItem;
+
+    @FXML
+    private MenuItem ventaApartadosMenuItem;
 
     @FXML
     private Menu gerenteMenu;
@@ -89,7 +95,7 @@ public class PrincipalController implements Initializable {
     private Label txtRol;
 
     private Usuario usuario;
-    
+
     public static Integer numPersonal = 0;
 
     @FXML
@@ -114,6 +120,47 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
+    void articulos(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarArticulo.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.showAndWait();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
+    }
+
+    @FXML
+    void ventasApartados(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarVentaApartado.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //BuscarUsuarioController buc = (BuscarUsuarioController) loader.getController();
+
+        //buc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.showAndWait();
+        Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
+        principal.close();
+    }
+
+    @FXML
     void clientes(ActionEvent event) {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/BuscarCliente.fxml"));
@@ -129,11 +176,11 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
+
         Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();
         principal.close();
     }
-    
+
     @FXML
     void contratos(ActionEvent event) {
         Stage stage = new Stage();
@@ -148,7 +195,7 @@ public class PrincipalController implements Initializable {
         BuscarContratoController bcc = (BuscarContratoController) loader.getController();
         bcc.obtenerUsuario(usuario);
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
         Stage principal = (Stage) cerrarSesionBtn.getScene().getWindow();

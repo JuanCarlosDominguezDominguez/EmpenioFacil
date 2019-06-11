@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.BuscarArticuloController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerGUI.BuscarArticuloController">
     <stylesheets>
         <URL value="@estilos.css" />
     </stylesheets>
@@ -19,7 +19,7 @@
          <children>
             <Pane layoutX="3.0" layoutY="14.0" prefHeight="49.0" prefWidth="837.0" styleClass="topPane">
                <children>
-                  <Button layoutX="7.0" layoutY="5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
+                  <Button fx:id="btnRegresar" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#regresar" prefHeight="33.0" prefWidth="90.0" text="Regresar" />
                   <Label layoutX="382.0" layoutY="16.0" text="Buscar articulo" />
                </children>
             </Pane>

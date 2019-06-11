@@ -19,8 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -64,6 +66,8 @@ public class BuscarVentaApartadoController implements Initializable {
     private TableColumn<VentaApartado, Integer> colTotal;
     @FXML
     private ComboBox<TipoVenta> cmbTipoVenta;
+    @FXML
+    private Button btnRegresar;
 
     /**
      * Initializes the controller class.
@@ -94,8 +98,8 @@ public class BuscarVentaApartadoController implements Initializable {
         List<VentaApartado> ventas = VentaApartadoDAO.buscar(filtros);
         llenarTabla(ventas);
     }
-    
-    private void inicializarComboBox(){
+
+    private void inicializarComboBox() {
         cmbTipoVenta.getItems().clear();
         cmbTipoVenta.getItems().add(new TipoVenta(11, "Venta"));
         cmbTipoVenta.getItems().add(new TipoVenta(12, "Apartado"));
@@ -110,17 +114,36 @@ public class BuscarVentaApartadoController implements Initializable {
     }
 
     @FXML
+    void regresar(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
+        try {
+            root = loader.load(getClass().getResource("/gui/Principal.fxml").openStream());
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //PrincipalController pc = (PrincipalController) loader.getController();
+        //pc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+
+    @FXML
     void buscar(ActionEvent event) {
         String tipoVenta = cmbTipoVenta.getSelectionModel().getSelectedItem().getIdTipoVenta().toString();
         String idVenta = txtIdVenta.getText();
         String rfc = txtRfcCliente.getText();
         LocalDate fechaSeleccionada = txtFechaIngreso.getValue();
         HashMap<String, String> filtros = new HashMap<>();
-        filtros.put("tipoVenta", "= "+tipoVenta);
+        filtros.put("tipoVenta", "= " + tipoVenta);
         if (Validar.validarCadenaEntero(rfc)) {
             filtros.put("Cliente_rfc", "LIKE '" + rfc + "%'");
         }
-        if(Validar.validarEntero(idVenta)){
+        if (Validar.validarEntero(idVenta)) {
             filtros.put("idVentaApartado", "= " + idVenta);
         }
         if (fechaSeleccionada != null) {
@@ -149,8 +172,8 @@ public class BuscarVentaApartadoController implements Initializable {
     @FXML
     void ver(ActionEvent event) {
         VentaApartado seleccion = tblVentaApartado.getSelectionModel().getSelectedItem();
-        if(seleccion != null){
-            if(seleccion.getIdTipoVenta() == 11){ //Si es venta
+        if (seleccion != null) {
+            if (seleccion.getIdTipoVenta() == 11) { //Si es venta
                 FormularioVentaApartadoController.modo = FormularioVentaApartadoController.VER_VENTA;
                 FormularioVentaApartadoController.seleccion = seleccion;
                 mostrarFormulario();
@@ -190,22 +213,23 @@ public class BuscarVentaApartadoController implements Initializable {
         stage.showAndWait();
         inicializarTabla();
     }
-    
-    class TipoVenta{
+
+    class TipoVenta {
+
         private final Integer idTipoVenta;
         private final String tipoVenta;
-        
-        public Integer getIdTipoVenta(){
+
+        public Integer getIdTipoVenta() {
             return idTipoVenta;
         }
-        
-        public TipoVenta(Integer idTipoVenta, String tipoVenta){
+
+        public TipoVenta(Integer idTipoVenta, String tipoVenta) {
             this.idTipoVenta = idTipoVenta;
             this.tipoVenta = tipoVenta;
         }
-        
+
         @Override
-        public String toString(){
+        public String toString() {
             return tipoVenta;
         }
     }

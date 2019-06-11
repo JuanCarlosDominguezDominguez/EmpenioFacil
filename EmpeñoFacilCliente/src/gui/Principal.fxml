@@ -52,6 +52,8 @@
                         <items>
                               <MenuItem fx:id="clientesMenuItem" mnemonicParsing="false" onAction="#clientes" text="Clientes" />
                               <MenuItem fx:id="contratosMenuItem" mnemonicParsing="false" onAction="#contratos" text="Contratos" />
+                              <MenuItem fx:id="articulosMenuItem" mnemonicParsing="false" onAction="#articulos" text="Articulos" />
+                              <MenuItem fx:id="ventaApartadosMenuItem" mnemonicParsing="false" onAction="#ventasApartados" text="Ventas y apartados" />
                         </items>
                       </Menu>
                       <Menu fx:id="bodegueroMenu" mnemonicParsing="false" text="Bodeguero" />

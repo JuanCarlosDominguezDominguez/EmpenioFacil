@@ -62,6 +62,8 @@ public class BuscarArticuloController implements Initializable {
     @FXML
     private TableColumn<Articulo, Boolean> colVendido;
     @FXML
+    private Button btnRegresar;
+    @FXML
     private TextField txtIdArticulo;
     @FXML
     private ComboBox<TipoProducto> cmbTipoProducto;
@@ -71,14 +73,14 @@ public class BuscarArticuloController implements Initializable {
     private Button btnModificar;
     @FXML
     private Button btnSeleccionar;
-    
+
     public static boolean soloBuscar = false;
-    
+
     private boolean soloNoVendidos = false;
-    
+
     private Articulo seleccionArticulo = null;
-    
-    public Articulo getSeleccionArticulo(){
+
+    public Articulo getSeleccionArticulo() {
         return seleccionArticulo;
     }
 
@@ -91,7 +93,7 @@ public class BuscarArticuloController implements Initializable {
         llenarComboBox();
         inicializarColumnas();
         inicializarTabla();
-        if(soloBuscar) {
+        if (soloBuscar) {
             btnModificar.setVisible(false);
             btnBaja.setVisible(false);
             btnSeleccionar.setVisible(true);
@@ -100,8 +102,27 @@ public class BuscarArticuloController implements Initializable {
             btnBaja.setVisible(true);
             btnSeleccionar.setVisible(false);
         }
-        
+
         soloBuscar = false;
+    }
+
+    @FXML
+    void regresar(ActionEvent event) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
+        try {
+            root = loader.load(getClass().getResource("/gui/Principal.fxml").openStream());
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //PrincipalController pc = (PrincipalController) loader.getController();
+        //pc.obtenerUsuario(usuario);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     private void llenarComboBox() {
@@ -142,7 +163,7 @@ public class BuscarArticuloController implements Initializable {
 
     private void inicializarTabla() {
         List<Articulo> articulos;
-        if(soloNoVendidos){
+        if (soloNoVendidos) {
             HashMap<String, String> filtros = new HashMap<>();
             filtros.put("vendido", "= 0");
             filtros.put("deBaja", "= 0");
@@ -172,7 +193,7 @@ public class BuscarArticuloController implements Initializable {
             filtros.put("tipoProducto", "= " + tipoProducto.getIdCategoria());
         }
         if (filtros.size() > 0) {
-            if(soloNoVendidos) {
+            if (soloNoVendidos) {
                 filtros.put("vendido", "= 0");
                 filtros.put("deBaja", "= 0");
             }
@@ -208,7 +229,7 @@ public class BuscarArticuloController implements Initializable {
         }
 
     }
-    
+
     @FXML
     void seleccionar(ActionEvent event) {
         Articulo articuloSeleccionado = tblArticulos.getSelectionModel().getSelectedItem();
@@ -231,9 +252,8 @@ public class BuscarArticuloController implements Initializable {
         }
     }
 
-    
     public void mostrarFormulario() {
-        
+
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/FormularioArticulo.fxml"));
         Parent root = null;
