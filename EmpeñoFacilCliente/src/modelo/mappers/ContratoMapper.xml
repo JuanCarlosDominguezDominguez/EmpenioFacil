@@ -6,9 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="Contrato">
     <insert id="registrarContrato" parameterType="map">
         INSERT INTO empenio.contrato (Cliente_rfc, Usuario_numPersonal,
-        interesOrdinario, interesAlmacen, fechaInicio, fechaFin)
+        interesOrdinario, interesAlmacen, fechaInicio, fechaFin, estatus)
         VALUES(#{Cliente_rfc}, #{Usuario_numPersonal}, #{interesOrdinario},
-        #{interesAlmacen}, #{fechaInicio}, #{fechaFin});
+        #{interesAlmacen}, #{fechaInicio}, #{fechaFin}, #{estatus});
     </insert>
     
     <select id="obtenerUltimoContrato" resultType="modelo.beans.Contrato">
@@ -19,10 +19,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT
 	contrato.idContrato,
 	contrato.fechaFin,
+        contrato.estatus,
 	cliente.nombre,
 	cliente.apellidoPaterno,
 	cliente.apellidoMaterno 
 	FROM empenio.cliente
 	INNER JOIN empenio.contrato ON contrato.Cliente_rfc = cliente.rfc;
     </select>
+    
+    <update id="cancelarContrato" parameterType="int">
+        UPDATE empenio.contrato SET estatus = 'Cancelado'
+        WHERE idContrato = #{idContrato};    
+    </update>
+    
+    <update id="reanudarContrato" parameterType="int">
+        UPDATE empenio.contrato SET estatus = 'Activo'
+        WHERE idContrato = #{idContrato};  
+    </update>
 </mapper>

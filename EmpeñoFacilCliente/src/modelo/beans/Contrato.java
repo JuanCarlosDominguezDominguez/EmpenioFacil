@@ -22,6 +22,7 @@ public class Contrato {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private String estatus;
 
     public Contrato() {
     }
@@ -39,6 +40,14 @@ public class Contrato {
     @Override
     public String toString() {
         return "Contrato{" + "idContrato=" + idContrato + ", Cliente_rfc=" + Cliente_rfc + ", Usuario_numPersonal=" + Usuario_numPersonal + ", interesOrdinario=" + interesOrdinario + ", interesAlmacen=" + interesAlmacen + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + '}';
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
     public Integer getIdContrato() {

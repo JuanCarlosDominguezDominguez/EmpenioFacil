@@ -156,7 +156,7 @@ public class BuscarClienteController implements Initializable {
 
             RegistrarContratoController bcc = (RegistrarContratoController) loader.getController();
             bcc.obtenerCliente(clienteSeleccionado);
-
+            bcc.obtenerUsuario(usuario);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

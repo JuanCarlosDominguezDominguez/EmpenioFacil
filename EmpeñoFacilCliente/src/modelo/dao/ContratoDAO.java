@@ -30,6 +30,7 @@ public class ContratoDAO {
             parametros.put("interesAlmacen", contrato.getInteresAlmacen());
             parametros.put("fechaInicio", contrato.getFechaInicio());
             parametros.put("fechaFin", contrato.getFechaFin());
+            parametros.put("estatus", contrato.getEstatus());
 
             conn = ConexionDB.getSession();
             int numerofilasafectadas = 0;
@@ -92,5 +93,45 @@ public class ContratoDAO {
             }
         }
         return contratos;
+    }
+    
+    public static boolean cancelarContrato(Integer idContrato) {
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Contrato.cancelarContrato", idContrato);
+            conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
+    }
+    
+    public static boolean reanudarContrato(Integer idContrato) {
+        SqlSession conn = null;
+        try {
+            conn = ConexionDB.getSession();
+            int numerofilasafectadas = 0;
+            numerofilasafectadas = conn.insert("Contrato.reanudarContrato", idContrato);
+            conn.commit();//SIEMPRE QUE SE EJECUTEN INSERT, UPDATE, DELETE
+            if (numerofilasafectadas > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return false;
     }
 }

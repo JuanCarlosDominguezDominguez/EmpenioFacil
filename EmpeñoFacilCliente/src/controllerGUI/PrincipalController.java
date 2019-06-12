@@ -94,7 +94,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private Label txtRol;
 
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
 
     public static Integer numPersonal = 0;
 

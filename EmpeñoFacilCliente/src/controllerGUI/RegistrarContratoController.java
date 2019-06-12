@@ -135,7 +135,7 @@ public class RegistrarContratoController implements Initializable {
     @FXML
     private Label totalTxt;
 
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
 
     private Cliente cliente;
 
@@ -224,7 +224,7 @@ public class RegistrarContratoController implements Initializable {
         }
 
         BuscarContratoController bcc = (BuscarContratoController) loader.getController();
-        bcc.obtenerUsuario(usuario);
+        bcc.obtenerUsuario(this.usuario);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -253,7 +253,8 @@ public class RegistrarContratoController implements Initializable {
         contrato.setFechaInicio(java.sql.Date.valueOf(fechaInicio));
         contrato.setInteresAlmacen(Integer.parseInt(interesAlmacenTxt.getText()));
         contrato.setInteresOrdinario(Integer.parseInt(interesOrdinarioTXT.getText()));
-        contrato.setUsuario_numPersonal(3);
+        contrato.setEstatus("Activo");
+        contrato.setUsuario_numPersonal(usuario.getNumPersonal());
 
         if (ContratoDAO.registrarContrato(contrato, pagos, prendas)) {
             Dialogos.showInformation("Registro exitoso", "Contrato almacenado exitosamente");
@@ -267,7 +268,7 @@ public class RegistrarContratoController implements Initializable {
             }
 
             BuscarContratoController bcc = (BuscarContratoController) loader.getController();
-            bcc.obtenerUsuario(usuario);
+            bcc.obtenerUsuario(this.usuario);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -290,6 +291,7 @@ public class RegistrarContratoController implements Initializable {
 
         BuscarClienteController bcc = (BuscarClienteController) loader.getController();
         bcc.esRegistrarContrato(true);
+        bcc.obtenerUsuario(usuario);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -480,7 +482,6 @@ public class RegistrarContratoController implements Initializable {
         inicializarColumnasPagos();
         inicializarTablaPagos();
         cargarParametros();
-        
     }
 
 }

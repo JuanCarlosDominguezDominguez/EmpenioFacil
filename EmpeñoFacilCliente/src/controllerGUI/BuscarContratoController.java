@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import modelo.beans.Contrato;
 import modelo.beans.Usuario;
 import modelo.dao.ContratoDAO;
+import utileria.Dialogos;
 
 /**
  * FXML Controller class
@@ -77,13 +78,15 @@ public class BuscarContratoController implements Initializable {
 
     @FXML
     private TableColumn<Contrato, String> colFecha;
-    
+
+    @FXML
+    private TableColumn<Contrato, String> colEstatus;
+
     private List<Contrato> contratos;
-    
 
     @FXML
     private Button regresarBtn;
-    
+
     private Usuario usuario;
 
     @FXML
@@ -93,7 +96,17 @@ public class BuscarContratoController implements Initializable {
 
     @FXML
     void cancelarContrato(ActionEvent event) {
-
+        if (contratosTbl.getSelectionModel().getSelectedIndex() >= 0) {
+            int idContrato = contratosTbl.getSelectionModel().getSelectedItem().getIdContrato();
+            if (ContratoDAO.cancelarContrato(idContrato)) {
+                Dialogos.showInformation("Exito", "Se cancelo el contrato exitosamente.");
+                inicialiazarTabla();
+            } else {
+                Dialogos.showError("Error", "No se pudo realizar el cambio con exito.");
+            }
+        } else {
+            Dialogos.showError("Seleccionar contrato", "Debes seleccionar un contrato.");
+        }
     }
 
     @FXML
@@ -111,21 +124,21 @@ public class BuscarContratoController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         RegistrarContratoController rcc = (RegistrarContratoController) loader.getController();
-        rcc.obtenerUsuario(usuario);
+        rcc.obtenerUsuario(this.usuario);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
-    
+
     private void inicializarColumnas() {
         colFolio.setCellValueFactory(new PropertyValueFactory<>("idContrato"));
         colNombreCliente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colAPaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoPaterno"));
         colAMaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoMaterno"));
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));
+        colEstatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
     }
 
     private void inicialiazarTabla() {
@@ -142,7 +155,17 @@ public class BuscarContratoController implements Initializable {
 
     @FXML
     void recuperarContrato(ActionEvent event) {
-
+        if (contratosTbl.getSelectionModel().getSelectedIndex() >= 0) {
+            int idContrato = contratosTbl.getSelectionModel().getSelectedItem().getIdContrato();
+            if (ContratoDAO.reanudarContrato(idContrato)) {
+                Dialogos.showInformation("Exito", "Se activo el contrato exitosamente.");
+                inicialiazarTabla();
+            } else {
+                Dialogos.showError("Error", "No se pudo realizar el cambio con exito.");
+            }
+        } else {
+            Dialogos.showError("Seleccionar contrato", "Debes seleccionar un contrato.");
+        }
     }
 
     @FXML
@@ -175,7 +198,7 @@ public class BuscarContratoController implements Initializable {
             event.consume();
         }
     }
-    
+
     public void obtenerUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
